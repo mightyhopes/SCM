@@ -1,27 +1,59 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
+  /* SCM Brand Identity Design Tokens */
   --primary: #08615D;
+  --primary-foreground: #FFFFFF;
   --primary-hover: #064E4B;
   --primary-dark: #073F3C;
-  --secondary: #4D9A99;
+
+  --secondary: #D6E8E5;
+  --secondary-foreground: #08615D;
+  --secondary-brand: #4D9A99;
   --secondary-light: #D6E8E5;
+
   --accent: #FFCC00;
+  --accent-foreground: #073F3C;
   --accent-hover: #E6B800;
+
   --background: #F7F8F5;
+  --foreground: #202B29;
+
   --surface: #FFFFFF;
   --surface-muted: #E8F1EF;
+
+  --card: #FFFFFF;
+  --card-foreground: #202B29;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #202B29;
+
+  --muted: #E8F1EF;
+  --muted-foreground: #5B6965;
+
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #DCE4E0;
+  --input: #DCE4E0;
+  --ring: #08615D;
+
   --text-primary: #202B29;
   --text-secondary: #5B6965;
   --text-inverse: #FFFFFF;
-  --border: #DCE4E0;
+
+  --radius: 0.5rem;
 }
 
 @theme {
   --color-primary: #08615D;
   --color-primary-hover: #064E4B;
   --color-primary-dark: #073F3C;
-  --color-secondary: #4D9A99;
+  --color-secondary-brand: #4D9A99;
   --color-secondary-light: #D6E8E5;
   --color-accent: #FFCC00;
   --color-accent-hover: #E6B800;
@@ -31,7 +63,35 @@
   --color-text-primary: #202B29;
   --color-text-secondary: #5B6965;
   --color-text-inverse: #FFFFFF;
-  --color-border: #DCE4E0;
+  --color-border-custom: #DCE4E0;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
 }
 
 html {
@@ -49,4 +109,13 @@ body {
 .industrial-grid-bg {
   background-image: radial-gradient(var(--border) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

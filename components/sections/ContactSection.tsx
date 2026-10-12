@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Send, Phone, Mail, MapPin, CheckCircle2, AlertCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { COMPANY_INFO, PRODUCT_CATEGORIES } from "@/data/companyData";
 
 export function ContactSection() {

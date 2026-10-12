@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowRight, CheckCircle2, Shield, Factory, Award } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { COMPANY_INFO } from "@/data/companyData";
 

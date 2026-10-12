@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ArrowRight, PhoneCall } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
+import { RfqModal } from "@/components/ui/RfqModal";
 import { NAV_LINKS, COMPANY_INFO } from "@/data/companyData";
 
 export function Navbar() {
@@ -50,29 +51,31 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA with RfqModal */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button
-              href="#contact"
-              variant="primary"
-              size="md"
-              className="group gap-2"
-            >
-              <span>Request a Quote</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-            </Button>
+            <RfqModal>
+              <Button
+                variant="primary"
+                size="default"
+                className="group gap-2 cursor-pointer"
+              >
+                <span>Request a Quote</span>
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </Button>
+            </RfqModal>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
-            <Button
-              href="#contact"
-              variant="primary"
-              size="sm"
-              className="text-xs px-3 py-1.5"
-            >
-              Quote
-            </Button>
+            <RfqModal>
+              <Button
+                variant="primary"
+                size="sm"
+                className="text-xs px-3 py-1.5 cursor-pointer"
+              >
+                Quote
+              </Button>
+            </RfqModal>
             <button
               type="button"
               onClick={toggleMenu}
@@ -81,9 +84,9 @@ export function Navbar() {
               aria-label={mobileMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="size-6" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="size-6" />
               )}
             </button>
           </div>
@@ -93,7 +96,7 @@ export function Navbar() {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-border bg-surface px-4 pt-3 pb-6 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col space-y-3" aria-label="Mobile Navigation">
+          <nav className="flex flex-col gap-2" aria-label="Mobile Navigation">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
@@ -105,21 +108,22 @@ export function Navbar() {
               </Link>
             ))}
             <div className="pt-3 border-t border-border flex flex-col gap-2.5">
-              <Button
-                href="#contact"
-                variant="primary"
-                size="md"
-                className="w-full justify-center"
-                onClick={closeMenu}
-              >
-                <span>Request a Quote</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <RfqModal>
+                <Button
+                  variant="primary"
+                  size="default"
+                  className="w-full justify-center"
+                  onClick={closeMenu}
+                >
+                  <span>Request a Quote</span>
+                  <ArrowRight className="size-4 ml-2" />
+                </Button>
+              </RfqModal>
               <a
                 href={`tel:${COMPANY_INFO.contact.phone}`}
                 className="inline-flex items-center justify-center gap-2 py-2 text-sm text-text-secondary hover:text-primary transition-colors"
               >
-                <PhoneCall className="w-4 h-4 text-secondary" />
+                <PhoneCall className="size-4 text-secondary-brand" />
                 <span>Konsultasi Cepat B2B</span>
               </a>
             </div>

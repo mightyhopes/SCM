@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #08615D;
+  --primary-hover: #064E4B;
+  --primary-dark: #073F3C;
+  --secondary: #4D9A99;
+  --secondary-light: #D6E8E5;
+  --accent: #FFCC00;
+  --accent-hover: #E6B800;
+  --background: #F7F8F5;
+  --surface: #FFFFFF;
+  --surface-muted: #E8F1EF;
+  --text-primary: #202B29;
+  --text-secondary: #5B6965;
+  --text-inverse: #FFFFFF;
+  --border: #DCE4E0;
+}
+
+@theme {
+  --color-primary: #08615D;
+  --color-primary-hover: #064E4B;
+  --color-primary-dark: #073F3C;
+  --color-secondary: #4D9A99;
+  --color-secondary-light: #D6E8E5;
+  --color-accent: #FFCC00;
+  --color-accent-hover: #E6B800;
+  --color-background: #F7F8F5;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #E8F1EF;
+  --color-text-primary: #202B29;
+  --color-text-secondary: #5B6965;
+  --color-text-inverse: #FFFFFF;
+  --color-border: #DCE4E0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom industrial grid pattern utility */
+.industrial-grid-bg {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
