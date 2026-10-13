@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Target, Compass, CheckCircle2, Shield, Building2 } from "lucide-react";
+import { CheckCircle2, Shield, Building2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/badge";
@@ -14,13 +14,13 @@ export function AboutSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="py-20 lg:py-28 bg-surface-muted/40 border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface-muted/40 border-b border-border">
       <Container size="default">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Industrial Facility & Editorial Photography Card */}
           <ScrollReveal
             duration={600}
-            direction="up"
+            variant="slide-right"
             className="lg:col-span-5 order-2 lg:order-1"
           >
             <div className="relative">
@@ -37,7 +37,7 @@ export function AboutSection() {
                     </span>
                   </div>
                   <Badge variant="secondary" className="text-[10px] font-mono bg-secondary-light text-primary font-bold">
-                    {t.about.badgeEst}
+                    {t.about.badgeExp}
                   </Badge>
                 </div>
 
@@ -67,7 +67,7 @@ export function AboutSection() {
                     <div className="relative size-10 rounded-lg overflow-hidden border border-border shrink-0">
                       <Image
                         src="/images/dummy/20_office.jpg"
-                        alt="Kantor Operasional SCM"
+                        alt="Manajemen SCM"
                         fill
                         sizes="40px"
                         className="object-cover"
@@ -87,7 +87,7 @@ export function AboutSection() {
                     <div className="relative size-10 rounded-lg overflow-hidden border border-border shrink-0">
                       <Image
                         src="/images/dummy/19_team.jpg"
-                        alt="Tim Manufaktur SCM"
+                        alt="Tim Produksi SCM"
                         fill
                         sizes="40px"
                         className="object-cover"
@@ -126,10 +126,10 @@ export function AboutSection() {
                 <Shield className="size-5 text-accent shrink-0" />
                 <div>
                   <p className="text-[11px] font-bold text-accent uppercase tracking-wider">
-                    {t.about.guaranteeTitle}
+                    {t.about.focusTitle}
                   </p>
                   <p className="text-[10px] text-secondary-light">
-                    {t.about.guaranteeDesc}
+                    {t.about.focusDesc}
                   </p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export function AboutSection() {
           <ScrollReveal
             duration={600}
             delay={150}
-            direction="up"
+            variant="slide-left"
             className="lg:col-span-7 order-1 lg:order-2 space-y-6"
           >
             <SectionHeading
@@ -154,31 +154,17 @@ export function AboutSection() {
               <p>{t.about.p2}</p>
             </div>
 
-            {/* Vision & Mission Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-5 rounded-2xl bg-surface border border-border shadow-xs hover:border-secondary-brand transition-all">
-                <div className="size-9 rounded-xl bg-secondary-light flex items-center justify-center text-primary mb-3">
-                  <Compass className="size-5" />
-                </div>
-                <h3 className="text-sm font-bold text-text-primary">
-                  {t.about.visionTitle}
-                </h3>
-                <p className="text-xs text-text-secondary mt-1.5 leading-relaxed">
-                  {t.about.visionDesc}
-                </p>
+            {/* Corporate Fact Highlight Card */}
+            <div className="p-5 rounded-2xl bg-surface border border-border shadow-xs space-y-3">
+              <div className="flex items-center gap-2 text-primary">
+                <Building2 className="size-4" />
+                <span className="text-xs font-mono font-bold uppercase tracking-wider">
+                  PT. Sinlie Cahaya Matahari
+                </span>
               </div>
-
-              <div className="p-5 rounded-2xl bg-surface border border-border shadow-xs hover:border-secondary-brand transition-all">
-                <div className="size-9 rounded-xl bg-secondary-light flex items-center justify-center text-primary mb-3">
-                  <Target className="size-5" />
-                </div>
-                <h3 className="text-sm font-bold text-text-primary">
-                  {t.about.missionTitle}
-                </h3>
-                <p className="text-xs text-text-secondary mt-1.5 leading-relaxed">
-                  {t.about.missionDesc}
-                </p>
-              </div>
+              <p className="text-xs text-text-secondary leading-relaxed">
+                {t.hero.description}
+              </p>
             </div>
           </ScrollReveal>
         </div>

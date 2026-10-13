@@ -6,12 +6,11 @@ import {
   ArrowRight,
   ShieldCheck,
   Factory,
-  Layers,
+  Globe,
   CheckCircle2,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/button";
-import { RfqModal } from "@/components/ui/RfqModal";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -75,9 +74,9 @@ function useTypewriter({
 export function HeroSection() {
   const { t } = useLanguage();
 
-  const prefix = `${t.hero.headlineStart} `; // "Precision in Every "
-  const highlight = t.hero.headlineHighlight; // "Stitch."
-  const fullHeadline = `${prefix}${highlight}`; // "Precision in Every Stitch."
+  const prefix = `${t.hero.headlineStart} `;
+  const highlight = t.hero.headlineHighlight;
+  const fullHeadline = `${prefix}${highlight}`;
 
   const { displayedCount } = useTypewriter({
     fullText: fullHeadline,
@@ -167,16 +166,15 @@ export function HeroSection() {
 
           {/* Action Buttons */}
           <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <RfqModal>
-              <Button
-                variant="accent"
-                size="lg"
-                className="group justify-center font-bold text-primary-dark shadow-xl hover:shadow-2xl cursor-pointer px-7"
-              >
-                <span>{t.hero.ctaRfq}</span>
-                <ArrowRight className="size-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </RfqModal>
+            <Button
+              href="#contact"
+              variant="accent"
+              size="lg"
+              className="group justify-center font-bold text-primary-dark shadow-xl hover:shadow-2xl cursor-pointer px-7"
+            >
+              <span>{t.hero.ctaRfq}</span>
+              <ArrowRight className="size-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
             <Button
               href="#products"
               variant="outline"
@@ -202,22 +200,6 @@ export function HeroSection() {
               <span>{t.hero.trustMetric3}</span>
             </span>
           </div>
-
-          {/* Product Sample Preview Pill */}
-          <div className="mt-6 inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20">
-            <div className="relative size-7 rounded-md overflow-hidden border border-white/30 shrink-0">
-              <Image
-                src="/images/dummy/24_hero_product_composition.jpg"
-                alt="Output Rajutan SCM"
-                fill
-                sizes="28px"
-                className="object-cover"
-              />
-            </div>
-            <span className="text-[11px] font-mono text-secondary-light">
-              {t.hero.outputSampleLabel}: <strong className="text-white">{t.hero.outputSampleText}</strong>
-            </span>
-          </div>
         </ScrollReveal>
 
         {/* Bottom Horizontal Industrial Specifications Dock */}
@@ -240,46 +222,46 @@ export function HeroSection() {
 
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
+                <Factory className="size-4 text-accent" />
+                <span className="text-[11px] font-mono uppercase tracking-wider">
+                  {t.hero.dockCapacityTitle}
+                </span>
+              </div>
+              <p className="text-lg sm:text-xl font-bold text-accent">
+                {t.hero.dockCapacityVal}
+              </p>
+              <p className="text-xs text-secondary-light/80">
+                {t.hero.dockCapacityDesc}
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
+                <Globe className="size-4 text-accent" />
+                <span className="text-[11px] font-mono uppercase tracking-wider">
+                  {t.hero.dockMarketsTitle}
+                </span>
+              </div>
+              <p className="text-lg sm:text-xl font-bold text-white">
+                {t.hero.dockMarketsVal}
+              </p>
+              <p className="text-xs text-secondary-light/80">
+                {t.hero.dockMarketsDesc}
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
                 <ShieldCheck className="size-4 text-accent" />
                 <span className="text-[11px] font-mono uppercase tracking-wider">
                   {t.hero.dockQcTitle}
                 </span>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-accent">
+              <p className="text-lg sm:text-xl font-bold text-white">
                 {t.hero.dockQcVal}
               </p>
               <p className="text-xs text-secondary-light/80">
                 {t.hero.dockQcDesc}
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
-                <Layers className="size-4 text-accent" />
-                <span className="text-[11px] font-mono uppercase tracking-wider">
-                  {t.hero.dockOemTitle}
-                </span>
-              </div>
-              <p className="text-lg sm:text-xl font-bold text-white">
-                {t.hero.dockOemVal}
-              </p>
-              <p className="text-xs text-secondary-light/80">
-                {t.hero.dockOemDesc}
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
-                <CheckCircle2 className="size-4 text-accent" />
-                <span className="text-[11px] font-mono uppercase tracking-wider">
-                  {t.hero.dockCapacityTitle}
-                </span>
-              </div>
-              <p className="text-lg sm:text-xl font-bold text-white">
-                {t.hero.dockCapacityVal}
-              </p>
-              <p className="text-xs text-secondary-light/80">
-                {t.hero.dockCapacityDesc}
               </p>
             </div>
           </div>

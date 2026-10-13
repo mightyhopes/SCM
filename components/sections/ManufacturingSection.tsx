@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Cpu, Layers, Sparkles, PackageCheck, CheckCircle2 } from "lucide-react";
+import { Cpu, Factory, Sparkles, PackageCheck, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const iconMap = {
   Cpu,
-  Layers,
+  Factory,
   Sparkles,
   PackageCheck,
 };
@@ -22,7 +22,7 @@ export function ManufacturingSection() {
   const isEn = language === "en";
 
   return (
-    <section id="capabilities" className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
       <Container size="default">
         <ScrollReveal duration={600} direction="up">
           <SectionHeading
@@ -33,7 +33,7 @@ export function ManufacturingSection() {
         </ScrollReveal>
 
         {/* Capabilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {CAPABILITIES.map((cap, idx) => {
             const IconComponent =
               iconMap[cap.iconName as keyof typeof iconMap] || Cpu;
@@ -45,9 +45,9 @@ export function ManufacturingSection() {
             return (
               <ScrollReveal
                 key={cap.id}
-                duration={500}
+                duration={550}
                 delay={idx * 80}
-                direction="up"
+                variant={idx % 2 === 0 ? "slide-right" : "slide-left"}
                 className="h-full"
               >
                 <div className="p-6 sm:p-7 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-xs hover:shadow-md flex flex-col justify-between h-full group">
@@ -108,30 +108,30 @@ export function ManufacturingSection() {
           })}
         </div>
 
-        {/* Technical Specification Bar */}
+        {/* Technical Specification Bar: Capacity, Packaging & Materials */}
         <ScrollReveal duration={600} direction="up" className="mt-12">
           <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-xs">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
               <div className="pt-4 sm:pt-0">
                 <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
-                  {t.capabilities.barGaugeTitle}
+                  {t.capabilities.barCapacityTitle}
                 </span>
-                <p className="text-xl font-bold text-text-primary mt-1">
-                  {t.capabilities.barGaugeVal}
+                <p className="text-xl font-bold text-primary mt-1">
+                  {t.capabilities.barCapacityVal}
                 </p>
                 <p className="text-xs text-text-secondary mt-1">
-                  {t.capabilities.barGaugeDesc}
+                  {t.capabilities.barCapacityDesc}
                 </p>
               </div>
               <div className="pt-4 sm:pt-0 sm:px-4">
                 <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
-                  {t.capabilities.barToeTitle}
+                  {t.capabilities.barPackagingTitle}
                 </span>
                 <p className="text-xl font-bold text-text-primary mt-1">
-                  {t.capabilities.barToeVal}
+                  {t.capabilities.barPackagingVal}
                 </p>
                 <p className="text-xs text-text-secondary mt-1">
-                  {t.capabilities.barToeDesc}
+                  {t.capabilities.barPackagingDesc}
                 </p>
               </div>
               <div className="pt-4 sm:pt-0 sm:pl-4">

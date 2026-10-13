@@ -3,14 +3,15 @@ export type Language = "id" | "en";
 export interface Translations {
   nav: {
     about: string;
+    markets: string;
     products: string;
     capabilities: string;
     process: string;
+    quality: string;
     gallery: string;
     faq: string;
     contact: string;
     quote: string;
-    quickConsult: string;
   };
   hero: {
     statusBadge: string;
@@ -23,31 +24,27 @@ export interface Translations {
     trustMetric1: string;
     trustMetric2: string;
     trustMetric3: string;
-    outputSampleLabel: string;
-    outputSampleText: string;
     dockTechTitle: string;
     dockTechVal: string;
     dockTechDesc: string;
-    dockQcTitle: string;
-    dockQcVal: string;
-    dockQcDesc: string;
-    dockOemTitle: string;
-    dockOemVal: string;
-    dockOemDesc: string;
     dockCapacityTitle: string;
     dockCapacityVal: string;
     dockCapacityDesc: string;
+    dockMarketsTitle: string;
+    dockMarketsVal: string;
+    dockMarketsDesc: string;
+    dockQcTitle: string;
+    dockQcVal: string;
+    dockQcDesc: string;
   };
   stats: {
     eyebrow: string;
     title: string;
-    disclaimer: string;
-    confirmBadge: string;
     items: {
       capacity: { value: string; label: string; desc: string };
       experience: { value: string; label: string; desc: string };
-      categories: { value: string; label: string; desc: string };
-      inspection: { value: string; label: string; desc: string };
+      markets: { value: string; label: string; desc: string };
+      quality: { value: string; label: string; desc: string };
     };
   };
   about: {
@@ -56,7 +53,7 @@ export interface Translations {
     intro: string;
     p1: string;
     p2: string;
-    badgeEst: string;
+    badgeExp: string;
     cardFacility: string;
     officeLabel: string;
     officeTitle: string;
@@ -65,12 +62,25 @@ export interface Translations {
     strength1: string;
     strength2: string;
     strength3: string;
-    guaranteeTitle: string;
-    guaranteeDesc: string;
-    visionTitle: string;
-    visionDesc: string;
-    missionTitle: string;
-    missionDesc: string;
+    focusTitle: string;
+    focusDesc: string;
+  };
+  markets: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    domesticTitle: string;
+    domesticSubtitle: string;
+    domesticDesc: string;
+    domesticTag: string;
+    exportTitle: string;
+    exportSubtitle: string;
+    exportDesc: string;
+    exportTag: string;
+    note: string;
+    badgeUs: string;
+    badgeEu: string;
+    badgeId: string;
   };
   products: {
     eyebrow: string;
@@ -83,10 +93,9 @@ export interface Translations {
       mensSport: string;
       custom: string;
     };
-    moq: string;
     gaugeLabel: string;
     materialLabel: string;
-    colorLabel: string;
+    packagingNote: string;
     sampleBtn: string;
     customBanner: {
       tag: string;
@@ -100,12 +109,12 @@ export interface Translations {
     title: string;
     description: string;
     specLabel: string;
-    barGaugeTitle: string;
-    barGaugeVal: string;
-    barGaugeDesc: string;
-    barToeTitle: string;
-    barToeVal: string;
-    barToeDesc: string;
+    barCapacityTitle: string;
+    barCapacityVal: string;
+    barCapacityDesc: string;
+    barPackagingTitle: string;
+    barPackagingVal: string;
+    barPackagingDesc: string;
     barYarnTitle: string;
     barYarnVal: string;
     barYarnDesc: string;
@@ -134,7 +143,7 @@ export interface Translations {
     title: string;
     description: string;
     visitNotice: string;
-    factoryStatus: string;
+    previewBadge: string;
   };
   faq: {
     eyebrow: string;
@@ -149,34 +158,24 @@ export interface Translations {
     tag: string;
     title: string;
     description: string;
-    phoneLabel: string;
-    phoneHours: string;
-    emailLabel: string;
+    emailTitle: string;
     emailDesc: string;
-    visitLabel: string;
-    visitDesc: string;
-    formTitle: string;
-    formDesc: string;
-    nameLabel: string;
-    namePlaceholder: string;
-    companyLabel: string;
-    companyPlaceholder: string;
-    emailInputLabel: string;
-    emailInputPlaceholder: string;
-    phoneInputLabel: string;
-    phoneInputPlaceholder: string;
-    categoryLabel: string;
-    categoryDefault: string;
-    categoryCustom: string;
-    volumeLabel: string;
-    volumePlaceholder: string;
-    messageLabel: string;
-    messagePlaceholder: string;
-    privacyNotice: string;
-    submitBtn: string;
-    successTitle: string;
-    successDesc: string;
-    sendAnother: string;
+    emailCta: string;
+    phoneTitle: string;
+    phoneDesc: string;
+    phonePending: string;
+    locationTitle: string;
+    locationDesc: string;
+    hoursTitle: string;
+    hoursDesc: string;
+    quoteGuideTag: string;
+    quoteGuideTitle: string;
+    quoteGuideDesc: string;
+    quoteGuideItems: string[];
+    quoteCtaBtn: string;
+    quoteEmailSubject: string;
+    copyEmailBtn: string;
+    copiedText: string;
   };
   footer: {
     bio: string;
@@ -185,24 +184,14 @@ export interface Translations {
     catTitle: string;
     contactTitle: string;
     locationLabel: string;
-    locationDesc: string;
     copyright: string;
     partnerTag: string;
     backToTop: string;
   };
-  rfqModal: {
-    title: string;
-    description: string;
-    submitBtn: string;
-    successTitle: string;
-    successDesc: string;
-    closeBtn: string;
-  };
   widget: {
     inquiry: string;
     hours: string;
-    callNow: string;
-    rfqBtn: string;
+    quoteBtn: string;
   };
 }
 
@@ -210,479 +199,479 @@ export const translations: Record<Language, Translations> = {
   id: {
     nav: {
       about: "Tentang",
+      markets: "Pasar",
       products: "Produk",
       capabilities: "Kapabilitas",
       process: "Proses",
+      quality: "Kendali Mutu",
       gallery: "Galeri",
       faq: "FAQ",
       contact: "Kontak",
       quote: "Request a Quote",
-      quickConsult: "Konsultasi B2B",
     },
     hero: {
-      statusBadge: "INDONESIAN SOCK MANUFACTURING FACILITY",
-      headlineStart: "Precision in Every",
-      headlineHighlight: "Stitch.",
-      tagline: "Presisi di Setiap Rajutan Kaus Kaki",
+      statusBadge: "FASILITAS MANUFAKTUR KAOS KAKI",
+      headlineStart: "Presisi di Setiap",
+      headlineHighlight: "Rajutan.",
+      tagline:
+        "Solusi manufaktur kaos kaki fleksibel yang dapat disesuaikan dengan kebutuhan produk Anda.",
       description:
-        "PT. Sinlie Cahaya Matahari (SCM) menghadirkan keunggulan manufaktur kaus kaki berskala industri. Didukung jajaran mesin rajut komputerisasi modern multi-gauge (96N – 200N), kami melayani mitra brand retail, seragam korporat, dan pengadaan institusi di seluruh Indonesia.",
-      ctaRfq: "Request a Quote (RFQ)",
-      ctaCatalog: "Lihat Katalog Produk",
-      trustMetric1: "Kapasitas Masal ~100.000 Lusin/Bulan",
-      trustMetric2: "MOQ Bersahabat & Prototyping Cepat",
-      trustMetric3: "Kerahasiaan Desain Mitra Terjamin",
-      outputSampleLabel: "Output Presisi",
-      outputSampleText: "Kaus Kaki Rajut Multi-Gauge",
-      dockTechTitle: "Teknologi Rajut",
-      dockTechVal: "96N – 200N Multi-Gauge",
-      dockTechDesc: "Single & Double Cylinder Otomatis",
+        "Dengan pengalaman di industri kaos kaki sejak 2018, PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki yang dapat disesuaikan dengan kebutuhan produk pelanggan. Melayani pasar domestik dan internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa.",
+      ctaRfq: "Request a Quote",
+      ctaCatalog: "Lihat Kategori Produk",
+      trustMetric1: "Ekspor Utama: Amerika Serikat & Eropa",
+      trustMetric2: "Fleksibilitas Bahan & Kemasan Kustom",
+      trustMetric3: "Kendali Mutu Berpedoman Standar AQL",
+      dockTechTitle: "Fokus Produksi",
+      dockTechVal: "Manufaktur Kaos Kaki",
+      dockTechDesc: "Beragam Kategori & Spesifikasi",
+      dockCapacityTitle: "Kapasitas Maksimum",
+      dockCapacityVal: "1.000.000 Lusin/Bulan*",
+      dockCapacityDesc: "Kapasitas Operasional Maksimum",
+      dockMarketsTitle: "Jangkauan Pasar",
+      dockMarketsVal: "Domestik & Ekspor",
+      dockMarketsDesc: "AS, Eropa & Pasar Domestik",
       dockQcTitle: "Kendali Mutu",
-      dockQcVal: "100% Quality Checking",
-      dockQcDesc: "Uji Dimensi & Deteksi Jarum 0.8mm",
-      dockOemTitle: "Layanan Maklon",
-      dockOemVal: "OEM & Private Label",
-      dockOemDesc: "Hangtag, Barcode & Packaging Ritel",
-      dockCapacityTitle: "Kapasitas Pabrik",
-      dockCapacityVal: "~100.000 Lusin/Bulan*",
-      dockCapacityDesc: "Skalabilitas Pesanan Volume Besar",
+      dockQcVal: "Standar AQL",
+      dockQcDesc: "Inspeksi Kualitas Terstruktur",
     },
     stats: {
       eyebrow: "Sekilas Perusahaan",
-      title: "Kapabilitas & Skala Operasional Manufaktur",
-      disclaimer: "Angka bertanda * merupakan estimasi data operasional (dapat disesuaikan)",
-      confirmBadge: "Konfirmasi",
+      title: "Kapabilitas Manufaktur & Jangkauan Operasional",
       items: {
         capacity: {
-          value: "100.000+",
-          label: "Lusin / Bulan",
-          desc: "Estimasi kapasitas produksi bulanan (Menunggu konfirmasi final)",
+          value: "1.000.000",
+          label: "Lusin / Bulan (Kapasitas Maksimum)",
+          desc: "Kapasitas maksimum operasional, dengan realisasi produksi menyesuaikan spesifikasi produk dan kebutuhan pesanan.",
         },
         experience: {
-          value: "2018*",
-          label: "Tahun Berdiri",
-          desc: "Awal kiprah manufaktur (Badan hukum resmi terdaftar Maret 2023)",
+          value: "2018",
+          label: "Pengalaman Industri Sejak",
+          desc: "Pengalaman di industri manufaktur kaos kaki sejak 2018 (Pendirian badan hukum PT pada 2023).",
         },
-        categories: {
-          value: "6",
-          label: "Lini Produk Lengkap",
-          desc: "Bayi, Anak, Wanita, Pria Formal, Sport Athletic, dan Kustom OEM",
+        markets: {
+          value: "Domestik & Ekspor",
+          label: "Jangkauan Pasar",
+          desc: "Melayani pasar domestik dan internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa.",
         },
-        inspection: {
-          value: "100%",
-          label: "Quality Checking",
-          desc: "Pemeriksaan konsistensi rajutan dan standar ketahanan sebelum pengemasan",
+        quality: {
+          value: "Standar AQL",
+          label: "Kendali Mutu (QC)",
+          desc: "Fungsi Quality Control terstruktur untuk memastikan kesesuaian produk mengacu pada pedoman standar AQL.",
         },
       },
     },
     about: {
-      eyebrow: "TENTANG KAMI",
-      title: "Dedikasi pada Presisi Rajut dan Kemitraan Jangka Panjang",
+      eyebrow: "TENTANG PERUSAHAAN",
+      title: "Dedikasi pada Kualitas Rajutan dan Solusi Manufaktur Kaos Kaki",
       intro:
-        "PT. Sinlie Cahaya Matahari adalah produsen manufaktur kaus kaki yang berfokus melayani kebutuhan industri busana, retailer, dan korporat di Indonesia.",
-      p1: "Berawal dari pemahaman mendalam atas kebutuhan pasar kaus kaki yang mengutamakan kenyamanan harian dan daya tahan material, PT. Sinlie Cahaya Matahari tumbuh menjadi sentra manufaktur yang memadukan teknologi mesin modern dengan ketelitian teknis perajutan.",
-      p2: "Fokus bisnis kami berpusat pada penyediaan layanan manufaktur B2B yang adaptif—mulai dari produksi kaus kaki bayi dengan sentuhan ekstra lembut, hingga kaus kaki olahraga dan formal pria yang membutuhkan konstruksi benang padat dan elastisitas stabil.",
-      badgeEst: "Est. 2018",
-      cardFacility: "Gedung & Fasilitas Produksi SCM",
+        "Dengan pengalaman di industri kaos kaki sejak 2018, PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki yang dapat disesuaikan dengan kebutuhan produk pelanggan.",
+      p1: "Perjalanan kami di industri kaos kaki dibangun atas komitmen terhadap kualitas rajutan, konsistensi dimensi ukuran, dan keandalan pemenuhan pesanan pelanggan. Pendirian badan hukum resmi PT. Sinlie Cahaya Matahari pada tahun 2023 memperkuat kapabilitas kami dalam melayani kemitraan bisnis jangka panjang.",
+      p2: "Kami melayani berbagai segmen kebutuhan kaus kaki—mulai dari kaus kaki bayi, anak-anak, wanita, formal pria, hingga kaus kaki olahraga dan pesanan khusus. Spesifikasi bahan, desain motif rajut, dan pilihan pengemasan dapat didiskusikan secara terbuka untuk memenuhi standar produk yang Anda harapkan.",
+      badgeExp: "Pengalaman Sejak 2018",
+      cardFacility: "Fasilitas Produksi SCM",
       officeLabel: "Manajemen",
-      officeTitle: "Kantor Operasional",
-      teamLabel: "SDM Manufaktur",
-      teamTitle: "Tim Teknisi Mesin",
-      strength1: "Lini mesin rajut silinder tunggal & ganda berakurasi tinggi",
-      strength2: "Perlindungan kerahasiaan desain dan hak cipta merek mitra",
-      strength3: "Pengecekan kualitas 100% dan uji keamanan deteksi jarum",
-      guaranteeTitle: "Jaminan Kualitas Fisik",
-      guaranteeDesc: "Kerapatan rajutan terukur & konsistensi ukuran per batch.",
-      visionTitle: "Visi Perusahaan",
-      visionDesc:
-        "Menjadi mitra manufaktur kaus kaki terdepan dan terpercaya di Indonesia melalui inovasi rajut, kualitas konsisten, dan keandalan suplai.",
-      missionTitle: "Misi Perusahaan",
-      missionDesc:
-        "Menghadirkan produk kaus kaki berdaya tahan tinggi, menjaga ketepatan waktu pengiriman, serta membangun hubungan bisnis B2B yang transparan dan profesional.",
+      officeTitle: "Operasional Terpadu",
+      teamLabel: "Tim Produksi",
+      teamTitle: "Teknisi Rajut & QC",
+      strength1: "Fokus khusus pada produksi kaos kaki beragam kategori",
+      strength2: "Kapasitas maksimum operasional hingga 1.000.000 lusin/bulan",
+      strength3: "Penerapan kendali mutu mengacu pada pedoman standar AQL",
+      focusTitle: "Komitmen Kemitraan B2B",
+      focusDesc:
+        "Menjaga kerahasiaan spesifikasi pesanan mitra dan memastikan ketepatan jadwal produksi.",
+    },
+    markets: {
+      eyebrow: "JANGKAUAN PASAR",
+      title: "Melayani Kebutuhan Pasar Domestik & Internasional",
+      description:
+        "PT. Sinlie Cahaya Matahari melayani spektrum pelanggan yang luas, baik pemenuhan kebutuhan pasar dalam negeri maupun pesanan ekspor ke pasar global.",
+      domesticTitle: "Pasar Domestik Indonesia",
+      domesticSubtitle: "Distribusi Nasional",
+      domesticDesc:
+        "Melayani mitra ritel, distributor, pengadaan korporat, dan kebutuhan seragam institusi di berbagai wilayah Indonesia.",
+      domesticTag: "Nasional",
+      exportTitle: "Pasar Ekspor Internasional",
+      exportSubtitle: "Amerika Serikat & Eropa",
+      exportDesc:
+        "Pesanan ekspor kami terutama menjangkau Amerika Serikat dan Eropa, dengan pengiriman ke destinasi internasional lainnya menyesuaikan pesanan yang masuk.",
+      exportTag: "Global",
+      note: "Catatan: Pengiriman ekspor dilakukan berdasarkan pesanan yang disepakati dari fasilitas manufaktur kami di Indonesia.",
+      badgeUs: "Amerika Serikat (USA)",
+      badgeEu: "Eropa (Europe)",
+      badgeId: "Seluruh Indonesia",
     },
     products: {
-      eyebrow: "KATALOG PRODUK INDUSTRI",
-      title: "Ragam Manufaktur Kaus Kaki untuk Kebutuhan Pasar Anda",
+      eyebrow: "KATEGORI PRODUK",
+      title: "Ragam Manufaktur Kaos Kaki Sesuai Kebutuhan Anda",
       description:
-        "Eksplorasi spesifikasi teknis, variasi needle gauge, dan opsi rajutan kustom untuk tiap lini produk kaus kaki yang siap diproduksi massal.",
+        "Pilihan kategori kaos kaki yang dapat diproduksi dengan fleksibilitas spesifikasi, bahan benang, dan pilihan pengemasan.",
       tabs: {
         all: "Semua Kategori",
         babyKids: "Bayi & Anak",
-        ladies: "Wanita (Fashion)",
-        mensSport: "Pria & Athletic",
-        custom: "Kustom OEM",
+        ladies: "Wanita",
+        mensSport: "Pria & Olahraga",
+        custom: "Spesifikasi Kustom",
       },
-      moq: "MOQ: 50 Lusin",
       gaugeLabel: "Pilihan Gauge:",
-      materialLabel: "Material:",
-      colorLabel: "Opsi Warna:",
-      sampleBtn: "Minta Sampel",
+      materialLabel: "Bahan:",
+      packagingNote: "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan.",
+      sampleBtn: "Konsultasikan Kategori",
       customBanner: {
-        tag: "Layanan Kustom Private Label & Maklon Industri",
-        title: "Membutuhkan Kaus Kaki dengan Pola Desain, Logo Rajut, atau Spesifikasi Khusus?",
-        desc: "Kami memfasilitasi pembuatan sampel prototipe (approval sample) sebelum produksi masal dimulai. Desain dan hak cipta merek mitra dilindungi penuh secara profesional.",
-        btn: "Konsultasi Kustom OEM",
+        tag: "Fleksibilitas Manufaktur & Pengemasan",
+        title: "Membutuhkan Kaus Kaki dengan Spesifikasi atau Kemasan Khusus?",
+        desc: "Kami memfasilitasi diskusi teknis penyesuaian komposisi benang, ukuran, motif rajutan, hingga kemasan kustom sesuai kebutuhan produk Anda.",
+        btn: "Konsultasi Spesifikasi Kustom",
       },
     },
     capabilities: {
       eyebrow: "KAPABILITAS PABRIK",
-      title: "Infrastruktur Produksi & Keahlian Teknis Rajut",
+      title: "Infrastruktur & Fleksibilitas Produksi Kaos Kaki",
       description:
-        "Didukung permesinan terstandar industri untuk menghasilkan rajutan berkonsistensi tinggi dengan kapasitas yang dapat diskalakan sesuai volume pesanan Anda.",
-      specLabel: "Spesifikasi & Output:",
-      barGaugeTitle: "Variasi Needle Count",
-      barGaugeVal: "96N / 108N / 144N / 168N / 200N",
-      barGaugeDesc: "Mendukung rajutan tebal hingga ultra-fine gauge",
-      barToeTitle: "Opsi Konstruksi Tumit & Jari",
-      barToeVal: "Y-Heel & Seamless Toe",
-      barToeDesc: "Fitting ergonomis anti-selip pada lekuk tumit",
-      barYarnTitle: "Pilihan Material Benang",
-      barYarnVal: "Combed Cotton, Spandex, TC, PE",
-      barYarnDesc: "Kombinasi fleksibel sesuai fungsi dan budget brand",
+        "Didukung kapasitas maksimum operasional yang tinggi serta fleksibilitas dalam mengakomodasi berbagai kebutuhan bahan dan pengemasan produk.",
+      specLabel: "Fokus Kapabilitas:",
+      barCapacityTitle: "Kapasitas Maksimum",
+      barCapacityVal: "1.000.000 Lusin / Bulan",
+      barCapacityDesc: "Kapasitas operasional maksimum per bulan",
+      barPackagingTitle: "Pilihan Pengemasan",
+      barPackagingVal: "Dapat Disesuaikan",
+      barPackagingDesc: "Kemasan disesuaikan kebutuhan pelanggan",
+      barYarnTitle: "Fleksibilitas Bahan",
+      barYarnVal: "Katun, Spandex, Elastik",
+      barYarnDesc: "Komposisi benang disesuaikan per pesanan",
     },
     process: {
-      eyebrow: "ALUR PRODUKSI TERSTANDARISASI",
-      title: "Tahapan Manufaktur dari Benang hingga Pengemasan",
+      eyebrow: "ALUR PRODUKSI",
+      title: "Tahapan Manufaktur dari Bahan hingga Pengemasan",
       description:
-        "Alur kerja terstruktur untuk memastikan setiap lusin kaus kaki memenuhi standar presisi, elastisitas, dan kerapian kemasan siap distribusi.",
+        "Alur kerja terstruktur untuk memastikan setiap lusin kaus kaki memenuhi kerapian bentuk, kenyamanan rajutan, dan kemasan siap distribusi.",
       disclaimer:
-        "*Tahapan di atas mencerminkan alur standar operasional manufaktur kaus kaki industri dan dapat disesuaikan dengan permintaan kustomisasi spesifik klien.",
+        "*Tahapan di atas menggambarkan alur kerja umum proses manufaktur kaos kaki dan dapat disesuaikan menurut spesifikasi teknis pesanan pelanggan.",
     },
     quality: {
-      eyebrow: "QUALITY ASSURANCE",
-      title: "Standar Pemeriksaan Ketat di Setiap Tahap Produksi",
+      eyebrow: "KENDALI MUTU (QC)",
+      title: "Standar Pemeriksaan Berpedoman AQL di Setiap Tahap",
       description:
-        "Bagi kami, kualitas bukan sekadar tampilan akhir, melainkan integritas rajutan, kenyamanan saat dipakai berulang, dan kepuasan mitra B2B kami.",
-      qcStation: "QC & Verification Station",
-      operatorRole: "Operator QC",
-      operatorTitle: "100% Visual Checking",
-      physicalTitle: "Pemeriksaan Fisik 100%",
-      physicalSubtitle: "Metode kendali mutu riil & terukur di setiap batch",
+        "PT. Sinlie Cahaya Matahari menjalankan fungsi Quality Control yang terstruktur untuk memastikan kesesuaian produk dengan spesifikasi yang disepakati.",
+      qcStation: "Area Pemeriksaan Mutu (QC)",
+      operatorRole: "Tim Quality Control",
+      operatorTitle: "Pemeriksaan Fisik & Visual",
+      physicalTitle: "Fungsi Quality Control Terstruktur",
+      physicalSubtitle: "Pemeriksaan konsistensi produk mengacu pada standar AQL",
       physicalDesc:
-        "Kami menerapkan metode kendali mutu internal secara disiplin pada setiap batch sebelum pengemasan. Bila ditemukan produk yang tidak memenuhi toleransi dimensi atau terdapat cacat rajut, produk langsung dipisahkan dari batch pengiriman.",
-      protocol1: "Anti-Defect Protocol",
-      protocol2: "100% Visual Inspection",
+        "Pemeriksaan mutu dilakukan untuk memverifikasi kerapatan rajutan, kestabilan dimensi ukuran, dan kebersihan visual produk sebelum pengemasan akhir. Produk yang tidak memenuhi toleransi spesifikasi segera dipisahkan.",
+      protocol1: "Pedoman Standar AQL",
+      protocol2: "Inspeksi Kerapatan & Dimensi",
     },
     gallery: {
-      eyebrow: "FASILITAS & LANTAI PRODUKSI",
-      title: "Transparansi Infrastruktur Pabrik Manufaktur SCM",
+      eyebrow: "DOKUMENTASI VISUAL",
+      title: "Gambaran Fasilitas & Proses Produksi Kaos Kaki",
       description:
-        "Eksplorasi lini permesinan rajut, area finishing uap, standar kendali mutu, dan fasilitas logistik pengemasan PT. Sinlie Cahaya Matahari.",
+        "Dokumentasi visual ilustratif lini permesinan rajut, area finishing, kendali mutu, dan persiapan pengemasan.",
       visitNotice:
-        "Kunjungan Fisik Fasilitas: Mitra buyer dan auditor korporat dipersilakan melakukan verifikasi langsung ke pabrik SCM dengan reservasi melalui tim pengadaan.",
-      factoryStatus: "Standar Pabrik: Aktif Beroperasi",
+        "Kunjungan Fasilitas: Kunjungan verifikasi ke pabrik dapat diatur melalui reservasi dan koordinasi bersama tim manajemen.",
+      previewBadge: "Dokumentasi Ilustratif",
     },
     faq: {
       eyebrow: "PERTANYAAN UMUM B2B",
-      title: "Transparansi Pengadaan & Layanan Maklon",
+      title: "Informasi Manufaktur, Jangkauan & Pemesanan",
       description:
-        "Jawaban atas pertanyaan umum seputar MOQ, jadwal sampling, alur kerja maklon, dan kerahasiaan desain produk Anda.",
+        "Jawaban atas pertanyaan umum seputar kapasitas produksi, fleksibilitas bahan, pengemasan, dan jangkauan pasar.",
       boxTitle: "Punya Spesifikasi Khusus?",
-      boxSubtitle: "Konsultasikan langsung dengan tim teknis pabrik kami.",
+      boxSubtitle: "Diskusikan kebutuhan produk Anda bersama kami.",
       boxDesc:
-        "Setiap brand memiliki keunikan karakter bahan dan standar fitting. Kami siap mendiskusikan toleransi ukuran, komposisi benang, dan kemasan kustom sesuai kebutuhan Anda.",
-      boxBtn: "Ajukan Konsultasi Kustom",
+        "Setiap kebutuhan memiliki karakteristik bahan dan target pasar tersendiri. Kami siap mendiskusikan toleransi ukuran, komposisi benang, dan pilihan kemasan yang sesuai.",
+      boxBtn: "Ajukan Permintaan Penawaran",
     },
     contact: {
-      tag: "B2B INQUIRY & QUOTATION",
-      title: "Mulai Kolaborasi Manufaktur Kaus Kaki Anda",
+      tag: "KONTAK & KONSULTASI B2B",
+      title: "Hubungi Kami untuk Konsultasi Manufaktur Kaos Kaki",
       description:
-        "Diskusikan kebutuhan volume produksi, penyesuaian desain rajut, atau permintaan sampel produk dengan tim teknis PT. Sinlie Cahaya Matahari.",
-      phoneLabel: "Telepon & WhatsApp B2B",
-      phoneHours: "Respon cepat pada jam kerja operasional (08:00 - 17:00 WIB)",
-      emailLabel: "Email Penawaran Resmi",
-      emailDesc: "Kirimkan dokumen RFQ, tech-pack, atau lembar spesifikasi desain",
-      visitLabel: "Kunjungan Fasilitas Pabrik",
-      visitDesc: "Tersedia janji temu khusus bagi mitra calon buyer dan auditor",
-      formTitle: "Formulir Permintaan Penawaran (RFQ)",
-      formDesc: "Lengkapi data berikut untuk estimasi harga dan kapasitas produksi.",
-      nameLabel: "Nama Lengkap *",
-      namePlaceholder: "Contoh: Budi Santoso",
-      companyLabel: "Nama Perusahaan / Brand *",
-      companyPlaceholder: "Contoh: PT. Retail Busana Indah",
-      emailInputLabel: "Alamat Email Resmi *",
-      emailInputPlaceholder: "budi@perusahaan.com",
-      phoneInputLabel: "Nomor WhatsApp / HP *",
-      phoneInputPlaceholder: "081234567890",
-      categoryLabel: "Kategori Produk",
-      categoryDefault: "Pilih Kategori Kaus Kaki",
-      categoryCustom: "Pesanan Kustom Khusus",
-      volumeLabel: "Estimasi Kuantitas (Lusin)",
-      volumePlaceholder: "Contoh: 500 lusin",
-      messageLabel: "Rincian Kebutuhan atau Spesifikasi Desain *",
-      messagePlaceholder:
-        "Jelaskan jenis benang, spesifikasi rajut, ukuran, atau jadwal target yang Anda perlukan...",
-      privacyNotice:
-        "Data formulir diproses secara aman untuk kebutuhan penawaran manufaktur B2B resmi PT. Sinlie Cahaya Matahari.",
-      submitBtn: "Kirim Permintaan Penawaran (RFQ)",
-      successTitle: "Permintaan Anda Berhasil Dicatat!",
-      successDesc:
-        "Terima kasih atas minat Anda pada layanan manufaktur SCM. Tim pengadaan kami akan segera menindaklanjuti permintaan penawaran Anda.",
-      sendAnother: "Kirim permintaan lain",
+        "Diskusikan kebutuhan spesifikasi produk, volume pesanan, atau pertanyaan bisnis secara langsung dengan PT. Sinlie Cahaya Matahari melalui saluran komunikasi resmi berikut.",
+      emailTitle: "Email Resmi Penawaran & Bisnis",
+      emailDesc:
+        "Kirimkan pertanyaan kemitraan, lembar spesifikasi teknis, atau dokumen kebutuhan pengadaan kaos kaki langsung ke tim kami.",
+      emailCta: "Kirim Email ke SCM",
+      phoneTitle: "Telepon & Layanan Bisnis",
+      phoneDesc:
+        "Saluran telepon operasional untuk koordinasi bisnis manufaktur.",
+      phonePending:
+        "Nomor telepon operasional sedang dalam proses konfirmasi resmi. Untuk respon cepat, silakan hubungi kami via email resmi.",
+      locationTitle: "Lokasi Fasilitas Pabrik",
+      locationDesc:
+        "Indonesia. Kunjungan langsung dan audit fasilitas oleh mitra buyer dapat dikoordinasikan melalui janji temu terlebih dahulu.",
+      hoursTitle: "Jam Operasional",
+      hoursDesc:
+        "Senin - Jumat: 08:00 - 17:00 WIB (Waktu Indonesia Barat). Respon aktif pada hari dan jam kerja operasional.",
+      quoteGuideTag: "PANDUAN PENGAJUAN PENAWARAN",
+      quoteGuideTitle: "Ingin Mengajukan Request a Quote?",
+      quoteGuideDesc:
+        "Untuk mempermudah peninjauan teknis dan estimasi penawaran harga, kami menyarankan Anda menyertakan rincian berikut dalam email Anda:",
+      quoteGuideItems: [
+        "Estimasi volume pesanan (lusin) dan target jadwal pengiriman",
+        "Kategori kaos kaki (bayi, anak, wanita, pria formal, olahraga, atau kustom)",
+        "Preferensi bahan benang (katun, spandex, elastik) serta referensi pola rajutan",
+        "Preferensi pengemasan (kemasan lusinan atau kebutuhan kemasan kustom)",
+      ],
+      quoteCtaBtn: "Buka Draf Email Penawaran",
+      quoteEmailSubject: "Permintaan Penawaran Manufaktur Kaos Kaki - SCM",
+      copyEmailBtn: "Salin Alamat Email",
+      copiedText: "Email Tersalin!",
     },
     footer: {
-      bio: "Manufaktur kaus kaki spesialis B2B di Indonesia. Menghadirkan standar kerapatan rajutan presisi, durabilitas benang, dan kapasitas produksi terpercaya untuk mitra bisnis lokal maupun nasional.",
+      bio: "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki berkualitas dengan pengalaman sejak 2018. Melayani pasar domestik dan pesanan ekspor ke Amerika Serikat dan Eropa dengan kapasitas operasional maksimum hingga 1.000.000 lusin per bulan.",
       subBio: "Modern Industrial Sock Manufacturing",
       navTitle: "Navigasi",
       catTitle: "Kategori Produk",
-      contactTitle: "Kontak & Pabrik",
-      locationLabel: "Lokasi Pabrik:",
-      locationDesc: "(Tersedia untuk kunjungan bisnis B2B via reservasi)",
+      contactTitle: "Kontak & Informasi",
+      locationLabel: "Lokasi Fasilitas:",
       copyright: "PT. Sinlie Cahaya Matahari. Seluruh Hak Cipta Dilindungi.",
-      partnerTag: "Precision Sock Manufacturing Partner",
+      partnerTag: "Precision in Every Stitch",
       backToTop: "Kembali ke Atas ↑",
     },
-    rfqModal: {
-      title: "Request for Quotation (RFQ)",
-      description: "Dapatkan estimasi biaya produksi, MOQ, dan jadwal sampling dari tim teknis SCM.",
-      submitBtn: "Kirim Dokumen RFQ",
-      successTitle: "Permintaan RFQ Berhasil Dikirim!",
-      successDesc: "Tim pengadaan manufaktur SCM akan meninjau tech-pack atau rincian spesifikasi Anda dalam 1x24 jam kerja.",
-      closeBtn: "Tutup",
-    },
     widget: {
-      inquiry: "Konsultasi Cepat B2B",
+      inquiry: "Konsultasi B2B",
       hours: "Senin - Jumat 08:00 - 17:00 WIB",
-      callNow: "Hubungi WhatsApp",
-      rfqBtn: "Minta Penawaran (RFQ)",
+      quoteBtn: "Hubungi Kontak",
     },
   },
   en: {
     nav: {
       about: "About",
+      markets: "Markets",
       products: "Products",
       capabilities: "Capabilities",
       process: "Process",
+      quality: "Quality",
       gallery: "Gallery",
       faq: "FAQ",
       contact: "Contact",
       quote: "Request a Quote",
-      quickConsult: "B2B Consultation",
     },
     hero: {
-      statusBadge: "INDONESIAN SOCK MANUFACTURING FACILITY",
+      statusBadge: "SOCK MANUFACTURING FACILITY",
       headlineStart: "Precision in Every",
       headlineHighlight: "Stitch.",
-      tagline: "Industrial Sock Knitting Precision",
+      tagline:
+        "Flexible sock manufacturing solutions tailored to your product requirements.",
       description:
-        "PT. Sinlie Cahaya Matahari (SCM) delivers mass-scale industrial sock manufacturing excellence. Powered by modern multi-gauge computerized knitting machinery (96N – 200N), we serve retail brand partners, corporate uniforms, and institutional procurement across Indonesia.",
-      ctaRfq: "Request a Quote (RFQ)",
-      ctaCatalog: "View Product Catalog",
-      trustMetric1: "Mass Capacity ~100,000 Dozen/Month",
-      trustMetric2: "Flexible MOQ & Fast Prototyping",
-      trustMetric3: "Partner Design Confidentiality Guaranteed",
-      outputSampleLabel: "Precision Output",
-      outputSampleText: "Multi-Gauge Knitted Socks",
-      dockTechTitle: "Knitting Technology",
-      dockTechVal: "96N – 200N Multi-Gauge",
-      dockTechDesc: "Automated Single & Double Cylinder",
+        "With experience in the sock industry since 2018, PT. Sinlie Cahaya Matahari provides sock manufacturing solutions tailored to different product requirements. Serving domestic and international markets, with export orders primarily reaching the United States and Europe.",
+      ctaRfq: "Request a Quote",
+      ctaCatalog: "View Product Categories",
+      trustMetric1: "Export Reach: United States & Europe",
+      trustMetric2: "Custom Material & Packaging Flexibility",
+      trustMetric3: "Quality Control Aligned with AQL Standards",
+      dockTechTitle: "Production Focus",
+      dockTechVal: "Sock Manufacturing",
+      dockTechDesc: "Diverse Categories & Specs",
+      dockCapacityTitle: "Maximum Capacity",
+      dockCapacityVal: "1,000,000 Dozen/Month*",
+      dockCapacityDesc: "Maximum Operational Capacity",
+      dockMarketsTitle: "Market Reach",
+      dockMarketsVal: "Domestic & Export",
+      dockMarketsDesc: "USA, Europe & Domestic",
       dockQcTitle: "Quality Assurance",
-      dockQcVal: "100% Quality Checking",
-      dockQcDesc: "Dimension Check & 0.8mm Needle Scan",
-      dockOemTitle: "OEM Services",
-      dockOemVal: "OEM & Private Label",
-      dockOemDesc: "Hangtag, Barcode & Retail Packaging",
-      dockCapacityTitle: "Factory Capacity",
-      dockCapacityVal: "~100,000 Dozen/Month*",
-      dockCapacityDesc: "Large Volume Order Scalability",
+      dockQcVal: "AQL Standards",
+      dockQcDesc: "Structured QC Inspection",
     },
     stats: {
       eyebrow: "Company at a Glance",
-      title: "Manufacturing Scale & Operational Capability",
-      disclaimer: "Numbers marked with * are operational estimates subject to final confirmation",
-      confirmBadge: "Confirming",
+      title: "Manufacturing Scale & Operational Reach",
       items: {
         capacity: {
-          value: "100,000+",
-          label: "Dozen / Month",
-          desc: "Estimated monthly production capacity (Awaiting final confirmation)",
+          value: "1,000,000",
+          label: "Dozen / Month (Maximum Capacity)",
+          desc: "Maximum operational production capacity, subject to product specifications and production requirements.",
         },
         experience: {
-          value: "2018*",
-          label: "Established Year",
-          desc: "Manufacturing track record (Legal corporate entity registered March 2023)",
+          value: "2018",
+          label: "Industry Experience Since",
+          desc: "Experience in the sock manufacturing industry since 2018 (Legal PT entity incorporated in 2023).",
         },
-        categories: {
-          value: "6",
-          label: "Full Product Lines",
-          desc: "Baby, Kids, Ladies, Men's Classic, Athletic Sport, and Custom OEM",
+        markets: {
+          value: "Domestic & Export",
+          label: "Market Reach",
+          desc: "Serving domestic and international markets, with export orders primarily reaching the United States and Europe.",
         },
-        inspection: {
-          value: "100%",
-          label: "Quality Checking",
-          desc: "Rigorous stitch consistency and durability verification before packaging",
+        quality: {
+          value: "AQL Standards",
+          label: "Quality Control (QC)",
+          desc: "Structured Quality Control function ensuring product compliance in reference to AQL standard guidelines.",
         },
       },
     },
     about: {
-      eyebrow: "ABOUT US",
-      title: "Dedicated to Knitting Precision & Long-Term Partnerships",
+      eyebrow: "ABOUT THE COMPANY",
+      title: "Dedication to Stitch Precision & Sock Manufacturing Solutions",
       intro:
-        "PT. Sinlie Cahaya Matahari is a sock manufacturing enterprise focused on serving the apparel industry, retail brands, and corporate institutions in Indonesia.",
-      p1: "Founded on a deep understanding of market demands for everyday foot comfort and enduring material resilience, PT. Sinlie Cahaya Matahari has grown into an industrial manufacturing center combining modern automated machinery with technical craftsmanship.",
-      p2: "Our business centers on adaptable B2B manufacturing services—ranging from ultra-soft baby socks to high-friction school, athletic performance, and formal executive socks requiring dense knit structures and elastic stability.",
-      badgeEst: "Est. 2018",
-      cardFacility: "SCM Facility & Factory Floor",
+        "With experience in the sock industry since 2018, PT. Sinlie Cahaya Matahari provides sock manufacturing solutions tailored to different product requirements.",
+      p1: "Our trajectory in the sock industry is founded on a firm commitment to stitch consistency, dimensional sizing accuracy, and dependable fulfillment of customer orders. The official legal incorporation of PT. Sinlie Cahaya Matahari in 2023 reinforces our capacity to serve enduring B2B commercial partnerships.",
+      p2: "We accommodate diverse sock categories—spanning infant and baby socks, school and children's socks, ladies' fashion models, classic men's formalwear, athletic socks, and custom client specifications. Fiber compositions, knit patterns, and packaging configurations can be discussed openly to meet your target product standards.",
+      badgeExp: "Experience Since 2018",
+      cardFacility: "SCM Manufacturing Facility",
       officeLabel: "Management",
-      officeTitle: "Operations Office",
-      teamLabel: "Workforce",
-      teamTitle: "Knitting Technicians",
-      strength1: "High-precision single and double cylinder computerized knitting machines",
-      strength2: "Comprehensive intellectual property and design copyright protection",
-      strength3: "100% physical quality inspection and calibrated needle detection safety",
-      guaranteeTitle: "Physical Quality Guarantee",
-      guaranteeDesc: "Calibrated knitting density & consistent dimensional sizing per batch.",
-      visionTitle: "Company Vision",
-      visionDesc:
-        "To be Indonesia's leading and most trusted sock manufacturing partner through knitting innovation, consistent quality, and supply reliability.",
-      missionTitle: "Company Mission",
-      missionDesc:
-        "To engineer highly durable sock products, ensure on-time delivery schedules, and foster transparent, long-term B2B partnerships.",
+      officeTitle: "Unified Operations",
+      teamLabel: "Production Team",
+      teamTitle: "Knitting Technicians & QC",
+      strength1: "Dedicated focus on multi-category sock manufacturing",
+      strength2: "Maximum operational capacity up to 1,000,000 dozen/month",
+      strength3: "Disciplined QC procedures referencing AQL standard guidelines",
+      focusTitle: "B2B Partnership Commitment",
+      focusDesc:
+        "Upholding order specification confidentiality and maintaining dependable production scheduling.",
+    },
+    markets: {
+      eyebrow: "MARKET REACH",
+      title: "Serving Domestic & International Markets",
+      description:
+        "PT. Sinlie Cahaya Matahari serves a broad range of customer types, accommodating both domestic market demands and international export orders.",
+      domesticTitle: "Indonesian Domestic Market",
+      domesticSubtitle: "Nationwide Supply",
+      domesticDesc:
+        "Serving retail brands, wholesale distributors, corporate supply programs, and institutional uniform orders across Indonesia.",
+      domesticTag: "Domestic",
+      exportTitle: "International Export Markets",
+      exportSubtitle: "United States & Europe",
+      exportDesc:
+        "Our export orders primarily reach the United States and Europe, with shipments to other international destinations accommodated based on incoming orders.",
+      exportTag: "Export",
+      note: "Note: International shipments are fulfilled on an order basis directly from our manufacturing facilities in Indonesia.",
+      badgeUs: "United States (USA)",
+      badgeEu: "Europe",
+      badgeId: "Nationwide (Indonesia)",
     },
     products: {
-      eyebrow: "INDUSTRIAL PRODUCT CATALOG",
-      title: "Comprehensive Sock Manufacturing for Your Market Needs",
+      eyebrow: "PRODUCT CATEGORIES",
+      title: "Versatile Sock Manufacturing Tailored to Your Requirements",
       description:
-        "Explore technical specifications, needle count variations, and custom knitting options for each mass-production ready sock category.",
+        "A wide range of sock categories manufactured with flexible specifications, adaptable yarn materials, and customizable packaging.",
       tabs: {
         all: "All Categories",
         babyKids: "Baby & Kids",
-        ladies: "Ladies (Fashion)",
+        ladies: "Ladies",
         mensSport: "Men's & Athletic",
-        custom: "Custom OEM",
+        custom: "Custom Specs",
       },
-      moq: "MOQ: 50 Dozen",
-      gaugeLabel: "Available Gauges:",
+      gaugeLabel: "Gauge Range:",
       materialLabel: "Material:",
-      colorLabel: "Color Options:",
-      sampleBtn: "Request Sample",
+      packagingNote: "Packaging options can be tailored to customer requirements.",
+      sampleBtn: "Inquire This Category",
       customBanner: {
-        tag: "Private Label & Industrial OEM Services",
-        title: "Need Custom Jacquard Patterns, Brand Logos, or Special Tech-Pack Specs?",
-        desc: "We facilitate rapid prototype sampling (approval sample) before bulk mass production begins. Partner designs and brand copyrights are fully protected.",
-        btn: "Consult Custom OEM",
+        tag: "Manufacturing & Packaging Flexibility",
+        title: "Need Socks with Custom Technical Specifications or Packaging?",
+        desc: "We facilitate open technical discussions regarding yarn blends, sizing, knit patterns, and custom packaging tailored to your product standards.",
+        btn: "Consult Custom Specifications",
       },
     },
     capabilities: {
       eyebrow: "FACTORY CAPABILITIES",
-      title: "Production Infrastructure & Technical Knitting Expertise",
+      title: "Manufacturing Infrastructure & Operational Flexibility",
       description:
-        "Powered by industry-standard machinery to deliver high stitch consistency with scalable output tailored to your order volume.",
-      specLabel: "Specifications & Output:",
-      barGaugeTitle: "Needle Count Range",
-      barGaugeVal: "96N / 108N / 144N / 168N / 200N",
-      barGaugeDesc: "Supporting heavy athletic terry up to ultra-fine gauge knits",
-      barToeTitle: "Heel & Toe Options",
-      barToeVal: "Y-Heel & Seamless Toe",
-      barToeDesc: "Ergonomic non-slip heel contours with seamless linking",
-      barYarnTitle: "Yarn Material Versatility",
-      barYarnVal: "Combed Cotton, Spandex, TC, PE",
-      barYarnDesc: "Flexible fiber blends matching brand functional needs and budgets",
+        "Backed by high maximum operational capacity and thorough flexibility in accommodating diverse material compositions and packaging requirements.",
+      specLabel: "Core Capabilities:",
+      barCapacityTitle: "Maximum Capacity",
+      barCapacityVal: "1,000,000 Dozen / Month",
+      barCapacityDesc: "Maximum operational production capacity per month",
+      barPackagingTitle: "Packaging Options",
+      barPackagingVal: "Tailored to Needs",
+      barPackagingDesc: "Packaging options tailored to customer requirements",
+      barYarnTitle: "Material Flexibility",
+      barYarnVal: "Cotton, Spandex, Elastic",
+      barYarnDesc: "Yarn compositions customized per order",
     },
     process: {
-      eyebrow: "STANDARDIZED PRODUCTION WORKFLOW",
+      eyebrow: "PRODUCTION WORKFLOW",
       title: "Manufacturing Stages from Yarn to Packaging",
       description:
-        "A structured end-to-end workflow ensuring every dozen socks meets strict dimensional tolerances, elasticity, and retail-ready presentation.",
+        "A structured workflow ensuring every dozen socks meets strict dimensional tolerances, wearer comfort, and neat presentation.",
       disclaimer:
-        "*The stages above represent our standard industrial sock manufacturing workflow and can be tailored to client custom specifications.",
+        "*The workflow above illustrates our general sock manufacturing process and can be adapted to client technical order requirements.",
     },
     quality: {
-      eyebrow: "QUALITY ASSURANCE",
-      title: "Strict Inspection Protocols at Every Production Stage",
+      eyebrow: "QUALITY ASSURANCE (QC)",
+      title: "Structured Inspection Guided by AQL Standards",
       description:
-        "To us, quality is not merely surface appearance, but knit integrity, repeated wear endurance, and complete satisfaction for our B2B partners.",
-      qcStation: "QC & Verification Station",
-      operatorRole: "QC Operator",
-      operatorTitle: "100% Visual Checking",
-      physicalTitle: "100% Physical Verification",
-      physicalSubtitle: "Real, measured internal quality control for every batch",
+        "PT. Sinlie Cahaya Matahari implements a disciplined Quality Control function to ensure finished products conform strictly to agreed specifications.",
+      qcStation: "Quality Inspection Station",
+      operatorRole: "Quality Control Team",
+      operatorTitle: "Physical & Visual Inspection",
+      physicalTitle: "Structured Quality Control Function",
+      physicalSubtitle: "Product consistency checks operating in reference to AQL standards",
       physicalDesc:
-        "We implement disciplined internal quality control on every batch prior to packing. Any item exhibiting dimensional variance or stitch irregularities is segregated from the shipment.",
-      protocol1: "Anti-Defect Protocol",
-      protocol2: "100% Visual Inspection",
+        "Quality control is carried out to verify stitch density, dimensional sizing stability, and surface visual cleanliness before final packing. Any items falling outside agreed specifications are segregated immediately.",
+      protocol1: "AQL Standard Guidelines",
+      protocol2: "Density & Dimension Inspection",
     },
     gallery: {
-      eyebrow: "FACILITY & PRODUCTION FLOOR",
-      title: "Transparent SCM Manufacturing Infrastructure",
+      eyebrow: "VISUAL DOCUMENTATION",
+      title: "Manufacturing Facility & Production Process Overview",
       description:
-        "Explore our computerized knitting lines, thermal steam boarding stations, quality control tables, and packaging logistics facilities.",
+        "Illustrative visual documentation of our knitting lines, finishing stations, quality inspection tables, and packaging operations.",
       visitNotice:
-        "Physical Facility Visits: Buyer partners and corporate procurement auditors are welcome to inspect SCM facilities directly via prior appointment.",
-      factoryStatus: "Factory Status: Fully Operational",
+        "Facility Visits: On-site verification visits may be scheduled through prior coordination with our management team.",
+      previewBadge: "Illustrative Documentation",
     },
     faq: {
       eyebrow: "B2B PROCUREMENT FAQ",
-      title: "Procurement Transparency & OEM Contract Services",
+      title: "Manufacturing, Market Reach & Order Information",
       description:
-        "Answers to common queries regarding MOQ, sampling lead times, private label workflows, and design confidentiality.",
-      boxTitle: "Have Specific Tech-Pack Needs?",
-      boxSubtitle: "Consult directly with our factory engineering team.",
+        "Answers to common queries regarding production capacity, material flexibility, packaging, and export markets.",
+      boxTitle: "Have Specific Product Requirements?",
+      boxSubtitle: "Discuss your manufacturing needs directly with our team.",
       boxDesc:
-        "Every brand has unique fiber preferences and fitting standards. We are ready to discuss sizing tolerances, yarn compositions, and custom packaging.",
-      boxBtn: "Request Custom Consultation",
+        "Every project has distinct material criteria and market targets. We are ready to discuss sizing tolerances, yarn blends, and custom packaging options.",
+      boxBtn: "Submit a Quotation Request",
     },
     contact: {
-      tag: "B2B INQUIRY & QUOTATION",
-      title: "Start Your Sock Manufacturing Partnership",
+      tag: "B2B DIRECT INQUIRY",
+      title: "Contact Us for Sock Manufacturing Consultation",
       description:
-        "Discuss your production volume, custom design patterns, or product sample requests with PT. Sinlie Cahaya Matahari's technical team.",
-      phoneLabel: "Phone & B2B WhatsApp",
-      phoneHours: "Fast response during operating hours (08:00 - 17:00 WIB)",
-      emailLabel: "Official Quotation Email",
-      emailDesc: "Send your RFQ documents, tech-pack, or design specification sheets",
-      visitLabel: "Factory Facility Visits",
-      visitDesc: "Available by appointment for prospective buyers and quality auditors",
-      formTitle: "Request for Quotation (RFQ) Form",
-      formDesc: "Complete the details below for production price and capacity estimates.",
-      nameLabel: "Full Name *",
-      namePlaceholder: "E.g., John Doe",
-      companyLabel: "Company / Brand Name *",
-      companyPlaceholder: "E.g., Global Apparel Brands Ltd.",
-      emailInputLabel: "Official Email Address *",
-      emailInputPlaceholder: "john@company.com",
-      phoneInputLabel: "WhatsApp / Mobile Number *",
-      phoneInputPlaceholder: "+62 812-3456-7890",
-      categoryLabel: "Product Category",
-      categoryDefault: "Select Sock Category",
-      categoryCustom: "Custom OEM Order",
-      volumeLabel: "Estimated Quantity (Dozens)",
-      volumePlaceholder: "E.g., 500 dozens",
-      messageLabel: "Project Requirements or Specifications *",
-      messagePlaceholder:
-        "Detail your yarn preference, gauge specs, sizing, or target delivery schedule...",
-      privacyNotice:
-        "Form data is securely processed solely for official PT. Sinlie Cahaya Matahari B2B manufacturing quotations.",
-      submitBtn: "Send Request for Quote (RFQ)",
-      successTitle: "Your Request Has Been Recorded!",
-      successDesc:
-        "Thank you for your interest in SCM manufacturing services. Our procurement team will follow up on your quotation shortly.",
-      sendAnother: "Submit another inquiry",
+        "Discuss your product specifications, production volumes, or commercial inquiries directly with PT. Sinlie Cahaya Matahari through our official contact channels.",
+      emailTitle: "Official Quotation & Business Email",
+      emailDesc:
+        "Send your partnership inquiries, tech pack specification sheets, or sock procurement documentation directly to our team.",
+      emailCta: "Send Direct Email",
+      phoneTitle: "Telephone & Business Desk",
+      phoneDesc:
+        "Operational telephone desk for sock manufacturing inquiries.",
+      phonePending:
+        "Direct telephone desk is currently pending final management confirmation. For immediate assistance, please contact us via official email.",
+      locationTitle: "Factory Facility Location",
+      locationDesc:
+        "Indonesia. Physical facility visits and on-site buyer audits can be scheduled through prior appointment.",
+      hoursTitle: "Business Hours",
+      hoursDesc:
+        "Monday - Friday: 08:00 - 17:00 WIB (Western Indonesia Time). Active response during operating hours.",
+      quoteGuideTag: "QUOTATION GUIDANCE",
+      quoteGuideTitle: "Requesting a Quotation?",
+      quoteGuideDesc:
+        "To expedite technical review and quotation estimation, we recommend including the following details in your email inquiry:",
+      quoteGuideItems: [
+        "Estimated order volume (dozens) and target production timeline",
+        "Target sock category (baby, kids, ladies, men's formal, athletic, or custom)",
+        "Yarn material preferences (cotton, spandex, elastic) and pattern references",
+        "Packaging preferences (standard dozen format or custom packaging specs)",
+      ],
+      quoteCtaBtn: "Open Quotation Email Draft",
+      quoteEmailSubject: "Sock Manufacturing Quotation Inquiry - SCM",
+      copyEmailBtn: "Copy Email Address",
+      copiedText: "Email Copied!",
     },
     footer: {
-      bio: "Specialist B2B sock manufacturing partner in Indonesia. Providing calibrated knitting precision, premium yarn durability, and trusted mass capacity for retail brands and corporations.",
+      bio: "PT. Sinlie Cahaya Matahari provides quality sock manufacturing solutions with experience in the industry since 2018. Serving domestic and international export orders to the United States and Europe with a maximum operational capacity of up to 1,000,000 dozen socks per month.",
       subBio: "Modern Industrial Sock Manufacturing",
       navTitle: "Navigation",
       catTitle: "Product Categories",
-      contactTitle: "Contact & Factory",
-      locationLabel: "Factory Location:",
-      locationDesc: "(Available for B2B buyer visits by prior appointment)",
+      contactTitle: "Contact & Information",
+      locationLabel: "Facility Location:",
       copyright: "PT. Sinlie Cahaya Matahari. All Rights Reserved.",
-      partnerTag: "Precision Sock Manufacturing Partner",
+      partnerTag: "Precision in Every Stitch",
       backToTop: "Back to Top ↑",
     },
-    rfqModal: {
-      title: "Request for Quotation (RFQ)",
-      description: "Get production cost estimates, MOQ guidelines, and sample schedules from SCM's engineering team.",
-      submitBtn: "Submit RFQ Document",
-      successTitle: "RFQ Successfully Sent!",
-      successDesc: "SCM manufacturing engineers will review your tech-pack and specification details within 1 business day.",
-      closeBtn: "Close",
-    },
     widget: {
-      inquiry: "Quick B2B Consultation",
+      inquiry: "B2B Consultation",
       hours: "Mon - Fri 08:00 - 17:00 WIB",
-      callNow: "Contact on WhatsApp",
-      rfqBtn: "Request a Quote (RFQ)",
+      quoteBtn: "Contact SCM",
     },
   },
 };

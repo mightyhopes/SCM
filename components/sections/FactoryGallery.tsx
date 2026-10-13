@@ -20,90 +20,15 @@ import { ImageLightbox, LightboxImage } from "@/components/ui/ImageLightbox";
 import { GALLERY_ITEMS } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
-const GALLERY_METRICS: Record<
-  string,
-  {
-    icon: typeof Factory;
-    badge: string;
-    badgeEn: string;
-    detail: string;
-    detailEn: string;
-    techSpecs: string[];
-    techSpecsEn: string[];
-  }
-> = {
-  "gal-1": {
-    icon: Factory,
-    badge: "Active Knitting Line",
-    badgeEn: "Active Knitting Line",
-    detail: "Jajaran mesin rajut silinder tunggal & ganda berkecepatan tinggi dengan sistem komputerisasi pola terintegrasi.",
-    detailEn: "High-speed single and double cylinder computerized knitting machines with integrated digital pattern systems.",
-    techSpecs: ["Multi-gauge 96N - 200N", "Kecepatan 300-340 RPM", "Zero-stop Automatic Yarn Feeder"],
-    techSpecsEn: ["Multi-gauge 96N - 200N", "Speed 300-340 RPM", "Zero-stop Automatic Yarn Feeder"],
-  },
-  "gal-2": {
-    icon: Layers,
-    badge: "Yarn & Fiber Integrity",
-    badgeEn: "Yarn & Fiber Integrity",
-    detail: "Penyortiran material katun combed bermutu tinggi, benang spandeks elastis, dan benang nilon untuk daya tahan maksimal.",
-    detailEn: "Screening of premium combed cotton, high-recovery spandex core, and durable nylon yarns for maximum longevity.",
-    techSpecs: ["Combed Cotton 30s/40s", "High-recovery Spandex Core", "Warna Reaktif Tahan Cuci"],
-    techSpecsEn: ["Combed Cotton 30s/40s", "High-recovery Spandex Core", "Wash-Resistant Reactive Dyes"],
-  },
-  "gal-3": {
-    icon: Cpu,
-    badge: "Thermal Boarding",
-    badgeEn: "Thermal Boarding",
-    detail: "Mesin setting uap suhu terkontrol untuk mengunci dimensi dan bentuk anatomis kaus kaki agar konsisten per ukuran.",
-    detailEn: "Temperature-controlled steam setting presses to lock anatomical shape and guarantee consistent sizing per batch.",
-    techSpecs: ["Presisi Dimensi ±0.5 cm", "Steam Heat Setting", "Anti-shrink Stabilization"],
-    techSpecsEn: ["Dimensional Precision ±0.5 cm", "Steam Heat Setting", "Anti-shrink Stabilization"],
-  },
-  "gal-4": {
-    icon: ShieldCheck,
-    badge: "Dual QA Inspection",
-    badgeEn: "Dual QA Inspection",
-    detail: "Meja inspeksi visual 100% dan sensor detektor jarum untuk memastikan keselamatan pemakai akhir.",
-    detailEn: "100% manual visual inspection stations and calibrated metal detectors ensuring absolute wearer safety.",
-    techSpecs: ["100% Manual Visual Check", "Sensitivitas Deteksi Logam 0.8mm", "Uji Elastisitas Cuff"],
-    techSpecsEn: ["100% Manual Visual Check", "0.8mm Metal Sensitivity", "Cuff Elasticity Verification"],
-  },
-  "gal-5": {
-    icon: Package,
-    badge: "Manual Packing & Inspection",
-    badgeEn: "Manual Packing & Inspection",
-    detail: "Pengecekan fisik tahap akhir, pelipatan presisi, dan pengemasan ke dalam kotak dan polybag ritel.",
-    detailEn: "Final physical verification, neat folding, and packing into retail polybags and master cartons.",
-    techSpecs: ["Pengecekan Label", "Polybag Per Lusin", "QC Double-Check"],
-    techSpecsEn: ["Brand Label Check", "Polybag Per Dozen", "QC Double-Check"],
-  },
-  "gal-6": {
-    icon: Layers,
-    badge: "Jacquard Weave Detail",
-    badgeEn: "Jacquard Weave Detail",
-    detail: "Pola rajutan jacquard presisi tinggi dengan kerapatan benang stabil untuk ketajaman visual logo brand.",
-    detailEn: "High-definition computerized jacquard knitting with stable thread tension for sharp brand logo rendering.",
-    techSpecs: ["Motif Kustom Komputer", "High-density Weave", "Elastisitas Stabil"],
-    techSpecsEn: ["Custom Digital Pattern", "High-density Weave", "Stable Elasticity"],
-  },
-  "gal-7": {
-    icon: Package,
-    badge: "Inventory & Warehouse",
-    badgeEn: "Inventory & Warehouse",
-    detail: "Area penyimpanan dan manajemen stok dengan kontrol kelembapan untuk menjaga kesegaran serat katun.",
-    detailEn: "Climate-controlled storage and warehouse inventory management preserving natural cotton fiber integrity.",
-    techSpecs: ["Kontrol Kelembapan", "Sistem Batching FIFO", "Karton Standar Ekspor"],
-    techSpecsEn: ["Climate Control", "FIFO Batching System", "Export Standard Cartons"],
-  },
-  "gal-8": {
-    icon: Truck,
-    badge: "Fleet & Dispatch",
-    badgeEn: "Fleet & Dispatch",
-    detail: "Armada logistik terintegrasi untuk pengantaran tepat waktu ke pusat distribusi ritel dan jaringan grosir mitra.",
-    detailEn: "Dedicated logistics fleet for prompt dispatch to wholesale distribution centers and retail hubs.",
-    techSpecs: ["Armada Khusus Pabrik", "On-time Dispatch", "Tracking Pengiriman B2B"],
-    techSpecsEn: ["Dedicated Factory Fleet", "On-time Dispatch", "B2B Freight Tracking"],
-  },
+const GALLERY_ICONS: Record<string, typeof Factory> = {
+  "gal-1": Factory,
+  "gal-2": Layers,
+  "gal-3": Cpu,
+  "gal-4": ShieldCheck,
+  "gal-5": Package,
+  "gal-6": Layers,
+  "gal-7": Package,
+  "gal-8": Truck,
 };
 
 export function FactoryGallery() {
@@ -113,23 +38,22 @@ export function FactoryGallery() {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const handleOpenLightbox = (item: (typeof GALLERY_ITEMS)[number]) => {
-    const meta = GALLERY_METRICS[item.id] || GALLERY_METRICS["gal-1"];
     const title = isEn ? item.titleEn : item.title;
     const category = isEn ? item.categoryEn : item.category;
-    const detail = isEn ? meta.detailEn : meta.detail;
+    const caption = isEn ? item.captionEn : item.caption;
 
     setSelectedImage({
       src: item.image,
       title,
       category,
       dimensions: item.dimensions,
-      alt: `${title} - ${detail}`,
+      alt: `${title} - ${caption}`,
     });
     setIsLightboxOpen(true);
   };
 
   return (
-    <section id="gallery" className="py-20 lg:py-28 bg-surface border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
       <Container size="default">
         <ScrollReveal duration={600} direction="up">
           <SectionHeading
@@ -143,20 +67,17 @@ export function FactoryGallery() {
         {/* Dynamic Visual Wall Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {GALLERY_ITEMS.map((item, idx) => {
-            const meta = GALLERY_METRICS[item.id] || GALLERY_METRICS["gal-1"];
-            const Icon = meta.icon;
+            const Icon = GALLERY_ICONS[item.id] || Factory;
             const title = isEn ? item.titleEn : item.title;
             const category = isEn ? item.categoryEn : item.category;
-            const badge = isEn ? meta.badgeEn : meta.badge;
-            const detail = isEn ? meta.detailEn : meta.detail;
-            const specs = isEn ? meta.techSpecsEn : meta.techSpecs;
+            const caption = isEn ? item.captionEn : item.caption;
 
             return (
               <ScrollReveal
                 key={item.id}
-                duration={500}
+                duration={600}
                 delay={idx * 60}
-                direction="up"
+                variant="blur-in"
                 className="h-full"
               >
                 <div
@@ -193,7 +114,7 @@ export function FactoryGallery() {
                     <div className="absolute bottom-3 left-3 right-3 z-10 space-y-1">
                       <div className="flex items-center gap-1.5 text-accent text-[11px] font-mono font-bold">
                         <Icon className="size-3.5" />
-                        <span className="uppercase tracking-wider">{badge}</span>
+                        <span className="uppercase tracking-wider">SCM Process</span>
                       </div>
                       <h3 className="text-sm font-bold text-white leading-snug line-clamp-2 drop-shadow-xs">
                         {title}
@@ -201,21 +122,15 @@ export function FactoryGallery() {
                     </div>
                   </div>
 
-                  {/* Operational Technical Detail Strip */}
+                  {/* Caption Strip */}
                   <div className="p-4 bg-surface flex-1 flex flex-col justify-between border-t border-border/80">
                     <p className="text-xs text-text-secondary leading-relaxed line-clamp-2">
-                      {detail}
+                      {caption}
                     </p>
 
-                    <div className="mt-3 pt-2.5 border-t border-border flex items-center gap-1.5 flex-wrap">
-                      {specs.slice(0, 2).map((spec, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-surface-muted border border-border text-text-secondary"
-                        >
-                          {spec}
-                        </span>
-                      ))}
+                    <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between text-[10px] font-mono text-text-secondary">
+                      <span>{category}</span>
+                      <span className="text-primary font-bold">{t.gallery.previewBadge}</span>
                     </div>
                   </div>
                 </div>
@@ -226,13 +141,13 @@ export function FactoryGallery() {
 
         {/* Industrial Transparency Note */}
         <ScrollReveal duration={600} direction="up" className="mt-10">
-          <div className="p-5 rounded-2xl bg-surface-muted border border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-secondary">
+          <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-secondary shadow-2xs">
             <div className="flex items-center gap-2.5">
               <Info className="size-4 text-primary shrink-0" />
               <span>{t.gallery.visitNotice}</span>
             </div>
             <span className="font-mono text-primary text-[11px] font-bold shrink-0">
-              {t.gallery.factoryStatus}
+              PT. Sinlie Cahaya Matahari
             </span>
           </div>
         </ScrollReveal>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sliders, Ruler, ShieldAlert, CheckCircle2, Shield, Eye } from "lucide-react";
+import { Sliders, Ruler, Eye, CheckCircle2, Shield } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const iconMap = {
   Sliders,
   Ruler,
-  ShieldAlert,
+  Eye,
   CheckCircle2,
 };
 
@@ -22,11 +22,11 @@ export function QualitySection() {
   const isEn = language === "en";
 
   return (
-    <section className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface border-b border-border">
       <Container size="default">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Heading, Integrity Commitment & Editorial QA Imagery */}
-          <ScrollReveal duration={600} direction="up" className="lg:col-span-5 space-y-6">
+          <ScrollReveal duration={600} variant="slide-right" className="lg:col-span-5 space-y-6">
             <SectionHeading
               eyebrow={t.quality.eyebrow}
               title={t.quality.title}
@@ -50,12 +50,12 @@ export function QualitySection() {
                   <span>{t.quality.qcStation}</span>
                 </div>
 
-                {/* Floating Worker Inspection Accent */}
+                {/* Floating Inspection Accent */}
                 <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2.5 bg-surface/95 backdrop-blur-xs p-1.5 pr-3 rounded-xl border border-border shadow-lg">
                   <div className="relative size-11 rounded-lg overflow-hidden border border-border shrink-0">
                     <Image
                       src="/images/dummy/05_worker_quality_control.jpg"
-                      alt="Operator Quality Control SCM"
+                      alt="Tim Quality Control SCM"
                       fill
                       sizes="44px"
                       className="object-cover"
@@ -73,7 +73,7 @@ export function QualitySection() {
               </div>
             </div>
 
-            <div className="p-6 sm:p-7 rounded-2xl bg-surface border border-border shadow-xs space-y-4">
+            <div className="p-6 sm:p-7 rounded-2xl bg-surface-muted/60 border border-border shadow-xs space-y-4">
               <div className="flex items-center gap-3">
                 <div className="size-11 rounded-xl bg-primary text-text-inverse flex items-center justify-center shrink-0">
                   <Shield className="size-5 text-accent" />
@@ -96,7 +96,7 @@ export function QualitySection() {
                 <Badge variant="secondary" className="text-[10px] bg-secondary-light text-primary font-bold">
                   {t.quality.protocol1}
                 </Badge>
-                <Badge variant="outline" className="text-[10px] text-text-secondary border-border">
+                <Badge variant="outline" className="text-[10px] text-text-secondary border-border bg-surface">
                   {t.quality.protocol2}
                 </Badge>
               </div>
@@ -116,8 +116,8 @@ export function QualitySection() {
                 <ScrollReveal
                   key={index}
                   duration={500}
-                  delay={index * 75}
-                  direction="up"
+                  delay={index * 80}
+                  variant="badge-stamp"
                   className="h-full"
                 >
                   <div className="p-6 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-xs hover:shadow-md flex flex-col justify-between h-full">

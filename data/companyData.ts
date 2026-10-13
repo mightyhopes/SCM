@@ -1,13 +1,13 @@
 export type SockSegment = "baby" | "kids" | "ladies" | "mens" | "athletic" | "custom";
 
-export type NeedleCount = "96N" | "108N" | "144N" | "168N" | "200N";
-
 export interface StatItem {
   readonly id: string;
   readonly value: string;
+  readonly valueEn: string;
   readonly label: string;
+  readonly labelEn: string;
   readonly description: string;
-  readonly isVerified: boolean;
+  readonly descriptionEn: string;
 }
 
 export interface ProductCategory {
@@ -15,7 +15,7 @@ export interface ProductCategory {
   readonly title: string;
   readonly titleEn: string;
   readonly segment: SockSegment;
-  readonly needleCounts: readonly NeedleCount[];
+  readonly needleCounts: readonly string[];
   readonly description: string;
   readonly descriptionEn: string;
   readonly highlights: readonly string[];
@@ -23,11 +23,6 @@ export interface ProductCategory {
   readonly materialComposition: string;
   readonly materialCompositionEn: string;
   readonly image: string;
-  readonly imagePlaceholder: {
-    readonly label: string;
-    readonly suggestedRatio: string;
-    readonly aspectRatio: string;
-  };
 }
 
 export interface CapabilityItem {
@@ -74,9 +69,10 @@ export interface GalleryItem {
   readonly category: string;
   readonly categoryEn: string;
   readonly aspect: "landscape" | "portrait" | "square";
-  readonly placeholderText: string;
   readonly dimensions: string;
   readonly image: string;
+  readonly caption: string;
+  readonly captionEn: string;
 }
 
 export interface B2BFAQ {
@@ -92,56 +88,92 @@ export const COMPANY_INFO = {
   name: "PT. Sinlie Cahaya Matahari",
   shortName: "SCM",
   tagline: "Precision in Every Stitch",
-  taglineId: "Presisi di Setiap Rajutan Kaus Kaki",
-  establishedYear: "2018", // Subject to verification (Incorporated 2023)
+  taglineId: "Presisi di Setiap Rajutan",
+  experienceSince: "2018",
+  incorporatedYear: "2023",
   location: "Indonesia",
   contact: {
     email: "inquiry@sinliecahayamatahari.com",
-    phone: "+62 812-XXXX-XXXX",
-    whatsapp: "+62 812-XXXX-XXXX",
+    // Configurable phone & WhatsApp fields. Guarded by isVerified flag to prevent unverified links.
+    phone: {
+      number: "",
+      display: "+62 21-XXXX-XXXX",
+      isVerified: false,
+    },
+    whatsapp: {
+      number: "",
+      display: "+62 812-XXXX-XXXX",
+      isVerified: false,
+    },
     address: "Kawasan Industri, Indonesia",
     operatingHours: "Senin - Jumat: 08:00 - 17:00 WIB",
+    operatingHoursEn: "Monday - Friday: 08:00 - 17:00 WIB",
+  },
+  // Configurable operational capacity - client confirmed maximum capacity
+  productionCapacity: {
+    value: "1.000.000",
+    valueEn: "1,000,000",
+    unit: "Lusin / Bulan",
+    unitEn: "Dozen / Month",
   },
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Tentang Kami", href: "#about" },
-  { label: "Kategori Produk", href: "#products" },
-  { label: "Kapabilitas Pabrik", href: "#capabilities" },
-  { label: "Proses Produksi", href: "#process" },
-  { label: "Galeri", href: "#gallery" },
-  { label: "FAQ B2B", href: "#faq" },
-  { label: "Kontak", href: "#contact" },
+  { label: "Tentang Kami", labelEn: "About Us", href: "#about" },
+  { label: "Jangkauan Pasar", labelEn: "Markets", href: "#markets" },
+  { label: "Kategori Produk", labelEn: "Products", href: "#products" },
+  { label: "Kapabilitas Pabrik", labelEn: "Capabilities", href: "#capabilities" },
+  { label: "Proses Produksi", labelEn: "Process", href: "#process" },
+  { label: "Kendali Mutu", labelEn: "Quality", href: "#quality" },
+  { label: "Galeri", labelEn: "Gallery", href: "#gallery" },
+  { label: "FAQ B2B", labelEn: "FAQ", href: "#faq" },
+  { label: "Kontak", labelEn: "Contact", href: "#contact" },
 ] as const;
 
 export const COMPANY_STATS: readonly StatItem[] = [
   {
     id: "capacity",
-    value: "100.000+",
-    label: "Lusin / Bulan",
-    description: "Estimasi kapasitas produksi bulanan (Menunggu konfirmasi final)",
-    isVerified: false,
+    value: "1.000.000",
+    valueEn: "1,000,000",
+    label: "Kapasitas Maksimum Produksi (Lusin / Bulan)",
+    labelEn: "Maximum Production Capacity (Dozen / Month)",
+    description:
+      "Kapasitas maksimum operasional, dengan realisasi produksi menyesuaikan spesifikasi produk dan kebutuhan pesanan.",
+    descriptionEn:
+      "Maximum operational production capacity, subject to product specifications and production requirements.",
   },
   {
     id: "experience",
-    value: "2018*",
-    label: "Tahun Berdiri",
-    description: "Awal kiprah manufaktur (Badan hukum resmi terdaftar Maret 2023)",
-    isVerified: false,
+    value: "2018",
+    valueEn: "2018",
+    label: "Pengalaman Industri Kaos Kaki",
+    labelEn: "Sock Industry Experience",
+    description:
+      "Pengalaman di industri kaos kaki sejak 2018, dengan entitas legal PT. Sinlie Cahaya Matahari berdiri pada 2023.",
+    descriptionEn:
+      "With experience in the sock industry since 2018, legally established as PT. Sinlie Cahaya Matahari in 2023.",
   },
   {
-    id: "categories",
-    value: "4+",
-    label: "Kategori Utama",
-    description: "Bayi, Anak-anak, Wanita, dan Pria dengan spesifikasi kustom",
-    isVerified: true,
+    id: "markets",
+    value: "Domestik & Ekspor",
+    valueEn: "Domestic & Export",
+    label: "Jangkauan Pasar",
+    labelEn: "Target Markets",
+    description:
+      "Melayani pasar domestik dan internasional, dengan pesanan ekspor terutama menjangkau Amerika Serikat dan Eropa.",
+    descriptionEn:
+      "Serving domestic and international markets, with export orders primarily reaching the United States and Europe.",
   },
   {
-    id: "inspection",
-    value: "100%",
-    label: "Quality Checking",
-    description: "Pemeriksaan konsistensi rajutan dan standar ketahanan sebelum pengemasan",
-    isVerified: true,
+    id: "quality",
+    value: "Standar AQL",
+    valueEn: "AQL Standards",
+    label: "Kendali Mutu (QC)",
+    labelEn: "Quality Control (QC)",
+    description:
+      "Fungsi Quality Control terstruktur untuk memastikan kesesuaian produk dengan mengacu pada pedoman standar AQL.",
+    descriptionEn:
+      "Structured Quality Control function ensuring product compliance in reference to AQL standard guidelines.",
   },
 ];
 
@@ -153,27 +185,24 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
     segment: "baby",
     needleCounts: ["96N", "108N"],
     description:
-      "Dibuat dengan benang katun combed pilihan ekstra lembut, elastisitas non-constricting, serta opsi alas anti-slip silikon yang aman untuk kulit sensitif bayi.",
+      "Dibuat dengan benang pilihan ekstra lembut, elastisitas fleksibel, serta opsi pola rajutan yang nyaman untuk kulit sensitif bayi.",
     descriptionEn:
-      "Crafted with ultra-soft selected combed cotton, non-constricting elasticity, and safe anti-slip silicone grip options tailored for delicate infant skin.",
+      "Crafted with ultra-soft selected yarns, flexible elasticity, and gentle knit patterns tailored for delicate infant skin.",
     highlights: [
-      "Ultra-soft Combed Cotton",
-      "Anti-slip Silicone Grip Option",
-      "Elastis Lembut Tanpa Bekas",
+      "Material Lembut & Nyaman",
+      "Elastisitas Fleksibel Tanpa Bekas",
+      "Opsi Kustomisasi Desain & Warna",
     ],
     highlightsEn: [
-      "Ultra-soft Combed Cotton",
-      "Anti-slip Silicone Grip Option",
-      "Gentle Non-Marking Elastic",
+      "Ultra-soft & Gentle Material",
+      "Flexible Non-Marking Elasticity",
+      "Custom Pattern & Color Options",
     ],
-    materialComposition: "Katun Combed 30s/40s, Spandex Cover, Karet Lembut",
-    materialCompositionEn: "Combed Cotton 30s/40s, Spandex Cover, Gentle Elastic",
+    materialComposition:
+      "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
+    materialCompositionEn:
+      "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
     image: "/images/dummy/08_baby_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Bayi",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
   {
     id: "kids-socks",
@@ -182,27 +211,24 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
     segment: "kids",
     needleCounts: ["108N", "144N"],
     description:
-      "Konstruksi rajutan padat berdaya tahan tinggi untuk aktivitas harian sekolah. Menyerap keringat optimal dengan pola warna-warni presisi tinggi.",
+      "Konstruksi rajutan berdaya tahan baik untuk aktivitas harian anak dan sekolah. Menyerap keringat dengan opsi variasi pola dan warna.",
     descriptionEn:
-      "High-durability dense knit construction designed for active daily school routines. Delivers optimal moisture-wicking and vibrant pattern precision.",
+      "Durable knit construction designed for active daily routines and school uniforms. Breathable with versatile colorway options.",
     highlights: [
-      "Rajutan Padat Tahan Gesekan",
-      "High Breathability",
-      "Pilihan Motif Karakter & Polos",
+      "Rajutan Tahan Gesekan",
+      "Sirkulasi Udara Nyaman",
+      "Pilihan Warna Seragam & Pola Kustom",
     ],
     highlightsEn: [
-      "High-Friction Resistant Knit",
-      "Optimal Breathability",
-      "Custom Graphic & Solid Colorway",
+      "Friction-Resistant Knit Structure",
+      "Comfortable Daily Breathability",
+      "Uniform Colors & Custom Patterns",
     ],
-    materialComposition: "Katun Combed, TC Berkualitas, Spandex Elastis",
-    materialCompositionEn: "Combed Cotton, Quality TC, Flexible Spandex",
+    materialComposition:
+      "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
+    materialCompositionEn:
+      "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
     image: "/images/dummy/09_kids_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Anak",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
   {
     id: "ladies-socks",
@@ -211,27 +237,24 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
     segment: "ladies",
     needleCounts: ["144N", "168N", "200N"],
     description:
-      "Variasi model ankle, hidden/no-show, crew, dan fashion socks dengan rajutan halus, siluet pas di kaki, dan kenyamanan ventilasi maksimal.",
+      "Variasi model ankle, hidden, crew, dan model fesyen dengan rajutan rapi, kenyamanan fitting pas di kaki, dan sirkulasi udara baik.",
     descriptionEn:
-      "Versatile ankle, hidden/no-show, crew, and stylish fashion socks with ultra-fine stitch density, ergonomic foot contouring, and superior ventilation.",
+      "Versatile ankle, hidden, crew, and fashion models featuring clean knit textures, comfortable contour fitting, and good ventilation.",
     highlights: [
-      "Ankle, Hidden & Crew Styles",
-      "Seamless Toe Linking",
-      "Finishing Halus & Modis",
+      "Model Ankle, Hidden & Crew",
+      "Finishing Rapi & Nyaman",
+      "Pilihan Tekstur & Ketebalan Variatif",
     ],
     highlightsEn: [
-      "Ankle, Hidden & Crew Styles",
-      "Seamless Toe Linking",
-      "Fine Fashion Finishing",
+      "Ankle, Hidden & Crew Models",
+      "Neat & Comfortable Finishing",
+      "Versatile Texture & Weight Options",
     ],
-    materialComposition: "Fine Combed Cotton, Poliester Ringan, Spandex",
-    materialCompositionEn: "Fine Combed Cotton, Lightweight Polyester, Spandex",
+    materialComposition:
+      "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
+    materialCompositionEn:
+      "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
     image: "/images/dummy/10_ladies_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Wanita",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
   {
     id: "mens-socks",
@@ -240,179 +263,170 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
     segment: "mens",
     needleCounts: ["144N", "168N"],
     description:
-      "Kaus kaki formal eksekutif dan dress socks berkerapatan tinggi dengan fitting ergonomis tumit Y-heel, tidak mudah melorot, dan sejuk digunakan sepanjang hari.",
+      "Kaus kaki formal dan klasik dengan kerapatan rajutan teratur, elastisitas mantap, serta kenyamanan penggunaan sepanjang hari.",
     descriptionEn:
-      "Executive formal and dress socks featuring high knit density, deep ergonomic Y-heel contouring, non-slip cuffs, and all-day breathable comfort.",
+      "Classic and formal socks featuring uniform knit gauge, dependable elastic hold, and reliable all-day comfort.",
     highlights: [
-      "Ergonomic Y-Heel Pocket",
-      "Reinforced Heel & Toe",
-      "Stay-Up Ribbed Top Band",
+      "Fitting Tumit Pas & Ergonomis",
+      "Bagian Cuff Elastis & Rapi",
+      "Warna Formal & Bisnis Konsisten",
     ],
     highlightsEn: [
-      "Ergonomic Y-Heel Pocket",
-      "Reinforced Heel & Toe",
-      "Stay-Up Ribbed Top Band",
+      "Snug & Ergonomic Heel Contours",
+      "Neat & Dependable Elastic Cuff",
+      "Consistent Business & Formal Colors",
     ],
-    materialComposition: "Fine Combed Cotton 40s, Poliamida, High-Recovery Spandex",
-    materialCompositionEn: "Fine Combed Cotton 40s, Polyamide, High-Recovery Spandex",
+    materialComposition:
+      "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
+    materialCompositionEn:
+      "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
     image: "/images/dummy/11_mens_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Pria Formal",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
   {
     id: "sport-socks",
     title: "Kaus Kaki Olahraga & Athletic",
-    titleEn: "Performance Athletic Socks",
+    titleEn: "Athletic & Sport Socks",
     segment: "athletic",
     needleCounts: ["144N", "168N"],
     description:
-      "Kaus kaki olahraga performa tinggi dengan bantalan (terry cushion) di telapak untuk peredam impak, kompresi arch support, serta sirkulasi udara optimal.",
+      "Kaus kaki aktivitas aktif dan olahraga dengan opsi bantalan rajut (cushioning) serta daya elastisitas yang mendukung pergerakan kaki.",
     descriptionEn:
-      "High-performance sports socks with dense terry cushion soles for shock absorption, dynamic elastic arch compression, and instep mesh airflow.",
+      "Active and sport socks with optional knit cushioning and resilient elasticity supporting dynamic foot movement.",
     highlights: [
-      "Terry Cushion Shock Absorption",
-      "Dynamic Arch Compression Band",
-      "Breathable Mesh Ventilation",
+      "Opsi Bantalan Telapak (Cushion)",
+      "Dukungan Elastisitas Lengkung Kaki",
+      "Konstruksi Benang Kuat & Fleksibel",
     ],
     highlightsEn: [
-      "Terry Cushion Shock Absorption",
-      "Dynamic Arch Compression Band",
-      "Breathable Mesh Ventilation",
+      "Optional Sole Cushioning",
+      "Elastic Arch Support Contours",
+      "Resilient & Flexible Yarn Construction",
     ],
-    materialComposition: "Heavy Terry Combed Cotton, Spandex High-Recovery, Nilon",
-    materialCompositionEn: "Heavy Terry Combed Cotton, High-Recovery Spandex, Nylon",
+    materialComposition:
+      "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
+    materialCompositionEn:
+      "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
     image: "/images/dummy/12_sport_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Olahraga",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
   {
     id: "custom-socks",
-    title: "Kaus Kaki Desain Kustom & OEM",
-    titleEn: "Custom OEM & Private Label",
+    title: "Kaus Kaki Spesifikasi Kustom",
+    titleEn: "Custom Specification Socks",
     segment: "custom",
     needleCounts: ["144N", "168N", "200N"],
     description:
-      "Solusi manufaktur penuh untuk brand mitra: rajut jacquard logo presisi tinggi, sampling prototipe cepat, serta pengemasan label merek kustom siap jual.",
+      "Manufaktur kaus kaki yang dapat disesuaikan dengan kebutuhan spesifik pelanggan, mulai dari desain pola rajutan, komposisi bahan, hingga opsi pengemasan.",
     descriptionEn:
-      "End-to-end manufacturing solutions for brand partners: high-definition jacquard logos, rapid sample turnaround, and complete private label packaging.",
+      "Sock manufacturing adaptable to specific customer requirements, encompassing knit patterns, material compositions, and packaging options.",
     highlights: [
-      "Precision Jacquard Logo Knit",
-      "Rapid Sampling & Prototype",
-      "Full Private Label Packaging",
+      "Desain Motif & Pola Rajut Kustom",
+      "Penyesuaian Komposisi Bahan",
+      "Pilihan Pengemasan Sesuai Kebutuhan",
     ],
     highlightsEn: [
-      "Precision Jacquard Logo Knit",
-      "Rapid Sampling & Prototype",
-      "Full Private Label Packaging",
+      "Custom Knit Pattern & Design",
+      "Tailored Material Composition",
+      "Packaging Options per Requirement",
     ],
-    materialComposition: "Fleksibel sesuai tech pack (Combed Cotton, TC, Spandex, Bamboo)",
-    materialCompositionEn: "Flexible per tech pack (Combed Cotton, TC, Spandex, Bamboo)",
+    materialComposition:
+      "Komposisi bahan fleksibel sesuai kesepakatan pesanan (katun, spandex, elastik, dsb.).",
+    materialCompositionEn:
+      "Flexible material composition per order agreement (cotton, spandex, elastic, etc.).",
     image: "/images/dummy/13_custom_socks.jpg",
-    imagePlaceholder: {
-      label: "Foto Produk Kaus Kaki Kustom OEM",
-      suggestedRatio: "800 x 600 px",
-      aspectRatio: "aspect-4/3",
-    },
   },
 ];
 
 export const CAPABILITIES: readonly CapabilityItem[] = [
   {
-    id: "knitting-machinery",
-    title: "Mesin Rajut Komputerisasi Modern",
-    titleEn: "Modern Computerized Knitting Fleet",
+    id: "sock-manufacturing",
+    title: "Keahlian Manufaktur Kaos Kaki",
+    titleEn: "Dedicated Sock Manufacturing Expertise",
     description:
-      "Menggunakan jajaran mesin rajut kaus kaki otomatis berteknologi tinggi untuk memastikan kerapatan jarum presisi dan konsistensi ukuran antar batch.",
+      "Fokus pada proses manufaktur kaos kaki berkualitas dengan kerapatan rajutan konsisten dan kontrol proses perakitan yang cermat.",
     descriptionEn:
-      "Operating high-tech automated computerized sock knitting machinery to ensure exact needle gauge tension and consistent batch sizing.",
+      "Focused on high-quality sock manufacturing with consistent stitch tension and careful assembly process control.",
     iconName: "Cpu",
-    badgeText: "High Precision",
-    badgeTextEn: "High Precision",
+    badgeText: "Produksi Terarah",
+    badgeTextEn: "Focused Production",
     image: "/images/dummy/03_production_machines.jpg",
     specs: [
-      "Single & Double Cylinder Capabilities",
-      "Dukungan Kerapatan 96N - 200N",
-      "Sistem Pemrograman Pola Digital",
+      "Fokus khusus pada manufaktur produk kaos kaki",
+      "Kerapatan dan dimensi rajutan seragam antar batch",
+      "Dukungan teknis untuk berbagai kategori kaus kaki",
     ],
     specsEn: [
-      "Single & Double Cylinder Capabilities",
-      "Multi-Gauge Range 96N - 200N",
-      "Digital Pattern Programming System",
+      "Dedicated focus on sock manufacturing",
+      "Consistent stitch gauge and dimensions across batches",
+      "Technical accommodation for diverse sock categories",
     ],
   },
   {
-    id: "custom-oem",
-    title: "Layanan OEM & Private Label",
-    titleEn: "OEM & Private Label Services",
+    id: "max-capacity",
+    title: "Kapasitas Maksimum Operasional",
+    titleEn: "Maximum Operational Capacity",
     description:
-      "Solusi manufaktur menyeluruh untuk brand retail, korporasi, institusi sekolah, hingga pesanan kustom khusus dengan spesifikasi eksklusif.",
+      "Didukung kapasitas maksimum produksi hingga 1.000.000 lusin per bulan, dengan realisasi volume menyesuaikan spesifikasi produk dan pesanan.",
     descriptionEn:
-      "End-to-end contract manufacturing for retail fashion brands, corporate uniforms, educational institutions, and exclusive tech-pack custom orders.",
-    iconName: "Layers",
-    badgeText: "Full Custom",
-    badgeTextEn: "Full Custom",
+      "Supported by a maximum production capacity of up to 1,000,000 dozen socks per month, with actual output subject to product specifications and order requirements.",
+    iconName: "Factory",
+    badgeText: "Hingga 1 Juta Lusin/Bulan",
+    badgeTextEn: "Up to 1M Dozen/Month",
     image: "/images/dummy/04_production_floor.jpg",
     specs: [
-      "Kustomisasi Desain & Logo Rajut",
-      "Sampling Prototipe Sebelum Produksi Masal",
-      "Kerahasiaan Desain Brand Terjamin",
+      "Kapasitas maksimum operasional hingga 1.000.000 lusin/bulan",
+      "Skalabilitas pesanan volume besar sesuai kesepakatan",
+      "Penjadwalan produksi terencana dan transparan",
     ],
     specsEn: [
-      "Custom Graphic & Jacquard Logo Knit",
-      "Approval Prototype Sampling Before Mass Run",
-      "Guaranteed Brand Design Confidentiality",
+      "Maximum operational capacity up to 1,000,000 dozen/month",
+      "Large-volume order scalability per agreement",
+      "Planned and transparent production scheduling",
     ],
   },
   {
-    id: "yarn-materials",
-    title: "Fleksibilitas Material Benang",
-    titleEn: "Premium Yarn Material Flexibility",
+    id: "material-flexibility",
+    title: "Fleksibilitas Bahan & Benang",
+    titleEn: "Material & Yarn Flexibility",
     description:
-      "Didukung pemilihan material benang berkualitas tinggi sesuai fungsi: Katun Combed, Spandex Berkualitas, Poliester, hingga Benang Khusus.",
+      "Pemilihan dan kombinasi bahan benang (katun, spandex, elastik) yang dapat disesuaikan menurut spesifikasi dan target produk pelanggan.",
     descriptionEn:
-      "Backed by selective high-grade yarn sourcing matched to function: Combed Cotton, High-Recovery Spandex, Polyester, and Specialty Fibers.",
+      "Selective yarn material combinations (cotton, spandex, elastic) adaptable to client specifications and target product requirements.",
     iconName: "Sparkles",
-    badgeText: "Quality Yarn",
-    badgeTextEn: "Quality Yarn",
+    badgeText: "Bahan Fleksibel",
+    badgeTextEn: "Flexible Materials",
     image: "/images/dummy/14_yarn_materials.jpg",
     specs: [
-      "Benang Berstandar Kualitas Industri",
-      "Variasi Warna Luas & Konsisten",
-      "Elastisitas & Ketahanan Cuci Tinggi",
+      "Komposisi benang disesuaikan dengan permintaan pemesan",
+      "Variasi serat katun, spandex, dan elastisitas yang adaptif",
+      "Diskusi teknis pemilihan bahan sebelum tahap produksi",
     ],
     specsEn: [
-      "Industry-Standard Certified Yarn",
-      "Extensive & Batch-Consistent Color Palette",
-      "High Elasticity & Wash Endurance",
+      "Yarn compositions tailored to order specifications",
+      "Versatile cotton, spandex, and elastic fiber combinations",
+      "Technical material consultation prior to production run",
     ],
   },
   {
-    id: "finishing-packaging",
-    title: "Finishing & Pengemasan Terintegrasi",
-    titleEn: "Integrated Finishing & Packaging",
+    id: "custom-packaging",
+    title: "Pilihan Pengemasan Kustom",
+    titleEn: "Customizable Packaging Options",
     description:
-      "Fasilitas setting uap (steam boarding), penyambungan jari (linking), dan pengemasan akhir berlabel merek siap kirim ke jalur distribusi klien.",
+      "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan, baik untuk kebutuhan distribusi grosir maupun kebutuhan ritel.",
     descriptionEn:
-      "Complete steam boarding thermal setting, precision toe linking, and retail-ready private label packaging delivered direct to your logistics hub.",
+      "Packaging options can be tailored to customer requirements, accommodating both wholesale distribution and retail specifications.",
     iconName: "PackageCheck",
-    badgeText: "End-to-End",
-    badgeTextEn: "End-to-End",
-    image: "/images/dummy/16_finishing_process.jpg",
+    badgeText: "Kemasan Adaptif",
+    badgeTextEn: "Adaptive Packaging",
+    image: "/images/dummy/17_product_packaging.jpg",
     specs: [
-      "Steam Boarding untuk Bentuk Presisi",
-      "Automatic / Seamless Toe Linking",
-      "Custom Hangtag & Polybag Packaging",
+      "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan",
+      "Format kemasan per lusin atau penataan karton distribusi",
+      "Kerapian pengemasan sebelum proses pengiriman",
     ],
     specsEn: [
-      "Steam Boarding for Precise Contours",
-      "Automatic / Seamless Toe Linking",
-      "Custom Hangtag & Retail Polybag Packaging",
+      "Packaging options can be tailored to customer requirements",
+      "Per-dozen packaging or master distribution carton formats",
+      "Neat presentation inspection before dispatch",
     ],
   },
 ];
@@ -420,67 +434,67 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
 export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
   {
     step: "01",
-    title: "Preparasi Material & Yarn Sourcing",
-    titleEn: "Material Preparation & Yarn Sourcing",
+    title: "Preparasi Bahan & Benang",
+    titleEn: "Material & Yarn Preparation",
     description:
-      "Pemilihan benang katun combed, spandex, dan elastik berkualitas sesuai spesifikasi teknis pesanan klien.",
+      "Penyiapan bahan baku benang katun, spandex, dan elastik sesuai spesifikasi pesanan yang telah disepakati.",
     descriptionEn:
-      "Selective sourcing of high-grade combed cotton, spandex, and core elastics tailored to client tech-pack specifications.",
+      "Preparation of raw cotton, spandex, and elastic yarns aligned with finalized order specifications.",
     iconName: "Boxes",
-    keyMetric: "Seleksi Grade Benang",
-    keyMetricEn: "Yarn Grade Selection",
+    keyMetric: "Verifikasi Bahan Baku",
+    keyMetricEn: "Material Verification",
     image: "/images/dummy/14_yarn_materials.jpg",
   },
   {
     step: "02",
-    title: "Knitting Komputerisasi",
-    titleEn: "Computerized Knitting",
+    title: "Proses Perajutan",
+    titleEn: "Knitting Process",
     description:
-      "Pemrograman pola digital dan proses perajutan otomatis multi-gauge dengan kontrol kerapatan rajut presisi.",
+      "Pelaksanaan proses rajut dengan kontrol kerapatan jarum untuk membentuk pola dan dimensi kaus kaki yang rapi.",
     descriptionEn:
-      "Digital pattern setup and multi-gauge automated knitting with exact yarn tension and density control.",
+      "Executing the knitting process with stitch tension control to shape neat patterns and sock dimensions.",
     iconName: "Cpu",
-    keyMetric: "Multi-Gauge Automation",
-    keyMetricEn: "Multi-Gauge Automation",
+    keyMetric: "Kontrol Kerapatan Rajut",
+    keyMetricEn: "Stitch Tension Control",
     image: "/images/dummy/15_knitting_process.jpg",
   },
   {
     step: "03",
-    title: "Toe Linking & Finishing",
+    title: "Penyambungan Jari & Finishing",
     titleEn: "Toe Linking & Finishing",
     description:
-      "Penyambungan bagian jari kaus kaki menggunakan mesin linking untuk menghasilkan sambungan halus yang nyaman.",
+      "Penyambungan bagian ujung jari dan perlakuan finishing untuk kenyamanan pemakaian dan kerapian bentuk kaus kaki.",
     descriptionEn:
-      "Precision toe seam linking ensuring a smooth, non-bulky, and friction-free finish for ultimate wearer comfort.",
+      "Toe seam linking and finishing treatment ensuring comfortable wear and neat anatomical contours.",
     iconName: "GitMerge",
-    keyMetric: "Seamless Comfort Finish",
-    keyMetricEn: "Seamless Comfort Finish",
+    keyMetric: "Kenyamanan Sambungan",
+    keyMetricEn: "Seam Finish Comfort",
     image: "/images/dummy/16_finishing_process.jpg",
   },
   {
     step: "04",
-    title: "Steam Boarding & QA Check",
-    titleEn: "Steam Boarding & QA Check",
+    title: "Pemeriksaan Kualitas (QC)",
+    titleEn: "Quality Control (QC)",
     description:
-      "Pembentukan dimensi proporsional dengan panas uap serta inspeksi visual 100% dari potensi cacat rajut.",
+      "Pemeriksaan fisik dan visual produk dengan mengacu pada pedoman standar AQL sebelum masuk ke tahap pengemasan.",
     descriptionEn:
-      "Thermal steam boarding locks anatomical dimensions followed by 100% visual inspection against stitch defects.",
+      "Physical and visual inspection in reference to AQL standard guidelines prior to packaging.",
     iconName: "ShieldCheck",
-    keyMetric: "Presisi Dimensi & Bentuk",
-    keyMetricEn: "Dimensional Shape Precision",
+    keyMetric: "Pedoman Standar AQL",
+    keyMetricEn: "AQL Guideline Check",
     image: "/images/dummy/06_quality_inspection.jpg",
   },
   {
     step: "05",
-    title: "Packaging & Delivery",
-    titleEn: "Packaging & Delivery",
+    title: "Pengemasan & Pengiriman",
+    titleEn: "Packaging & Dispatch",
     description:
-      "Pemasangan label merek klien, hangtag, pengemasan per lusin/karton, dan persiapan pengiriman tepat waktu.",
+      "Pengemasan kaus kaki sesuai kebutuhan pelanggan serta penataan karton untuk pengiriman ke tujuan pemesan.",
     descriptionEn:
-      "Client brand labeling, barcode hangtags, retail polybag carton packing, and timely logistics dispatch.",
+      "Packaging tailored to customer requirements and carton preparation for delivery to client destinations.",
     iconName: "Truck",
-    keyMetric: "B2B Delivery Ready",
-    keyMetricEn: "B2B Delivery Ready",
+    keyMetric: "Pengemasan Kustom",
+    keyMetricEn: "Custom Packaging",
     image: "/images/dummy/17_product_packaging.jpg",
   },
 ];
@@ -488,50 +502,50 @@ export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
 export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
   {
     title: "Inspeksi Kerapatan & Ketegangan Rajut",
-    titleEn: "Knit Density & Tension Verification",
+    titleEn: "Knit Density & Stitch Inspection",
     description:
-      "Pemeriksaan berkala pada mesin untuk memastikan tegangan rajutan seragam di setiap pasang kaus kaki.",
+      "Pengecekan keseragaman tegangan rajutan agar setiap pasang kaus kaki memiliki elastisitas dan kerapatan yang konsisten.",
     descriptionEn:
-      "Regular automated machine checks ensuring uniform stitch tension and consistent elasticity across every single pair.",
+      "Verification of stitch tension consistency ensuring every sock pair maintains uniform elasticity and density.",
     iconName: "Sliders",
-    protocolTag: "Density Check",
-    protocolTagEn: "Density Check",
+    protocolTag: "Kontrol Rajut",
+    protocolTagEn: "Knit Inspection",
     image: "/images/dummy/06_quality_inspection.jpg",
   },
   {
-    title: "Verifikasi Dimensi & Ukuran Kaus Kaki",
+    title: "Verifikasi Dimensi & Ukuran",
     titleEn: "Dimensional & Sizing Verification",
     description:
-      "Pengukuran panjang telapak, pergelangan, dan elastisitas cuff sebelum dan sesudah proses boarding uap.",
+      "Pengukuran panjang telapak dan fitting pergelangan untuk memastikan kesesuaian ukuran dengan spesifikasi pesanan.",
     descriptionEn:
-      "Pre-and-post steam boarding measurement of sole length, ankle contours, and cuff elastic recovery.",
+      "Measurement of sole length and ankle fit ensuring sizing adherence to customer order specifications.",
     iconName: "Ruler",
-    protocolTag: "Dimensional Accuracy",
-    protocolTagEn: "Dimensional Accuracy",
+    protocolTag: "Akurasi Ukuran",
+    protocolTagEn: "Sizing Accuracy",
     image: "/images/dummy/05_worker_quality_control.jpg",
   },
   {
-    title: "Kontrol Deteksi Benda Logam & Jarum",
-    titleEn: "Needle & Metal Contaminant Detection",
+    title: "Pemeriksaan Visual Produk",
+    titleEn: "Visual Product Inspection",
     description:
-      "Penerapan prosedur keamanan deteksi jarum untuk memastikan keselamatan pemakai akhir.",
+      "Pemeriksaan visual untuk memisahkan produk yang tidak memenuhi standar kerapian jahitan atau cacat fisik permukaan.",
     descriptionEn:
-      "Mandatory calibrated 0.8mm metal detector scan for complete end-user safety and zero broken needle residue.",
-    iconName: "ShieldAlert",
-    protocolTag: "Needle Safety Scan",
-    protocolTagEn: "Needle Safety Scan",
+      "Visual inspection to segregate items exhibiting stitching irregularities or physical surface variances.",
+    iconName: "Eye",
+    protocolTag: "Pemeriksaan Visual",
+    protocolTagEn: "Visual Check",
     image: "/images/dummy/06_quality_inspection.jpg",
   },
   {
-    title: "Uji Ketahanan & Daya Rentang Elastis",
-    titleEn: "Stretch Recovery & Wear Endurance Test",
+    title: "Pendekatan Standar AQL",
+    titleEn: "AQL Standard Approach",
     description:
-      "Pengecekan elastisitas karet dan daya pulih benang agar kaus kaki tidak cepat melar saat digunakan berulang.",
+      "Penerapan metode kendali mutu dengan mengacu pada pedoman Acceptance Quality Limit (AQL) untuk konsistensi kualitas batch.",
     descriptionEn:
-      "Rigorous stretch and recovery testing ensuring elastics retain grip without sagging after repeated wear cycles.",
+      "Quality control procedures operating in reference to Acceptance Quality Limit (AQL) guidelines for batch quality consistency.",
     iconName: "CheckCircle2",
-    protocolTag: "Stretch Recovery Test",
-    protocolTagEn: "Stretch Recovery Test",
+    protocolTag: "Pedoman AQL",
+    protocolTagEn: "AQL Guidelines",
     image: "/images/dummy/05_worker_quality_control.jpg",
   },
 ];
@@ -539,143 +553,161 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
 export const GALLERY_ITEMS: readonly GalleryItem[] = [
   {
     id: "gal-1",
-    title: "Lantai Produksi Mesin Rajut Komputerisasi",
-    titleEn: "Computerized Knitting Floor",
+    title: "Lantai Produksi Mesin Rajut",
+    titleEn: "Knitting Production Floor",
     category: "Fasilitas Produksi",
-    categoryEn: "Knitting Floor",
+    categoryEn: "Production Facility",
     aspect: "landscape",
-    placeholderText: "Foto Deretan Mesin Rajut Kaus Kaki Modern",
     dimensions: "1200 x 800 px",
     image: "/images/dummy/04_production_floor.jpg",
+    caption: "Ilustrasi visual area mesin rajut kaus kaki otomatis.",
+    captionEn: "Illustrative preview of the automated sock knitting area.",
   },
   {
     id: "gal-2",
-    title: "Detail Kerapatan Rajutan & Serat Benang",
-    titleEn: "Knit Density & Fiber Craftsmanship",
-    category: "Material & Craftsmanship",
-    categoryEn: "Materials",
+    title: "Tekstur Rajutan & Detail Serat",
+    titleEn: "Knit Texture & Fiber Details",
+    category: "Detail Bahan",
+    categoryEn: "Material Detail",
     aspect: "portrait",
-    placeholderText: "Foto Close-up Tekstur Rajut & Benang Katun",
     dimensions: "800 x 1000 px",
     image: "/images/dummy/21_knit_texture.jpg",
+    caption: "Ilustrasi visual kerapatan tekstur rajut benang.",
+    captionEn: "Illustrative preview of yarn knit density and texture.",
   },
   {
     id: "gal-3",
-    title: "Area Finishing & Thermal Steam Boarding",
-    titleEn: "Thermal Steam Boarding Station",
+    title: "Area Finishing & Penataan Bentuk",
+    titleEn: "Finishing & Boarding Station",
     category: "Proses Finishing",
-    categoryEn: "Finishing Area",
+    categoryEn: "Finishing Process",
     aspect: "landscape",
-    placeholderText: "Foto Mesin Setting Uap / Boarding",
     dimensions: "800 x 600 px",
     image: "/images/dummy/16_finishing_process.jpg",
+    caption: "Ilustrasi visual penataan bentuk dan kerapian kaus kaki.",
+    captionEn: "Illustrative preview of sock shaping and neat finishing.",
   },
   {
     id: "gal-4",
-    title: "Inspeksi Kualitas Fisik & Pemilahan Cacat",
-    titleEn: "100% Visual Quality Inspection Table",
-    category: "Quality Control",
+    title: "Meja Pemeriksaan Kendali Mutu",
+    titleEn: "Quality Control Inspection Table",
+    category: "Kendali Mutu (QC)",
     categoryEn: "Quality Assurance",
     aspect: "portrait",
-    placeholderText: "Foto Operator Memeriksa Kualitas Kaus Kaki",
     dimensions: "800 x 1000 px",
     image: "/images/dummy/06_quality_inspection.jpg",
+    caption: "Ilustrasi visual proses inspeksi kualitas produk kaos kaki.",
+    captionEn: "Illustrative preview of sock quality inspection process.",
   },
   {
     id: "gal-5",
-    title: "Pengemasan Karton & Finishing Manual",
-    titleEn: "Carton Packaging & Retail Tagging",
-    category: "Packaging & Kartonisasi",
-    categoryEn: "Packaging Logistics",
+    title: "Area Pengemasan Produk",
+    titleEn: "Product Packaging Area",
+    category: "Pengemasan",
+    categoryEn: "Packaging",
     aspect: "landscape",
-    placeholderText: "Foto Pengemasan Produk Kaus Kaki",
     dimensions: "800 x 600 px",
     image: "/images/dummy/07_packing.jpg",
+    caption: "Ilustrasi visual penataan dan pengemasan produk sebelum distribusi.",
+    captionEn: "Illustrative preview of product packaging prior to distribution.",
   },
   {
     id: "gal-6",
-    title: "Pola Rajut Tekstur & Motif Jacquard",
-    titleEn: "Jacquard Weave & Texture Details",
-    category: "Material & Craftsmanship",
-    categoryEn: "Textile Detail",
+    title: "Pola & Variasi Rajut",
+    titleEn: "Knit Pattern Variations",
+    category: "Keahlian Rajut",
+    categoryEn: "Knit Craftsmanship",
     aspect: "portrait",
-    placeholderText: "Foto Detail Pola Rajut Jacquard",
     dimensions: "800 x 1000 px",
     image: "/images/dummy/22_knit_pattern.jpg",
+    caption: "Ilustrasi visual variasi pola dan desain motif rajutan.",
+    captionEn: "Illustrative preview of versatile knit patterns and designs.",
   },
   {
     id: "gal-7",
-    title: "Gudang Penyimpanan & Manajemen Stok",
-    titleEn: "Climate-Controlled Warehouse",
+    title: "Penyimpanan & Manajemen Stok",
+    titleEn: "Warehouse & Inventory",
     category: "Gudang & Inventori",
-    categoryEn: "Warehouse & Inventory",
+    categoryEn: "Warehouse",
     aspect: "landscape",
-    placeholderText: "Foto Area Gudang Produk SCM",
     dimensions: "1200 x 800 px",
     image: "/images/dummy/18_inventory_warehouse.jpg",
+    caption: "Ilustrasi visual area penataan dan penyimpanan stok.",
+    captionEn: "Illustrative preview of organized storage and inventory area.",
   },
   {
     id: "gal-8",
-    title: "Armada Distribusi & Logistik Pengiriman B2B",
-    titleEn: "B2B Logistics Fleet & Dispatch Hub",
-    category: "Logistik & Pengiriman",
-    categoryEn: "Fleet & Logistics",
+    title: "Logistik & Distribusi Pengiriman",
+    titleEn: "Dispatch & Logistics",
+    category: "Logistik Pengiriman",
+    categoryEn: "Logistics",
     aspect: "landscape",
-    placeholderText: "Foto Distribusi Pengiriman Produk SCM",
     dimensions: "1200 x 800 px",
     image: "/images/dummy/23_logistics.jpg",
+    caption: "Ilustrasi visual persiapan distribusi pesanan pelanggan.",
+    captionEn: "Illustrative preview of order distribution and dispatch readiness.",
   },
 ];
 
 export const B2B_FAQS: readonly B2BFAQ[] = [
   {
-    question: "Berapa Minimum Order Quantity (MOQ) untuk pesanan maklon / custom?",
-    questionEn: "What is the Minimum Order Quantity (MOQ) for custom OEM orders?",
+    question: "Apakah spesifikasi dan komposisi bahan kaos kaki dapat dikustomisasi?",
+    questionEn: "Can sock specifications and material compositions be customized?",
     answer:
-      "MOQ standar disesuaikan dengan kompleksitas motif rajut dan ketersediaan benang. Umumnya pesanan custom OEM dimulai dari 50 hingga 100 lusin per desain/warna. Silakan ajukan RFQ untuk mendiskusikan fleksibilitas kuantitas pesanan Anda.",
+      "Ya. PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur yang fleksibel. Spesifikasi produk, ukuran, model, serta komposisi bahan (katun, spandex, elastik) dapat didiskusikan dan disesuaikan menurut kebutuhan produk pelanggan.",
     answerEn:
-      "Our standard MOQ depends on jacquard complexity and yarn availability. Generally, custom OEM starts from 50 to 100 dozens per design/colorway. Please submit an RFQ to discuss volume flexibility tailored to your needs.",
-    tag: "MOQ & Pemesanan",
-    tagEn: "MOQ & Ordering",
+      "Yes. PT. Sinlie Cahaya Matahari provides flexible manufacturing solutions. Product specifications, sizing, styles, and material compositions (cotton, spandex, elastic) can be discussed and tailored to your product requirements.",
+    tag: "Kustomisasi Produk",
+    tagEn: "Product Customization",
   },
   {
-    question: "Bagaimana tahapan pembuatan sampel prototipe (sampling)?",
-    questionEn: "How does the prototype sampling process work?",
+    question: "Pasar dan negara mana saja yang dilayani oleh PT. Sinlie Cahaya Matahari?",
+    questionEn: "Which markets and countries are served by PT. Sinlie Cahaya Matahari?",
     answer:
-      "Setelah lembar spesifikasi desain (tech pack) atau referensi fisik disepakati, tim teknis kami akan memprogram motif ke mesin rajut dan membuat sampel awal untuk persetujuan (approval) klien sebelum produksi masal dimulai.",
+      "Kami melayani pasar domestik Indonesia serta pasar internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa. Destinasi pengiriman lainnya disesuaikan dengan pesanan yang masuk.",
     answerEn:
-      "Once your tech pack or physical reference is finalized, our engineering team programs the digital pattern and knits an initial approval sample prior to commencing mass production.",
-    tag: "Prototipe & Sampling",
-    tagEn: "Prototypes & Sampling",
+      "We serve both domestic and international markets, with export orders primarily reaching the United States and Europe. Shipments to other destinations depend on incoming customer orders.",
+    tag: "Jangkauan Pasar",
+    tagEn: "Target Markets",
   },
   {
-    question: "Apakah SCM menyediakan layanan pengemasan private label (hangtag & polybag)?",
-    questionEn: "Does SCM provide private label packaging (hangtags & polybags)?",
+    question: "Berapa kapasitas produksi maksimum di pabrik SCM?",
+    questionEn: "What is the maximum production capacity at SCM's facility?",
     answer:
-      "Ya. Kami menyediakan layanan finishing terpadu, termasuk pemasangan label merk klien, barcode/hangtag, pengemasan per pasang, per lusin, hingga pengepakan karton siap kirim ke gudang distribusi Anda.",
+      "PT. Sinlie Cahaya Matahari memiliki kapasitas operasional maksimum hingga 1.000.000 lusin kaos kaki per bulan. Realisasi volume produksi disesuaikan dengan spesifikasi teknis produk dan jadwal pesanan yang disepakati.",
     answerEn:
-      "Yes. We deliver integrated finishing services including client brand tags, retail barcodes, single pair/dozen polybag wrapping, and export-standard master cartons ready for your distribution hub.",
-    tag: "Private Label & Packaging",
-    tagEn: "Private Label & Packaging",
+      "PT. Sinlie Cahaya Matahari has a maximum operational capacity of up to 1,000,000 dozen socks per month. Actual production volume depends on product specifications and agreed order schedules.",
+    tag: "Kapasitas Produksi",
+    tagEn: "Production Capacity",
   },
   {
-    question: "Berapa estimasi waktu pengerjaan (lead time) produksi?",
-    questionEn: "What is the estimated production lead time?",
+    question: "Apakah tersedia opsi kustomisasi pengemasan produk?",
+    questionEn: "Are customizable packaging options available?",
     answer:
-      "Lead time produksi berkisar antara 2 hingga 4 minggu setelah sampel disetujui dan ketersediaan bahan baku terkonfirmasi, tergantung pada total volume lusin dan antrean produksi pabrik.",
+      "Ya. Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan, baik dalam format lusinan standar, kemasan khusus, maupun penataan karton distribusi.",
     answerEn:
-      "Production lead times typically range from 2 to 4 weeks after sample approval and yarn availability confirmation, depending on total dozen volume and active factory queue.",
-    tag: "Waktu Produksi",
-    tagEn: "Production Lead Time",
+      "Yes. Packaging options can be tailored to customer requirements, whether in standard dozen formats, custom packaging, or distribution master carton arrangements.",
+    tag: "Pilihan Pengemasan",
+    tagEn: "Packaging Options",
   },
   {
-    question: "Bagaimana komitmen SCM terkait kerahasiaan desain dan hak cipta klien?",
-    questionEn: "What is SCM's commitment to client design confidentiality?",
+    question: "Bagaimana standar kendali mutu (Quality Control) yang diterapkan?",
+    questionEn: "What quality control standards are implemented?",
     answer:
-      "Kami menjunjung tinggi etika bisnis B2B dan kerahasiaan kekayaan intelektual. Desain, pola rajut, dan logo eksklusif milik brand mitra tidak akan pernah diperjualbelikan atau diproduksi untuk pihak lain tanpa izin tertulis.",
+      "Kami menjalankan fungsi Quality Control (QC) terstruktur dengan mengacu pada pedoman standar AQL (Acceptance Quality Limit). Pemeriksaan meliputi kerapatan rajutan, akurasi dimensi ukuran, dan inspeksi visual sebelum tahap pengemasan.",
     answerEn:
-      "We strictly uphold B2B confidentiality and intellectual property ethics. Exclusive knit patterns, logos, and tech packs belonging to partner brands are never redistributed or manufactured for third parties.",
-    tag: "Kerahasiaan & Kemitraan",
-    tagEn: "Confidentiality & Rights",
+      "We operate a structured Quality Control (QC) function with reference to AQL (Acceptance Quality Limit) standards. Inspections cover knit density, dimensional sizing accuracy, and visual inspection before packaging.",
+    tag: "Kendali Mutu (QC)",
+    tagEn: "Quality Control",
+  },
+  {
+    question: "Bagaimana cara mengajukan konsultasi atau permintaan penawaran (RFQ)?",
+    questionEn: "How can I request a consultation or submit a Request for Quotation (RFQ)?",
+    answer:
+      "Anda dapat mengisi formulir RFQ yang tersedia di website atau menghubungi kami melalui email resmi. Tim kami akan mempelajari spesifikasi kebutuhan produk Anda dan memberikan respons tindak lanjut.",
+    answerEn:
+      "You can complete the RFQ form on our website or contact us via our official email. Our team will review your product requirements and follow up with you.",
+    tag: "Konsultasi & RFQ",
+    tagEn: "Consultation & RFQ",
   },
 ];

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Info } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useLanguage } from "@/context/LanguageContext";
@@ -15,28 +14,24 @@ export function CompanyStats() {
       value: t.stats.items.capacity.value,
       label: t.stats.items.capacity.label,
       description: t.stats.items.capacity.desc,
-      isVerified: false,
     },
     {
       id: "experience",
       value: t.stats.items.experience.value,
       label: t.stats.items.experience.label,
       description: t.stats.items.experience.desc,
-      isVerified: false,
     },
     {
-      id: "categories",
-      value: t.stats.items.categories.value,
-      label: t.stats.items.categories.label,
-      description: t.stats.items.categories.desc,
-      isVerified: true,
+      id: "markets",
+      value: t.stats.items.markets.value,
+      label: t.stats.items.markets.label,
+      description: t.stats.items.markets.desc,
     },
     {
-      id: "inspection",
-      value: t.stats.items.inspection.value,
-      label: t.stats.items.inspection.label,
-      description: t.stats.items.inspection.desc,
-      isVerified: true,
+      id: "quality",
+      value: t.stats.items.quality.value,
+      label: t.stats.items.quality.label,
+      description: t.stats.items.quality.desc,
     },
   ];
 
@@ -54,9 +49,8 @@ export function CompanyStats() {
                 {t.stats.title}
               </h2>
             </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-muted border border-border text-xs text-text-secondary">
-              <Info className="size-3.5 text-secondary-brand shrink-0" />
-              <span>{t.stats.disclaimer}</span>
+            <div className="text-xs font-mono text-text-secondary bg-surface-muted px-3 py-1.5 rounded-md border border-border">
+              PT. Sinlie Cahaya Matahari
             </div>
           </div>
         </ScrollReveal>
@@ -67,27 +61,16 @@ export function CompanyStats() {
             <ScrollReveal
               key={stat.id}
               duration={500}
-              delay={idx * 60}
-              direction="up"
+              delay={idx * 75}
+              variant="pop-in"
               className="h-full"
             >
-              <div className="relative p-6 rounded-xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-2xs hover:shadow-xs group h-full">
-                {/* Top Accent Line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-border group-hover:bg-accent transition-colors rounded-t-xl" />
-
+              <div className="p-6 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-2xs hover:shadow-md hover:-translate-y-0.5 group h-full flex flex-col justify-between">
                 <div className="space-y-2">
                   <div className="flex items-baseline justify-between">
                     <span className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
                       {stat.value}
                     </span>
-                    {!stat.isVerified && (
-                      <span
-                        title="Data menunggu konfirmasi final manajemen"
-                        className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-xs bg-amber-50 text-amber-700 border border-amber-200"
-                      >
-                        {t.stats.confirmBadge}
-                      </span>
-                    )}
                   </div>
 
                   <h3 className="text-sm font-bold text-text-primary tracking-wide">

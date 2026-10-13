@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Clock, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Clock, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { COMPANY_INFO, PRODUCT_CATEGORIES } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
@@ -15,9 +15,11 @@ export function Footer() {
 
   const navItems = [
     { label: t.nav.about, href: "#about" },
+    { label: t.nav.markets, href: "#markets" },
     { label: t.nav.products, href: "#products" },
     { label: t.nav.capabilities, href: "#capabilities" },
     { label: t.nav.process, href: "#process" },
+    { label: t.nav.quality, href: "#quality" },
     { label: t.nav.gallery, href: "#gallery" },
     { label: t.nav.faq, href: "#faq" },
     { label: t.nav.contact, href: "#contact" },
@@ -43,10 +45,10 @@ export function Footer() {
             <div className="lg:col-span-4 space-y-5">
               <div className="bg-surface px-3 py-2 rounded-xl inline-block shadow-sm border border-border/40">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.webp"
                   alt={COMPANY_INFO.name}
                   width={1962}
-                  height={802}
+                  height={801}
                   className="h-10 sm:h-11 w-auto object-contain"
                 />
               </div>
@@ -100,15 +102,6 @@ export function Footer() {
                     </li>
                   );
                 })}
-                <li>
-                  <Link
-                    href="#capabilities"
-                    className="text-secondary-light/80 hover:text-text-inverse transition-colors flex items-center gap-1 group"
-                  >
-                    <span>Custom OEM / Private Label</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
               </ul>
             </div>
 
@@ -125,21 +118,24 @@ export function Footer() {
                       {t.footer.locationLabel}
                     </span>
                     <p className="text-xs text-secondary-light/70 mt-0.5">
-                      {COMPANY_INFO.contact.address} {t.footer.locationDesc}
+                      {COMPANY_INFO.contact.address}
                     </p>
                   </div>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-accent shrink-0" />
-                  <span className="text-xs sm:text-sm font-mono">{COMPANY_INFO.contact.email}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-accent shrink-0" />
-                  <span className="text-xs sm:text-sm font-mono">{COMPANY_INFO.contact.phone}</span>
+                  <a
+                    href={`mailto:${COMPANY_INFO.contact.email}`}
+                    className="text-xs sm:text-sm font-mono hover:underline"
+                  >
+                    {COMPANY_INFO.contact.email}
+                  </a>
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-accent shrink-0 mt-0.5" />
-                  <span className="text-xs">{COMPANY_INFO.contact.operatingHours}</span>
+                  <span className="text-xs">
+                    {isEn ? COMPANY_INFO.contact.operatingHoursEn : COMPANY_INFO.contact.operatingHours}
+                  </span>
                 </li>
               </ul>
             </div>

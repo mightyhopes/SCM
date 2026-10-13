@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Package } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { PRODUCT_CATEGORIES, ProductCategory } from "@/data/companyData";
-import { RfqModal } from "@/components/ui/RfqModal";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Interactive Colorway Swatches per category
@@ -53,43 +52,6 @@ const CATEGORY_COLORS: Record<string, { name: string; hex: string }[]> = {
   ],
 };
 
-// Anatomical Feature Callouts
-const CATEGORY_SPECS: Record<
-  string,
-  { zone: string; zoneEn: string; detail: string; detailEn: string }[]
-> = {
-  "baby-socks": [
-    { zone: "Cuff", zoneEn: "Cuff", detail: "Karet elastis lembut non-constricting", detailEn: "Non-constricting elastic band" },
-    { zone: "Sole", zoneEn: "Sole", detail: "Alas anti-slip silikon heksagon", detailEn: "Anti-slip silicone hexagon grip" },
-    { zone: "Toe", zoneEn: "Toe", detail: "Sambungan jari flat-lock tanpa tonjolan", detailEn: "Seamless flat-lock linking" },
-  ],
-  "kids-socks": [
-    { zone: "Heel & Toe", zoneEn: "Heel & Toe", detail: "Penguatan ganda area gesekan tinggi", detailEn: "Double-reinforced high friction area" },
-    { zone: "Body", zoneEn: "Body", detail: "Katun 144N berkerapatan tinggi menyerap keringat", detailEn: "High-density 144N breathable cotton" },
-    { zone: "Cuff", zoneEn: "Cuff", detail: "Rib elastis anti-kendur sepanjang hari", detailEn: "Stay-up elastic ribbed cuff" },
-  ],
-  "ladies-socks": [
-    { zone: "Weave", zoneEn: "Weave", detail: "Rajutan ultra-fine 200N halus", detailEn: "Ultra-fine 200N gauge knit" },
-    { zone: "Siluet", zoneEn: "Silhouette", detail: "Kontur ergonomis ankle & hidden cut", detailEn: "Ergonomic contour ankle & hidden" },
-    { zone: "Feel", zoneEn: "Feel", detail: "Campuran katun combed selembut sutra", detailEn: "Silky combed cotton blend" },
-  ],
-  "mens-socks": [
-    { zone: "Heel", zoneEn: "Heel", detail: "Kantung tumit Y-heel dalam anti-selip", detailEn: "Deep Y-heel pocket anti-slip" },
-    { zone: "Band", zoneEn: "Band", detail: "Karet rib stay-up eksekutif rapi", detailEn: "Stay-up ribbed executive cuff" },
-    { zone: "Toe", zoneEn: "Toe", detail: "Jahitan jari sambung rata halus", detailEn: "Hand-linked flat seam toe" },
-  ],
-  "sport-socks": [
-    { zone: "Sole", zoneEn: "Sole", detail: "Bantalan telapak terry cushion padat", detailEn: "High-density Terry Cushion sole" },
-    { zone: "Arch", zoneEn: "Arch", detail: "Pita kompresi elastis arch support dinamis", detailEn: "Dynamic elastic arch support band" },
-    { zone: "Mesh", zoneEn: "Mesh", detail: "Zona ventilasi sirkulasi udara instep", detailEn: "Breathable instep air-flow zone" },
-  ],
-  "custom-socks": [
-    { zone: "Jacquard", zoneEn: "Jacquard", detail: "Pola motif & logo definisi tinggi", detailEn: "High-definition custom pattern & logo" },
-    { zone: "Material", zoneEn: "Material", detail: "Campuran benang kustom & pantone match", detailEn: "Custom yarn blend & pantone match" },
-    { zone: "Package", zoneEn: "Package", detail: "Hangtag label privat & barcode ritel", detailEn: "Private label hangtag & barcode" },
-  ],
-};
-
 export function ProductCategories() {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>("all");
@@ -118,7 +80,7 @@ export function ProductCategories() {
   const isEn = language === "en";
 
   return (
-    <section id="products" className="py-20 lg:py-28 bg-surface border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface border-b border-border">
       <Container size="default">
         <ScrollReveal duration={600} direction="up">
           <SectionHeading
@@ -167,11 +129,10 @@ export function ProductCategories() {
           </Tabs>
         </div>
 
-        {/* Categories Grid with Rich Interactive Textile Cards */}
+        {/* Categories Grid with Clean Spec Cards (Zero MOQ, Customizable Materials) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCategories.map((category, idx) => {
             const currentColor = selectedColor[category.id] || "#08615D";
-            const specs = CATEGORY_SPECS[category.id] || [];
             const swatches = CATEGORY_COLORS[category.id] || [];
             const displayTitle = isEn ? category.titleEn : category.title;
             const displayDesc = isEn ? category.descriptionEn : category.description;
@@ -181,9 +142,9 @@ export function ProductCategories() {
             return (
               <ScrollReveal
                 key={category.id}
-                duration={500}
-                delay={idx * 60}
-                direction="up"
+                duration={550}
+                delay={idx * 70}
+                variant="cascade-card"
                 className="h-full"
               >
                 <div className="flex flex-col h-full bg-surface rounded-2xl border border-border overflow-hidden hover:border-secondary-brand hover:shadow-xl transition-all duration-300 group">
@@ -198,14 +159,11 @@ export function ProductCategories() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                    {/* Header badges inside specimen */}
+                    {/* Header badges inside image specimen */}
                     <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between">
                       <span className="text-[10px] font-mono uppercase font-bold text-text-inverse bg-primary-dark/85 backdrop-blur-xs px-2.5 py-1 rounded-md tracking-wider border border-secondary/30">
                         GAUGE // {category.needleCounts.join(" & ")}
                       </span>
-                      <Badge variant="outline" className="text-[10px] font-mono px-2 py-0.5 border-white/30 bg-surface/90 backdrop-blur-xs text-text-primary font-bold">
-                        {t.products.moq}
-                      </Badge>
                     </div>
 
                     {/* Bottom overlay in image container */}
@@ -221,31 +179,17 @@ export function ProductCategories() {
                       <div
                         className="size-5 rounded-full border-2 border-white shadow-md transition-colors"
                         style={{ backgroundColor: currentColor }}
-                        title={t.products.colorLabel}
+                        title="Color Option"
                       />
                     </div>
                   </div>
 
-                  {/* Anatomical Feature Highlights & Color Swatches */}
-                  <div className="px-5 py-3.5 bg-surface-muted/60 border-b border-border flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-1.5 overflow-hidden">
-                      {specs.slice(0, 2).map((item, sIdx) => (
-                        <div
-                          key={sIdx}
-                          className="flex items-center gap-1 text-[10px] text-text-secondary bg-surface px-2 py-0.5 rounded-md border border-border truncate"
-                        >
-                          <span className="font-mono font-bold text-primary">
-                            {isEn ? item.zoneEn : item.zone}:
-                          </span>
-                          <span className="truncate">
-                            {isEn ? item.detailEn : item.detail}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Color Swatches */}
-                    <div className="flex items-center gap-1 shrink-0">
+                  {/* Color Swatches Bar */}
+                  <div className="px-5 py-3 bg-surface-muted/60 border-b border-border flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-mono font-bold uppercase text-text-secondary">
+                      Colorways:
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
                       {swatches.map((swatch) => (
                         <button
                           key={swatch.name}
@@ -311,21 +255,25 @@ export function ProductCategories() {
                           </div>
                         ))}
                       </div>
+
+                      {/* Packaging note */}
+                      <div className="mt-3 pt-2 text-[10px] text-text-secondary flex items-center gap-1.5">
+                        <Package className="size-3 text-secondary-brand shrink-0" />
+                        <span>{t.products.packagingNote}</span>
+                      </div>
                     </div>
 
-                    {/* Card Action Modal Trigger */}
+                    {/* Card Action Link to Contact */}
                     <div className="mt-6 pt-4 border-t border-border">
-                      <RfqModal defaultCategory={displayTitle}>
-                        <button
-                          type="button"
-                          className="inline-flex items-center justify-between w-full text-xs font-bold text-primary hover:text-primary-hover group/link cursor-pointer"
-                        >
-                          <span>
-                            {t.products.sampleBtn} {displayTitle}
-                          </span>
-                          <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-1" />
-                        </button>
-                      </RfqModal>
+                      <a
+                        href="#contact"
+                        className="inline-flex items-center justify-between w-full text-xs font-bold text-primary hover:text-primary-hover group/link cursor-pointer"
+                      >
+                        <span>
+                          {t.products.sampleBtn} {displayTitle}
+                        </span>
+                        <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-1" />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -334,7 +282,7 @@ export function ProductCategories() {
           })}
         </div>
 
-        {/* Custom Order Callout with High Visual Distinction */}
+        {/* Custom Order Callout */}
         <ScrollReveal duration={600} direction="up" className="mt-14">
           <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-surface-muted via-surface to-secondary-light/40 border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm">
             <div className="space-y-1.5 max-w-2xl">
@@ -349,15 +297,14 @@ export function ProductCategories() {
                 {t.products.customBanner.desc}
               </p>
             </div>
-            <RfqModal defaultCategory="Custom OEM">
-              <Button
-                variant="primary"
-                size="default"
-                className="shrink-0 cursor-pointer shadow-md"
-              >
-                {t.products.customBanner.btn}
-              </Button>
-            </RfqModal>
+            <Button
+              href="#contact"
+              variant="primary"
+              size="default"
+              className="shrink-0 cursor-pointer shadow-md"
+            >
+              {t.products.customBanner.btn}
+            </Button>
           </div>
         </ScrollReveal>
       </Container>

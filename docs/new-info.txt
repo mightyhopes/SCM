@@ -1,0 +1,361 @@
+# Website Content Refinement & Implementation — PT. Sinlie Cahaya Matahari
+
+## 1. Project Context
+
+Continue developing the existing website project for PT. Sinlie Cahaya Matahari (SCM), an Indonesian sock manufacturing company.
+
+The project already has an initial homepage, reusable components, a teal-yellow brand identity, and temporary dummy image assets.
+
+Your task is to refine the existing implementation using the latest information provided by the client in `balasan.docx`.
+
+Do not rebuild the project from scratch. First inspect the existing codebase, current components, routing, assets, styling, and dependencies. Then implement the necessary improvements directly.
+
+The objective is to create a credible, professional manufacturing company profile that communicates SCM's business background, product flexibility, international market reach, manufacturing capabilities, and business inquiry channels.
+
+The visual direction remains **Modern Industrial Corporate**: clean, confident, professional, and visually distinctive without excessive decoration or animation.
+
+## 2. Source of Truth and Content Accuracy
+
+Use the client's answers in `balasan.docx` as the primary source for company-specific information.
+
+Apply these rules:
+
+- Do not invent company facts, certifications, clients, production facilities, manufacturing processes, or achievements.
+- Distinguish confirmed information from information that remains unverified.
+- Do not turn future targets or maximum-capacity figures into claims about current operational capacity.
+- Do not invent a detailed company history when the client has only requested a general description.
+- Keep missing information editable and easy to update later.
+- Do not expose internal notes, placeholders, or uncertainty warnings in polished public-facing copy.
+- Where information is insufficient, omit the claim or use neutral wording that remains accurate.
+
+## 3. Confirmed Company Information
+
+Use the following information in the website.
+
+### Business Background
+
+- The company has been involved in the sock business since 2018.
+- The legal establishment of PT. Sinlie Cahaya Matahari took place in 2023.
+- The company profile should use a general company introduction rather than an invented chronological history.
+
+Suggested English copy:
+
+"With experience in the sock industry since 2018, PT. Sinlie Cahaya Matahari provides sock manufacturing solutions tailored to different product requirements."
+
+Suggested Indonesian copy:
+
+"Dengan pengalaman di industri kaos kaki sejak 2018, PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki yang dapat disesuaikan dengan kebutuhan produk pelanggan."
+
+Do not imply that the PT legal entity itself was established in 2018.
+
+### Target Markets
+
+The company serves a broad range of customer types.
+
+The company serves both domestic and export markets. The client identifies the United States and Europe as dominant export markets, while other destinations depend on incoming orders.
+
+Suggested English copy:
+
+"Serving domestic and international markets, with export orders primarily reaching the United States and Europe."
+
+Suggested Indonesian copy:
+
+"Melayani pasar domestik dan internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa."
+
+Do not claim the company has offices, warehouses, distributors, or permanent operations in those markets.
+
+### Product Flexibility
+
+The client indicates that product categories and specifications can accommodate different customer requirements.
+
+Communicate the ability to discuss customization of relevant product specifications, materials, and packaging according to order requirements.
+
+Do not invent an exhaustive product taxonomy or claim specific manufacturing options that have not been confirmed.
+
+### Packaging
+
+The client states that packaging can be customized.
+
+Suggested English copy:
+
+"Packaging options can be tailored to customer requirements."
+
+Suggested Indonesian copy:
+
+"Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan."
+
+Do not invent specific packaging formats, printing options, or labeling services.
+
+### Quality Control
+
+The client confirms that a Quality Control (QC) function exists.
+
+The client also refers to AQL in relation to quality standards, but detailed implementation information has not been provided.
+
+You may communicate that the company has a QC function. Mention AQL only if appropriate for the public website and do not invent inspection procedures, acceptance thresholds, defect rates, or certifications.
+
+## 4. Handle Production Capacity Carefully
+
+The client refers to a maximum capacity of 1,000,000 dozen per month.
+
+However, the answer does not establish the current actual production volume or fully clarify the operational conditions behind that maximum figure.
+
+Therefore:
+
+- Do not present 1,000,000 dozen per month as current production capacity.
+- Do not use this figure in hero statistics, promotional banners, metadata, or marketing claims.
+- Do not retain the previous 100,000 dozen per month figure as a verified current capacity without further confirmation.
+- Keep the capacity field configurable in the company's content data.
+- Omit the capacity metric from the public homepage until the company confirms exactly what the figure represents and approves its publication.
+
+If a statistics section becomes visually unbalanced without this figure, redesign the section rather than inventing replacement statistics.
+
+## 5. Product and Material Information
+
+The company profile mentions the following material percentages:
+
+- 5% elastic material.
+- 20% spandex.
+- 20% cotton.
+
+The client indicates that the composition may be customized according to the order.
+
+These listed percentages do not form a complete 100% material composition. Do not normalize the numbers, calculate the missing percentage, or present them as a complete standard composition.
+
+Requirements:
+
+- Do not display an incomplete material composition as the standard formula for all products.
+- Do not invent missing material percentages.
+- Emphasize that material specifications can be discussed according to customer requirements.
+- Keep detailed specifications out of generic product cards unless verified data becomes available.
+
+The client does not want MOQ information published. Do not display minimum order quantity figures or policy statements.
+
+The term "Moslem wear" has not been clarified as a distinct product category. Do not create a dedicated category for it without additional confirmation.
+
+## 6. Manufacturing Capabilities
+
+The following information remains unconfirmed:
+
+- Types and quantities of production machinery.
+- OEM, ODM, and private-label service availability.
+- Sampling and mass-production lead times.
+- Detailed manufacturing workflow.
+- Specific packaging and labeling capabilities beyond customizable packaging.
+
+Do not invent these details.
+
+Refine the Manufacturing Capabilities section to communicate only supported information, such as the company's focus on sock manufacturing and its willingness to accommodate product requirements.
+
+Use neutral section headings where necessary. Keep unsupported claims out of the visible website.
+
+If the existing page contains cards that make unsupported claims, revise their text or remove them.
+
+Do not add fake numerical metrics merely to fill visual space.
+
+## 7. Quality Assurance and Compliance
+
+The client confirms that a QC function exists and references AQL.
+
+However, the following are still unverified:
+
+- Detailed inspection procedures.
+- Specific acceptance criteria.
+- Certifications.
+- Customer audit results.
+- Compliance documentation.
+- Quantified quality performance.
+
+Implement the Quality Assurance section using restrained, factual language.
+
+Do not add ISO logos, certification badges, quality percentages, audit claims, or guaranteed defect rates without approved evidence.
+
+Keep certification-related components hidden when no verified certification data is available.
+
+## 8. Company Legal Information and Contact Details
+
+The latest legal information, approved legal documents, and several contact details remain unanswered.
+
+Do not invent or automatically publish legal identifiers, telephone numbers, WhatsApp numbers, email addresses, physical addresses, or contact-person names.
+
+Inspect the existing website content and distinguish verified existing data from outdated or unconfirmed information.
+
+Keep editable fields for:
+
+- Official company name.
+- Approved address.
+- Business email.
+- Business telephone or WhatsApp.
+- Approved legal information.
+- Official social media links.
+
+Only display verified and approved values.
+
+If no confirmed contact destination exists, do not create a fake contact link or pretend that a form is connected to a working backend.
+
+## 9. Bilingual Website
+
+The client requests both Indonesian and English.
+
+Implement a consistent bilingual experience across all public-facing sections.
+
+Requirements:
+
+- Add an accessible language switcher, such as `ID | EN`.
+- Translate navigation labels, headings, descriptions, buttons, product labels, contact content, and footer text.
+- Preserve the current page and relevant navigation context when switching languages.
+- Avoid mixing Indonesian and English within the same selected language.
+- Use natural, professional language appropriate for a manufacturing company serving B2B customers.
+- Keep company names, approved brand names, and verified technical terms consistent.
+
+Inspect the existing routing and installed dependencies before choosing an implementation.
+
+If the project already uses a localization library, extend the existing setup. Otherwise, use a lightweight, maintainable localization approach compatible with the current Next.js App Router structure.
+
+Avoid adding a large dependency solely for a simple translation dictionary if the current project does not require it.
+
+Keep translations separate from presentation components so future content changes are straightforward.
+
+## 10. Homepage Refinement
+
+Review the current homepage and adjust the following sections.
+
+### Navbar
+
+- Preserve the official SCM logo and original proportions.
+- Provide working navigation to existing sections.
+- Add the bilingual switcher.
+- Keep the primary business inquiry CTA visible and accessible.
+
+### Hero Section
+
+Use a clear manufacturing-focused headline and concise supporting copy.
+
+Suggested headline:
+
+"Precision in Every Stitch."
+
+Suggested supporting copy:
+
+"Flexible sock manufacturing solutions tailored to your product requirements."
+
+Provide natural Indonesian equivalents.
+
+Use the existing brand colors and appropriate available imagery.
+
+Do not place unverified capacity figures or certifications in the hero.
+
+### Company Introduction
+
+Communicate the company's experience since 2018 and legal establishment in 2023 without confusing the two dates.
+
+Keep the description general and factual.
+
+### Markets
+
+Introduce domestic and international markets, with the United States and Europe identified as the principal export markets according to the client's response.
+
+Avoid claims about the number of countries served or international offices.
+
+### Products
+
+Build a product section that accommodates multiple sock categories without pretending that a complete categorized catalog has been supplied.
+
+Use existing approved product assets where available.
+
+Product cards should be easy to update when the client provides a definitive category list, product names, and specifications.
+
+### Customization
+
+Create a section communicating flexibility in product specifications and packaging according to order requirements.
+
+Do not promise specific services, materials, lead times, or manufacturing methods that remain unconfirmed.
+
+### Quality Control
+
+Communicate the existence of a QC function.
+
+Avoid unsupported quality guarantees and certifications.
+
+### Gallery
+
+Inspect the existing image assets and distinguish authentic client photographs from AI-generated dummy assets.
+
+Use client-provided photographs preferentially, subject to approval for publication.
+
+If the existing dummy images are AI-generated, treat them as temporary visual placeholders only. Never present them as authentic SCM facilities, employees, equipment, products, or operations.
+
+Keep image mappings easy to replace when approved photographs arrive.
+
+### Business Inquiry
+
+Maintain a clear business inquiry CTA.
+
+Use a working contact destination only when confirmed.
+
+If a form exists, verify its actual submission behavior. Do not claim that an inquiry has been sent to SCM unless a functional backend or submission endpoint exists.
+
+### Footer
+
+Use the approved company name and verified contact information only.
+
+Maintain the existing deep teal visual treatment and ensure that all links are functional.
+
+## 11. Brand Design System
+
+Preserve the existing Modern Industrial Corporate direction and use the following color tokens consistently:
+
+| Token | HEX |
+|---|---|
+| Primary | #08615D |
+| Primary Hover | #064E4B |
+| Primary Dark | #073F3C |
+| Secondary | #4D9A99 |
+| Secondary Light | #D6E8E5 |
+| Accent | #FFCC00 |
+| Accent Hover | #E6B800 |
+| Background | #F7F8F5 |
+| Surface | #FFFFFF |
+| Surface Muted | #E8F1EF |
+| Text Primary | #202B29 |
+| Text Secondary | #5B6965 |
+| Text Inverse | #FFFFFF |
+| Border | #DCE4E0 |
+
+Keep white and off-white as dominant backgrounds. Use teal as the main brand color and yellow as a restrained accent.
+
+Do not redesign the entire visual identity unless the current implementation contains a clear problem that requires correction.
+
+## 12. Technical Requirements
+
+- Continue using the existing Next.js App Router, TypeScript, and TSX architecture.
+- Preserve existing working components and configuration.
+- Avoid unnecessary dependencies.
+- Keep company content and translations maintainable.
+- Use strict TypeScript types.
+- Ensure all navigation and language-switching controls work.
+- Maintain responsive behavior across mobile, tablet, and desktop.
+- Use semantic HTML and accessible interactive controls.
+- Respect reduced-motion preferences.
+- Preserve appropriate image optimization and loading behavior.
+- Do not introduce avoidable layout shifts or broken image paths.
+
+## 13. Final Validation
+
+After implementation:
+
+1. Verify all public-facing company statements against the client-provided information.
+2. Verify that the 2018 business experience and 2023 legal establishment are correctly distinguished.
+3. Confirm that unverified production-capacity figures are not displayed as facts.
+4. Confirm that incomplete material percentages are not presented as a complete formula.
+5. Confirm that MOQ information is not published.
+6. Confirm that unsupported OEM, ODM, private-label, lead-time, and certification claims are absent.
+7. Verify the Indonesian and English versions of all public-facing content.
+8. Verify that the language switcher works correctly.
+9. Check all image paths and identify any remaining dummy images.
+10. Check responsive layouts, TypeScript errors, and build results.
+11. Report any remaining information that requires client confirmation.
+
+Implement the changes directly in the existing project. Do not stop after presenting a plan or recommendations.
+
+The final website should communicate SCM's real capabilities confidently without making claims that the client has not confirmed.

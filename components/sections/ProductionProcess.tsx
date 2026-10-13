@@ -23,7 +23,7 @@ export function ProductionProcess() {
   const isEn = language === "en";
 
   return (
-    <section id="process" className="py-20 lg:py-28 bg-surface border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface border-b border-border">
       <Container size="default">
         <ScrollReveal duration={600} direction="up">
           <SectionHeading
@@ -50,9 +50,9 @@ export function ProductionProcess() {
               return (
                 <ScrollReveal
                   key={item.step}
-                  duration={500}
-                  delay={index * 80}
-                  direction="up"
+                  duration={550}
+                  delay={index * 100}
+                  variant="timeline-step"
                   className="h-full"
                 >
                   <div className="flex flex-col h-full text-left p-5 rounded-2xl bg-surface border border-border shadow-xs hover:border-secondary-brand hover:shadow-md transition-all group">
