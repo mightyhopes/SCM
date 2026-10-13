@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { COMPANY_INFO, PRODUCT_CATEGORIES } from "@/data/companyData";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface RfqModalProps {
   children?: React.ReactElement;
@@ -24,6 +25,9 @@ export function RfqModal({
   defaultCategory = "",
   triggerClassName = "",
 }: RfqModalProps) {
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
+
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
@@ -61,7 +65,7 @@ export function RfqModal({
             children
           ) : (
             <Button variant="accent" size="default" className={triggerClassName}>
-              <span>Request a Quote</span>
+              <span>{t.nav.quote}</span>
             </Button>
           )
         }
@@ -70,13 +74,13 @@ export function RfqModal({
         <DialogHeader className="pb-4 border-b border-border">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xs bg-surface-muted border border-border text-[11px] font-bold text-primary tracking-wider uppercase mb-1">
             <FileText className="size-3 text-secondary-brand" />
-            <span>Formulir RFQ Resmi B2B</span>
+            <span>{isEn ? "Official B2B RFQ Form" : "Formulir RFQ Resmi B2B"}</span>
           </div>
           <DialogTitle className="text-xl font-bold text-text-primary">
-            Permintaan Penawaran Manufaktur
+            {t.rfqModal.title}
           </DialogTitle>
           <DialogDescription className="text-xs text-text-secondary">
-            Tim teknis SCM akan menghubungi Anda untuk estimasi harga, MOQ, dan jadwal sampling.
+            {t.rfqModal.description}
           </DialogDescription>
         </DialogHeader>
 
@@ -87,15 +91,15 @@ export function RfqModal({
             </div>
             <div>
               <h4 className="text-base font-bold text-primary">
-                Permintaan RFQ Berhasil Dicatat!
+                {t.rfqModal.successTitle}
               </h4>
               <p className="text-xs text-text-secondary mt-1.5 max-w-sm leading-relaxed">
-                Terima kasih atas minat Anda bermitra dengan {COMPANY_INFO.name}. Kami akan segera merespons via nomor WhatsApp / Email yang Anda cantumkan.
+                {t.rfqModal.successDesc}
               </p>
             </div>
             <div className="flex items-center gap-3 pt-2">
-              <Button variant="default" size="sm" onClick={handleReset}>
-                Selesai
+              <Button variant="default" size="sm" onClick={handleReset} className="cursor-pointer">
+                {t.rfqModal.closeBtn}
               </Button>
             </div>
           </div>
@@ -104,20 +108,20 @@ export function RfqModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-text-primary mb-1">
-                  Nama Anda *
+                  {t.contact.nameLabel}
                 </label>
                 <input
                   type="text"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Budi Santoso"
+                  placeholder={t.contact.namePlaceholder}
                   className="w-full px-3 py-2 text-xs rounded-md border border-border bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-text-primary mb-1">
-                  Nama Perusahaan / Brand *
+                  {t.contact.companyLabel}
                 </label>
                 <input
                   type="text"
@@ -126,7 +130,7 @@ export function RfqModal({
                   onChange={(e) =>
                     setForm({ ...form, company: e.target.value })
                   }
-                  placeholder="PT / Brand Fashion"
+                  placeholder={t.contact.companyPlaceholder}
                   className="w-full px-3 py-2 text-xs rounded-md border border-border bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -135,20 +139,20 @@ export function RfqModal({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-text-primary mb-1">
-                  Nomor WhatsApp *
+                  {t.contact.phoneInputLabel}
                 </label>
                 <input
                   type="tel"
                   required
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="0812-xxxx-xxxx"
+                  placeholder={t.contact.phoneInputPlaceholder}
                   className="w-full px-3 py-2 text-xs rounded-md border border-border bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-text-primary mb-1">
-                  Kategori Kaus Kaki
+                  {t.contact.categoryLabel}
                 </label>
                 <select
                   value={form.category}
@@ -157,20 +161,20 @@ export function RfqModal({
                   }
                   className="w-full px-3 py-2 text-xs rounded-md border border-border bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
                 >
-                  <option value="">Pilih Kategori</option>
+                  <option value="">{t.contact.categoryDefault}</option>
                   {PRODUCT_CATEGORIES.map((c) => (
-                    <option key={c.id} value={c.title}>
-                      {c.title}
+                    <option key={c.id} value={isEn ? c.titleEn : c.title}>
+                      {isEn ? c.titleEn : c.title}
                     </option>
                   ))}
-                  <option value="Custom OEM">Pesanan Kustom Khusus</option>
+                  <option value="Custom OEM">{t.contact.categoryCustom}</option>
                 </select>
               </div>
             </div>
 
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-text-primary mb-1">
-                Estimasi Kuantitas & Catatan Tambahan
+                {isEn ? "Estimated Quantity & Specifications" : "Estimasi Kuantitas & Catatan Tambahan"}
               </label>
               <textarea
                 rows={3}
@@ -178,7 +182,11 @@ export function RfqModal({
                 onChange={(e) =>
                   setForm({ ...form, message: e.target.value })
                 }
-                placeholder="Contoh: Estimasi 100 lusin kaus kaki sekolah, bahan katun combed..."
+                placeholder={
+                  isEn
+                    ? "E.g., Estimated 100 dozen school socks, combed cotton, custom embroidered logo..."
+                    : "Contoh: Estimasi 100 lusin kaus kaki sekolah, bahan katun combed..."
+                }
                 className="w-full px-3 py-2 text-xs rounded-md border border-border bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-y"
               />
             </div>
@@ -188,21 +196,23 @@ export function RfqModal({
                 type="submit"
                 variant="primary"
                 size="default"
-                className="w-full sm:flex-1 justify-center"
+                className="w-full sm:flex-1 justify-center cursor-pointer"
               >
                 <Send className="size-3.5 mr-1.5" />
-                <span>Kirim Permintaan</span>
+                <span>{t.rfqModal.submitBtn}</span>
               </Button>
               <a
                 href={`https://wa.me/6281200000000?text=${encodeURIComponent(
-                  "Halo PT. Sinlie Cahaya Matahari, saya ingin berkonsultasi mengenai pemesanan manufaktur kaus kaki."
+                  isEn
+                    ? "Hello PT. Sinlie Cahaya Matahari, I would like to consult on custom sock manufacturing."
+                    : "Halo PT. Sinlie Cahaya Matahari, saya ingin berkonsultasi mengenai pemesanan manufaktur kaus kaki."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 text-xs font-semibold rounded-lg bg-surface-muted border border-border text-primary hover:bg-secondary-light transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto px-4 py-2.5 text-xs font-semibold rounded-lg bg-surface-muted border border-border text-primary hover:bg-secondary-light transition-colors cursor-pointer"
               >
                 <Phone className="size-3.5 text-secondary-brand" />
-                <span>Chat WA</span>
+                <span>{isEn ? "WhatsApp Chat" : "Chat WA"}</span>
               </a>
             </div>
           </form>

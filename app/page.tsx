@@ -11,10 +11,11 @@ import { QualitySection } from "@/components/sections/QualitySection";
 import { FactoryGallery } from "@/components/sections/FactoryGallery";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { FloatingContactWidget } from "@/components/ui/FloatingContactWidget";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-text-primary selection:bg-secondary-light selection:text-primary">
+    <div className="min-h-screen flex flex-col bg-background text-text-primary selection:bg-secondary-light selection:text-primary relative">
       {/* Anchor top */}
       <div id="top" />
 
@@ -55,6 +56,9 @@ export default function Home() {
 
       {/* L. Footer */}
       <Footer />
+
+      {/* Persistent Floating B2B Action Widget */}
+      <FloatingContactWidget />
     </div>
   );
 }

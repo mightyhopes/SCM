@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,7 +45,7 @@
   --text-secondary: #5B6965;
   --text-inverse: #FFFFFF;
 
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 }
 
 @theme {
@@ -101,14 +100,45 @@ html {
 body {
   background-color: var(--background);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
 }
 
-/* Custom industrial grid pattern utility */
+/* Tactile Industrial Patterns */
 .industrial-grid-bg {
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-image: radial-gradient(var(--border) 1.25px, transparent 1.25px);
   background-size: 24px 24px;
+}
+
+
+
+.knit-pattern-bg {
+  background-image: radial-gradient(circle at 50% 50%, rgba(77, 154, 153, 0.15) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+
+/* Precision Tech Crosshairs */
+.tech-crosshair {
+  position: relative;
+}
+.tech-crosshair::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border-top: 1.5px solid var(--secondary-brand);
+  border-left: 1.5px solid var(--secondary-brand);
+}
+.tech-crosshair::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  border-bottom: 1.5px solid var(--secondary-brand);
+  border-right: 1.5px solid var(--secondary-brand);
 }
 
 @layer base {

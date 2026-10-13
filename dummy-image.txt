@@ -1,0 +1,282 @@
+# Integrate Dummy Image Assets & Motion — SCM Company Profile
+
+## 1. Objective
+
+Integrate the provided SCM dummy image assets into the existing Next.js + TypeScript (TSX) company profile website.
+
+The goal is to replace empty image placeholders with appropriate temporary visuals, improve the page's visual hierarchy, and introduce subtle, professional animations.
+
+The website belongs to PT. Sinlie Cahaya Matahari, an Indonesian sock manufacturing company.
+
+Maintain the existing Modern Industrial Corporate design direction and established teal-yellow brand palette.
+
+**Do not rebuild the project from scratch.** Inspect the existing implementation and improve it incrementally.
+
+## 2. Asset Directory
+
+Assume the extracted dummy assets are located in:
+
+`public/images/dummy/`
+
+Inspect the actual filenames before referencing them. Use the files that exist in the directory and do not invent alternative filenames.
+
+The asset package contains these intended categories:
+
+| Asset Group | Intended Use |
+|---|---|
+| Factory exterior and interior | Hero, About Us, company introduction |
+| Production machinery and factory floor | Manufacturing capabilities |
+| Workers and quality inspection | Quality assurance |
+| Packing and warehouse | Production process and operations |
+| Baby, kids, ladies, men's, sports, and custom socks | Product category cards |
+| Yarn and knitting process | Production process |
+| Finishing and packaging | Manufacturing workflow |
+| Team and office | Company introduction |
+| Knit texture and pattern | Decorative accents or close-up sections |
+| Logistics truck | Delivery and logistics, if relevant |
+| Product composition | Hero or product showcase |
+| Abstract patterns and waves | Subtle decorative backgrounds |
+
+These are AI-generated temporary visuals, not verified photographs of the actual company.
+
+Do not present them as proof of SCM's real factory, employees, clients, production capacity, certifications, or business operations.
+
+## 3. Asset Mapping
+
+Map the available images to the existing homepage components.
+
+### Navbar
+
+- Keep the actual SCM logo.
+- Do not replace the logo with a generated image or text approximation.
+- Maintain a clean, light background and restrained styling.
+
+### Hero Section
+
+- Use the strongest available factory interior, exterior, or product composition image.
+- Preserve the existing headline and CTA structure unless a small adjustment improves the layout.
+- Use a clear image focal point and appropriate cropping.
+- Avoid stretching the image.
+- Apply a subtle reveal animation on initial page load.
+- Do not use a heavy image carousel.
+
+### Company at a Glance
+
+- Keep this section primarily focused on readable statistics.
+- Do not add decorative imagery unless it improves the composition.
+- Do not display unverified company figures as factual claims.
+
+### About Us
+
+- Use a factory exterior, office, or manufacturing environment image.
+- Use an editorial two-column layout.
+- Ensure the text and image have balanced visual weight.
+
+### Product Categories
+
+Use the corresponding product assets for the categories they represent:
+
+- Baby socks.
+- Kids socks.
+- Ladies socks.
+- Men's socks.
+- Sports socks.
+- Custom-design socks.
+
+Requirements:
+
+- Use consistent aspect ratios.
+- Use `object-cover` when appropriate.
+- Use a neutral or white image surface.
+- Keep product names and descriptions readable.
+- Add subtle hover transitions.
+- Avoid excessive scaling or bouncing animations.
+- Make each card link functional only if a valid destination exists.
+
+If a category image is unavailable, use a neutral placeholder rather than an unrelated image.
+
+### Manufacturing Capabilities
+
+- Use production machinery, factory floor, yarn, or finishing imagery.
+- Prefer a varied composition rather than repeating identical cards.
+- Use photographs as the primary visual element.
+- Keep supporting text concise.
+
+### Production Process
+
+Map images to the relevant stages:
+
+1. Material preparation.
+2. Knitting.
+3. Finishing.
+4. Quality inspection.
+5. Packaging and delivery.
+
+Use only stages that match the actual content available. Treat the workflow as provisional until the company confirms its production process.
+
+On desktop, use a clear horizontal or grid-based layout. On mobile, stack the steps vertically.
+
+### Quality Assurance
+
+- Use the quality inspection and worker images.
+- Keep this section focused on inspection and product consistency.
+- Do not invent quality metrics or certification claims.
+
+### Factory Gallery
+
+- Use a responsive, asymmetric image grid.
+- Combine landscape and portrait images where suitable.
+- Maintain consistent spacing and sensible image proportions.
+- Use a lightweight lightbox only if it can be implemented cleanly and accessibly.
+- Avoid repeating the same image multiple times unless necessary.
+
+### Business Inquiry and Footer
+
+- Do not add decorative images if they weaken the CTA.
+- Preserve the dark teal brand section.
+- Keep contact information editable and based on verified data.
+
+## 4. Image Rendering Requirements
+
+Use Next.js `Image` from `next/image` for local image assets.
+
+Requirements:
+
+- Use valid local paths beginning with `/images/dummy/`.
+- Set appropriate `width` and `height`, or use `fill` inside a correctly positioned container.
+- When using `fill`, provide a parent container with `position: relative` and a defined aspect ratio or height.
+- Use `sizes` for responsive images where appropriate.
+- Use `object-cover` for cropped photography and `object-contain` for assets that must remain fully visible.
+- Use meaningful alt text for content images.
+- Use empty alt text for purely decorative images.
+- Prevent layout shifts by reserving image dimensions.
+- Use lazy loading for below-the-fold images.
+- Do not lazy-load the main hero image if doing so would delay the primary visual content.
+- Do not use CSS background images for content that needs meaningful alt text.
+
+Avoid unnecessary image libraries or external image services.
+
+## 5. Animation Direction
+
+Animations should feel restrained, polished, and suitable for a B2B manufacturing company.
+
+Use CSS transitions and Intersection Observer-based reveal effects only where useful. Prefer existing project utilities if they already provide this functionality.
+
+### Initial Page Load
+
+- Fade in the hero content.
+- Reveal the hero image with a small vertical movement or subtle scale transition.
+- Keep the duration around 400–700ms.
+- Avoid long entrance sequences that delay access to the content.
+
+### Scroll Reveal
+
+For selected sections:
+
+- Use a small upward movement, approximately 12–20px.
+- Transition opacity from 0 to 1.
+- Use a duration around 400–600ms.
+- Apply a modest stagger to a small number of related cards.
+- Trigger animations when elements enter the viewport.
+
+Do not animate every paragraph and element independently.
+
+### Product Cards
+
+- Use a subtle image scale transition on hover.
+- Keep transitions around 200–300ms.
+- Use a restrained border or shadow change.
+- Avoid continuous floating, pulsing, or bouncing.
+
+### Buttons and Navigation
+
+- Add smooth color transitions.
+- Provide clear hover and keyboard focus states.
+- Do not make the interface depend on hover to reveal essential information.
+
+### Decorative Elements
+
+- Use the existing teal and yellow colors.
+- Keep abstract backgrounds subtle.
+- Do not introduce large animated gradients or distracting moving patterns.
+
+## 6. Motion Accessibility and Performance
+
+- Respect `prefers-reduced-motion`.
+- Disable nonessential reveal and transform animations when reduced motion is requested.
+- Avoid large amounts of JavaScript for animation.
+- Do not introduce a motion library unless the project genuinely needs it.
+- Do not animate layout properties that cause unnecessary reflow.
+- Prefer opacity and transform for animation.
+- Avoid scroll event handlers that run continuously without a clear need.
+- Ensure content remains visible and readable if animations fail or JavaScript is disabled.
+
+If Intersection Observer is required, encapsulate the behavior in a reusable hook or small client component rather than duplicating the logic throughout the application.
+
+## 7. Visual Consistency
+
+Maintain the existing brand tokens:
+
+- Primary: `#08615D`
+- Primary hover: `#064E4B`
+- Primary dark: `#073F3C`
+- Secondary: `#4D9A99`
+- Secondary light: `#D6E8E5`
+- Accent: `#FFCC00`
+- Accent hover: `#E6B800`
+- Background: `#F7F8F5`
+- Surface: `#FFFFFF`
+- Surface muted: `#E8F1EF`
+- Text primary: `#202B29`
+- Text secondary: `#5B6965`
+- Border: `#DCE4E0`
+
+Do not introduce unrelated accent colors.
+
+Keep image corners, section spacing, container widths, and card treatments consistent across the website.
+
+Use whitespace and photography to create visual interest instead of adding unnecessary decorations.
+
+## 8. Responsive Behavior
+
+Check the implementation at mobile, tablet, and desktop widths.
+
+Ensure:
+
+- Hero content stacks naturally on mobile.
+- Product grids adapt to the available width.
+- Images do not become excessively tall on narrow screens.
+- Gallery layouts collapse into a clean single-column or two-column arrangement as appropriate.
+- Navigation remains accessible.
+- Animations do not create horizontal overflow.
+- Text remains readable and buttons remain easy to tap.
+
+## 9. Important Constraints
+
+- Do not rebuild the existing application.
+- Do not replace the actual company logo.
+- Do not invent image filenames.
+- Do not present AI-generated images as authentic SCM documentation.
+- Do not invent company claims to accompany the images.
+- Do not add unnecessary dependencies.
+- Do not over-animate the website.
+- Do not sacrifice accessibility or performance for visual effects.
+- Keep all image mappings easy to replace when real client photographs arrive.
+
+## 10. Verification and Completion
+
+After implementation:
+
+1. Verify that every referenced image file exists.
+2. Check for broken images and incorrect asset paths.
+3. Check the browser console for avoidable errors.
+4. Run the available TypeScript and build checks.
+5. Inspect the homepage at desktop and mobile sizes.
+6. Verify the reduced-motion behavior.
+7. Confirm that the logo and brand palette remain unchanged.
+8. List the image assets mapped to each section.
+9. List any images or sections that still need real client assets.
+
+Implement the changes directly in the existing project. Do not stop after proposing a plan.
+
+The final result should feel like a cohesive, professional manufacturing company website with subtle motion, appropriate imagery, and a clear path toward replacing all dummy visuals with approved client assets.

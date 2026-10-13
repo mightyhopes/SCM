@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { LanguageProvider } from "@/context/LanguageContext";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "PT. Sinlie Cahaya Matahari | Indonesian Sock Manufacturer",
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="id" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body className="antialiased min-h-screen flex flex-col bg-background text-text-primary">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
