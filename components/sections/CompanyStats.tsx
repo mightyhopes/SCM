@@ -1,62 +1,88 @@
+"use client";
+
 import React from "react";
-import { Info } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { COMPANY_STATS } from "@/data/companyData";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function CompanyStats() {
+  const { t } = useLanguage();
+
+  const statItems = [
+    {
+      id: "capacity",
+      value: t.stats.items.capacity.value,
+      label: t.stats.items.capacity.label,
+      description: t.stats.items.capacity.desc,
+    },
+    {
+      id: "experience",
+      value: t.stats.items.experience.value,
+      label: t.stats.items.experience.label,
+      description: t.stats.items.experience.desc,
+    },
+    {
+      id: "markets",
+      value: t.stats.items.markets.value,
+      label: t.stats.items.markets.label,
+      description: t.stats.items.markets.desc,
+    },
+    {
+      id: "quality",
+      value: t.stats.items.quality.value,
+      label: t.stats.items.quality.label,
+      description: t.stats.items.quality.desc,
+    },
+  ];
+
   return (
     <section className="py-12 sm:py-16 bg-surface border-b border-border">
       <Container size="default">
         {/* Section Intro Badge */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-8 border-b border-border gap-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-secondary">
-              Sekilas Perusahaan
-            </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-text-primary mt-1">
-              Kapabilitas & Skala Operasional Manufaktur
-            </h2>
+        <ScrollReveal duration={500} direction="up">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-8 border-b border-border gap-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-secondary-brand">
+                {t.stats.eyebrow}
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold text-text-primary mt-1">
+                {t.stats.title}
+              </h2>
+            </div>
+            <div className="text-xs font-mono text-text-secondary bg-surface-muted px-3 py-1.5 rounded-md border border-border">
+              PT. Sinlie Cahaya Matahari
+            </div>
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-surface-muted border border-border text-xs text-text-secondary">
-            <Info className="w-3.5 h-3.5 text-secondary shrink-0" />
-            <span>Angka bertanda * merupakan estimasi data operasional (dapat disesuaikan)</span>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {COMPANY_STATS.map((stat) => (
-            <div
+          {statItems.map((stat, idx) => (
+            <ScrollReveal
               key={stat.id}
-              className="relative p-6 rounded-lg bg-surface border border-border hover:border-secondary transition-all shadow-2xs hover:shadow-xs group"
+              duration={500}
+              delay={idx * 75}
+              variant="pop-in"
+              className="h-full"
             >
-              {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-border group-hover:bg-accent transition-colors rounded-t-lg" />
-
-              <div className="space-y-2">
-                <div className="flex items-baseline justify-between">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
-                    {stat.value}
-                  </span>
-                  {!stat.isVerified && (
-                    <span
-                      title="Data menunggu konfirmasi final manajemen"
-                      className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-xs bg-amber-50 text-amber-700 border border-amber-200"
-                    >
-                      Konfirmasi
+              <div className="p-6 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-2xs hover:shadow-md hover:-translate-y-0.5 group h-full flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+                      {stat.value}
                     </span>
-                  )}
+                  </div>
+
+                  <h3 className="text-sm font-bold text-text-primary tracking-wide">
+                    {stat.label}
+                  </h3>
+
+                  <p className="text-xs text-text-secondary leading-relaxed pt-1">
+                    {stat.description}
+                  </p>
                 </div>
-
-                <h3 className="text-sm font-bold text-text-primary tracking-wide">
-                  {stat.label}
-                </h3>
-
-                <p className="text-xs text-text-secondary leading-relaxed pt-1">
-                  {stat.description}
-                </p>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

@@ -1,118 +1,153 @@
+"use client";
+
 import React from "react";
-import { Cpu, Layers, Sparkles, PackageCheck, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+import { Cpu, Factory, Sparkles, PackageCheck, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/badge";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { CAPABILITIES } from "@/data/companyData";
+import { useLanguage } from "@/context/LanguageContext";
 
 const iconMap = {
   Cpu,
-  Layers,
+  Factory,
   Sparkles,
   PackageCheck,
 };
 
 export function ManufacturingSection() {
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
+
   return (
-    <section id="capabilities" className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
+    <section className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
       <Container size="default">
-        <SectionHeading
-          eyebrow="KAPABILITAS PABRIK"
-          title="Infrastruktur Produksi & Keahlian Teknis Rajut"
-          description="Didukung permesinan terstandar industri untuk menghasilkan rajutan berkonsistensi tinggi dengan kapasitas yang dapat diskalakan sesuai volume pesanan Anda."
-        />
+        <ScrollReveal duration={600} direction="up">
+          <SectionHeading
+            eyebrow={t.capabilities.eyebrow}
+            title={t.capabilities.title}
+            description={t.capabilities.description}
+          />
+        </ScrollReveal>
 
         {/* Capabilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CAPABILITIES.map((cap) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+          {CAPABILITIES.map((cap, idx) => {
             const IconComponent =
               iconMap[cap.iconName as keyof typeof iconMap] || Cpu;
+            const title = isEn ? cap.titleEn : cap.title;
+            const desc = isEn ? cap.descriptionEn : cap.description;
+            const badge = isEn ? cap.badgeTextEn : cap.badgeText;
+            const specs = isEn ? cap.specsEn : cap.specs;
 
             return (
-              <div
+              <ScrollReveal
                 key={cap.id}
-                className="p-8 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-xs hover:shadow-md flex flex-col justify-between"
+                duration={550}
+                delay={idx * 80}
+                variant={idx % 2 === 0 ? "slide-right" : "slide-left"}
+                className="h-full"
               >
-                <div>
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-3.5">
-                      <div className="size-12 rounded-xl bg-surface-muted border border-border flex items-center justify-center text-primary shrink-0">
-                        <IconComponent className="size-6 stroke-[1.75]" />
+                <div className="p-6 sm:p-7 rounded-2xl bg-surface border border-border hover:border-secondary-brand transition-all shadow-xs hover:shadow-md flex flex-col justify-between h-full group">
+                  <div>
+                    {/* Primary Photographic Showcase */}
+                    <div className="relative h-52 sm:h-56 w-full rounded-xl overflow-hidden bg-surface-muted mb-5 border border-border group/photo">
+                      <Image
+                        src={cap.image}
+                        alt={title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 550px"
+                        className="object-cover group-hover/photo:scale-104 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Overlay badge */}
+                      <div className="absolute top-3 right-3 z-10">
+                        <Badge variant="secondary" className="text-[10px] font-mono px-2.5 py-0.5 bg-surface/95 backdrop-blur-xs text-primary font-bold shadow-xs border border-white/20">
+                          {badge}
+                        </Badge>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-text-primary">
-                          {cap.title}
-                        </h3>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-secondary-brand">
-                          Standar Manufaktur SCM
+
+                      <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
+                        <div className="size-8 rounded-lg bg-primary-dark/85 backdrop-blur-xs border border-secondary/30 flex items-center justify-center text-accent">
+                          <IconComponent className="size-4" />
+                        </div>
+                        <span className="text-[11px] font-mono uppercase font-bold text-white drop-shadow-xs">
+                          SCM Capability
                         </span>
                       </div>
                     </div>
-                    <Badge variant="secondary" className="text-[10px] font-mono px-2 py-0.5 bg-secondary-light text-primary font-bold">
-                      {cap.badgeText}
-                    </Badge>
+
+                    <div className="mb-4">
+                      <h3 className="text-lg font-bold text-text-primary group-hover:text-primary transition-colors">
+                        {title}
+                      </h3>
+                      <p className="mt-2 text-xs sm:text-sm text-text-secondary leading-relaxed">
+                        {desc}
+                      </p>
+                    </div>
                   </div>
 
-                  <p className="text-sm text-text-secondary leading-relaxed mb-6">
-                    {cap.description}
-                  </p>
+                  {/* Specs List */}
+                  <div className="pt-4 border-t border-border flex flex-col gap-2">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-text-secondary block mb-0.5">
+                      {t.capabilities.specLabel}
+                    </span>
+                    {specs.map((spec, sIdx) => (
+                      <div key={sIdx} className="flex items-center gap-2 text-xs text-text-primary">
+                        <CheckCircle2 className="size-3.5 text-primary shrink-0" />
+                        <span>{spec}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-
-                {/* Specs List */}
-                <div className="pt-4 border-t border-border flex flex-col gap-2">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-text-secondary block mb-0.5">
-                    Spesifikasi & Output:
-                  </span>
-                  {cap.specs.map((spec, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-text-primary">
-                      <CheckCircle2 className="size-3.5 text-primary shrink-0" />
-                      <span>{spec}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
 
-        {/* Technical Specification Bar */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
-            <div className="pt-4 sm:pt-0">
-              <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
-                Variasi Needle Count
-              </span>
-              <p className="text-xl font-bold text-text-primary mt-1">
-                96N / 108N / 144N / 168N / 200N
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Mendukung rajutan tebal hingga ultra-fine gauge
-              </p>
-            </div>
-            <div className="pt-4 sm:pt-0 sm:px-4">
-              <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
-                Opsi Konstruksi Tumit & Jari
-              </span>
-              <p className="text-xl font-bold text-text-primary mt-1">
-                Y-Heel & Seamless Toe
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Fitting ergonomis anti-selip pada lekuk tumit
-              </p>
-            </div>
-            <div className="pt-4 sm:pt-0 sm:pl-4">
-              <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
-                Pilihan Material Benang
-              </span>
-              <p className="text-xl font-bold text-text-primary mt-1">
-                Combed Cotton, Spandex, TC, PE
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                Kombinasi fleksibel sesuai fungsi dan budget brand
-              </p>
+        {/* Technical Specification Bar: Capacity, Packaging & Materials */}
+        <ScrollReveal duration={600} direction="up" className="mt-12">
+          <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-border">
+              <div className="pt-4 sm:pt-0">
+                <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
+                  {t.capabilities.barCapacityTitle}
+                </span>
+                <p className="text-xl font-bold text-primary mt-1">
+                  {t.capabilities.barCapacityVal}
+                </p>
+                <p className="text-xs text-text-secondary mt-1">
+                  {t.capabilities.barCapacityDesc}
+                </p>
+              </div>
+              <div className="pt-4 sm:pt-0 sm:px-4">
+                <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
+                  {t.capabilities.barPackagingTitle}
+                </span>
+                <p className="text-xl font-bold text-text-primary mt-1">
+                  {t.capabilities.barPackagingVal}
+                </p>
+                <p className="text-xs text-text-secondary mt-1">
+                  {t.capabilities.barPackagingDesc}
+                </p>
+              </div>
+              <div className="pt-4 sm:pt-0 sm:pl-4">
+                <span className="text-xs uppercase tracking-wider text-secondary-brand font-semibold">
+                  {t.capabilities.barYarnTitle}
+                </span>
+                <p className="text-xl font-bold text-text-primary mt-1">
+                  {t.capabilities.barYarnVal}
+                </p>
+                <p className="text-xs text-text-secondary mt-1">
+                  {t.capabilities.barYarnDesc}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </Container>
     </section>
   );
