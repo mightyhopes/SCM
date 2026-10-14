@@ -73,20 +73,24 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-surface/95 backdrop-blur-md border-b border-border shadow-xs transition-colors">
       <Container size="default">
         <div className="flex items-center justify-between h-18 sm:h-20 gap-4">
-          {/* Logo - Exact Intrinsic Ratio (1962:801), Tight Bounding Box */}
+          {/* Logo - Razor-Sharp Monogram + Vector Typography */}
           <Link
             href="/"
-            className="flex items-center shrink-0 rounded-lg p-0.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary transition-opacity hover:opacity-90"
+            className="flex flex-col items-center justify-center shrink-0 rounded-lg py-1 px-1.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary transition-opacity hover:opacity-90"
             aria-label={`${COMPANY_INFO.name} Homepage`}
           >
             <Image
-              src="/images/logo.webp"
+              src="/images/scm-mark.webp"
               alt={COMPANY_INFO.name}
               width={1962}
-              height={801}
+              height={670}
               priority
-              className="h-10 sm:h-11 w-auto object-contain"
+              unoptimized
+              className="h-8 sm:h-9.5 w-auto object-contain"
             />
+            <span className="text-[7.5px] sm:text-[8.5px] font-extrabold tracking-[0.22em] text-text-primary uppercase whitespace-nowrap leading-none mt-1">
+              PT. SINLIE CAHAYA MATAHARI
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

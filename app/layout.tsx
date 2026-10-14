@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki fleksibel dengan pengalaman industri sejak 2018. Melayani pasar domestik dan ekspor ke Amerika Serikat dan Eropa dengan kapasitas maksimum hingga 1.000.000 lusin/bulan.",
   icons: {
-    icon: "/images/logo.webp",
+    icon: "/images/scm-mark.webp",
   },
 };
 

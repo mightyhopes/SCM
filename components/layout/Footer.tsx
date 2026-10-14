@@ -43,14 +43,18 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
             {/* Col 1: Brand & Bio */}
             <div className="lg:col-span-4 space-y-5">
-              <div className="bg-surface px-3 py-2 rounded-xl inline-block shadow-sm border border-border/40">
+              <div className="bg-surface px-4 py-3 rounded-xl inline-flex flex-col items-center shadow-sm border border-border/40">
                 <Image
-                  src="/images/logo.webp"
+                  src="/images/scm-mark.webp"
                   alt={COMPANY_INFO.name}
                   width={1962}
-                  height={801}
+                  height={670}
+                  unoptimized
                   className="h-10 sm:h-11 w-auto object-contain"
                 />
+                <span className="text-[8px] sm:text-[9px] font-extrabold tracking-[0.22em] text-text-primary uppercase whitespace-nowrap leading-none mt-1.5">
+                  PT. SINLIE CAHAYA MATAHARI
+                </span>
               </div>
               <p className="text-secondary-light/90 text-sm leading-relaxed max-w-sm">
                 {t.footer.bio}
