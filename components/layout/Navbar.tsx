@@ -71,7 +71,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-surface/95 backdrop-blur-md border-b border-border shadow-xs transition-colors">
-      <Container size="default">
+      <Container size="wide">
         <div className="flex items-center justify-between h-18 sm:h-20 gap-4">
           {/* Logo - Razor-Sharp Monogram + Vector Typography */}
           <Link

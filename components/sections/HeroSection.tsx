@@ -93,118 +93,140 @@ export function HeroSection() {
       : "";
 
   return (
-    <section className="relative overflow-hidden pt-16 pb-20 lg:pt-28 lg:pb-32 bg-primary-dark text-text-inverse border-b border-primary/40">
-      {/* Cinematic Factory Background Image Layer */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative overflow-hidden min-h-[640px] lg:min-h-[720px] flex flex-col justify-between pt-12 pb-12 sm:pt-16 sm:pb-14 lg:pt-20 lg:pb-16 bg-primary-dark text-text-inverse border-b border-primary/40">
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      {/* 1. Full-Width Photographic Background Layer (Factory Exterior)        */}
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <Image
-          src="/images/dummy/02_factory_interior_hero.jpg"
-          alt="Lantai Pabrik Manufaktur Kaus Kaki SCM"
+          src="/images/01_exterior_full.png"
+          alt="Gedung Fasilitas Manufaktur PT Sinar Cipta Mandiri"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[72%_center] sm:object-[68%_center] lg:object-[62%_center] xl:object-[58%_center] opacity-90 scale-105 transition-transform duration-1000 ease-out"
         />
-        {/* Multi-layered Industrial Gradient Overlay for High Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/88 to-primary-dark/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-transparent to-primary-dark/50" />
-        <div className="absolute inset-0 opacity-10 industrial-grid-bg pointer-events-none" />
+
+        {/* Directional Teal Gradients for Optimal Contrast & Visual Depth */}
+        {/* Horizontal Gradient: Deep teal on left for text legibility, transparent on right for factory view */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark via-primary-dark/90 via-55% to-primary-dark/30 lg:to-transparent" />
+
+        {/* Mobile-optimized vertical gradient to protect text on small screens */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/80 via-transparent to-primary-dark lg:hidden" />
+
+        {/* Global top/bottom vignette to blend seamlessly into navbar and next section */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/70 via-transparent via-40% to-primary-dark/95" />
+
+        {/* Ambient brand lighting & subtle industrial texture */}
+        <div className="absolute -top-32 -left-32 size-[28rem] rounded-full bg-secondary-brand/20 blur-3xl" />
+        <div className="absolute bottom-1/4 -right-32 size-[26rem] rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.05] industrial-grid-bg" />
       </div>
 
-      <Container size="default" className="relative z-10">
-        <ScrollReveal duration={600} direction="up" className="max-w-4xl">
-          {/* Live Manufacturing Status Pill */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm w-fit mb-6">
-            <span className="relative flex size-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full size-2.5 bg-accent" />
-            </span>
-            <span className="text-xs font-bold tracking-widest text-accent uppercase font-mono">
-              {t.hero.statusBadge}
-            </span>
-          </div>
-
-          {/* Headline with Smooth Industrial Typewriter Animation */}
-          <div className="flex flex-col gap-3">
-            <h1
-              className="relative text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-[1.08]"
-              aria-label={fullHeadline}
-            >
-              {/* Invisible phantom text to strictly lock layout dimensions & eliminate layout shift */}
-              <span className="invisible pointer-events-none select-none" aria-hidden="true">
-                {prefix}
-                <span className="text-accent relative inline-block">
-                  {highlight}
-                  <span className="absolute -bottom-1.5 left-0 w-full h-2.5 bg-accent/30 rounded-full -z-10" />
-                </span>
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      {/* 2. Main Foreground Hero Content (Expansive & Unobstructed Layout)     */}
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      <Container size="wide" className="relative z-10 flex-1 flex flex-col justify-center">
+        <div className="py-4 lg:py-6 max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+          <ScrollReveal duration={600} direction="up">
+            {/* Live Manufacturing Status Pill */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white shadow-[0_4px_20px_rgba(0,0,0,0.25)] w-fit mb-5">
+              <span className="relative flex size-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full size-2 bg-accent" />
               </span>
+              <span className="text-[11px] font-bold tracking-widest text-accent uppercase font-mono">
+                {t.hero.statusBadge}
+              </span>
+            </div>
 
-              {/* Absolute overlay containing the animated typed text & blinking laser cursor */}
-              <span className="absolute inset-0 top-0 left-0" aria-hidden="true">
-                <span>{prefixTyped}</span>
-                {highlightTyped.length > 0 && (
+            {/* Headline with Smooth Industrial Typewriter Animation */}
+            <div className="flex flex-col gap-3.5">
+              <h1
+                className="relative text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.1] drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]"
+                aria-label={fullHeadline}
+              >
+                {/* Invisible phantom text to strictly lock layout dimensions & eliminate layout shift */}
+                <span className="invisible pointer-events-none select-none" aria-hidden="true">
+                  {prefix}
                   <span className="text-accent relative inline-block">
-                    {highlightTyped}
-                    <span className="absolute -bottom-1.5 left-0 w-full h-2.5 bg-accent/30 rounded-full -z-10" />
+                    {highlight}
+                    <span className="absolute -bottom-1.5 left-0 w-full h-2 bg-accent/25 rounded-full -z-10" />
                   </span>
-                )}
-                {/* Blinking Industrial Laser Cursor */}
-                <span
-                  className="inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.78em] bg-accent ml-1 sm:ml-1.5 align-baseline animate-pulse shadow-sm rounded-xs"
-                  aria-hidden="true"
-                />
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl lg:text-3xl font-semibold text-secondary-light">
-              {t.hero.tagline}
+                </span>
+
+                {/* Absolute overlay containing the animated typed text & blinking laser cursor */}
+                <span className="absolute inset-0 top-0 left-0" aria-hidden="true">
+                  <span>{prefixTyped}</span>
+                  {highlightTyped.length > 0 && (
+                    <span className="text-accent relative inline-block">
+                      {highlightTyped}
+                      <span className="absolute -bottom-1.5 left-0 w-full h-2 bg-accent/25 rounded-full -z-10" />
+                    </span>
+                  )}
+                  {/* Blinking Industrial Laser Cursor */}
+                  <span
+                    className="inline-block w-[3px] sm:w-[4px] h-[0.78em] bg-accent ml-1 align-baseline animate-pulse shadow-[0_0_8px_rgba(255,204,0,0.5)] rounded-xs"
+                    aria-hidden="true"
+                  />
+                </span>
+              </h1>
+
+              {/* Tagline - Now allowed to span comfortably wider */}
+              <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-secondary-light drop-shadow-sm max-w-3xl xl:max-w-4xl leading-snug">
+                {t.hero.tagline}
+              </p>
+            </div>
+
+            {/* Supporting Copy - Extended breathing room */}
+            <p className="mt-5 text-sm sm:text-base lg:text-lg text-secondary-light/90 leading-relaxed max-w-2xl lg:max-w-3xl font-normal drop-shadow-sm">
+              {t.hero.description}
             </p>
-          </div>
 
-          {/* Supporting Copy */}
-          <p className="mt-6 text-base sm:text-lg text-secondary-light/90 leading-relaxed max-w-2xl font-normal">
-            {t.hero.description}
-          </p>
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+              <Button
+                href="#contact"
+                variant="accent"
+                size="default"
+                className="group justify-center font-bold text-primary-dark shadow-[0_4px_20px_rgba(255,204,0,0.3)] hover:shadow-[0_8px_30px_rgba(255,204,0,0.45)] transition-all duration-300 cursor-pointer px-7 py-3"
+              >
+                <span>{t.hero.ctaRfq}</span>
+                <ArrowRight className="size-4 ml-2 transition-transform duration-300 group-hover:translate-x-1.5" />
+              </Button>
+              <Button
+                href="#products"
+                variant="outline"
+                size="default"
+                className="justify-center border-white/30 text-white hover:bg-white/15 hover:border-white/50 hover:text-white backdrop-blur-md font-semibold px-6 py-3 transition-all duration-300 shadow-sm"
+              >
+                <span>{t.hero.ctaCatalog}</span>
+              </Button>
+            </div>
 
-          {/* Action Buttons */}
-          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <Button
-              href="#contact"
-              variant="accent"
-              size="lg"
-              className="group justify-center font-bold text-primary-dark shadow-xl hover:shadow-2xl cursor-pointer px-7"
-            >
-              <span>{t.hero.ctaRfq}</span>
-              <ArrowRight className="size-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              href="#products"
-              variant="outline"
-              size="lg"
-              className="justify-center border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-xs font-semibold px-6"
-            >
-              <span>{t.hero.ctaCatalog}</span>
-            </Button>
-          </div>
+            {/* Live Operational Trust Indicators */}
+            <div className="mt-8 flex items-center gap-4 sm:gap-6 text-xs text-secondary-light/85 flex-wrap">
+              <span className="flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-md border border-white/10">
+                <CheckCircle2 className="size-3.5 text-accent shrink-0" />
+                <span>{t.hero.trustMetric1}</span>
+              </span>
+              <span className="flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-md border border-white/10">
+                <CheckCircle2 className="size-3.5 text-accent shrink-0" />
+                <span>{t.hero.trustMetric2}</span>
+              </span>
+              <span className="flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-md border border-white/10">
+                <CheckCircle2 className="size-3.5 text-accent shrink-0" />
+                <span>{t.hero.trustMetric3}</span>
+              </span>
+            </div>
+          </ScrollReveal>
+        </div>
 
-          {/* Live Operational Trust Indicators */}
-          <div className="mt-8 flex items-center gap-6 text-xs text-secondary-light/85 flex-wrap">
-            <span className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-accent shrink-0" />
-              <span>{t.hero.trustMetric1}</span>
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-accent shrink-0" />
-              <span>{t.hero.trustMetric2}</span>
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-accent shrink-0" />
-              <span>{t.hero.trustMetric3}</span>
-            </span>
-          </div>
-        </ScrollReveal>
-
-        {/* Bottom Horizontal Industrial Specifications Dock */}
-        <ScrollReveal duration={600} delay={150} direction="up">
-          <div className="mt-14 pt-8 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* 3. Bottom Horizontal Industrial Specifications Dock (Glassmorphic) */}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        <ScrollReveal duration={600} delay={200} direction="up" className="mt-6 sm:mt-8">
+          <div className="p-5 sm:p-6 lg:p-7 rounded-2xl bg-black/40 backdrop-blur-xl border border-white/15 shadow-[0_15px_35px_rgba(0,0,0,0.3)] grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-secondary-light/70 mb-1">
                 <Factory className="size-4 text-accent" />
@@ -212,10 +234,10 @@ export function HeroSection() {
                   {t.hero.dockTechTitle}
                 </span>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-white">
+              <p className="text-base sm:text-lg lg:text-xl font-bold text-white">
                 {t.hero.dockTechVal}
               </p>
-              <p className="text-xs text-secondary-light/80">
+              <p className="text-xs text-secondary-light/75 leading-relaxed">
                 {t.hero.dockTechDesc}
               </p>
             </div>
@@ -227,10 +249,10 @@ export function HeroSection() {
                   {t.hero.dockCapacityTitle}
                 </span>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-accent">
+              <p className="text-base sm:text-lg lg:text-xl font-bold text-accent">
                 {t.hero.dockCapacityVal}
               </p>
-              <p className="text-xs text-secondary-light/80">
+              <p className="text-xs text-secondary-light/75 leading-relaxed">
                 {t.hero.dockCapacityDesc}
               </p>
             </div>
@@ -242,10 +264,10 @@ export function HeroSection() {
                   {t.hero.dockMarketsTitle}
                 </span>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-white">
+              <p className="text-base sm:text-lg lg:text-xl font-bold text-white">
                 {t.hero.dockMarketsVal}
               </p>
-              <p className="text-xs text-secondary-light/80">
+              <p className="text-xs text-secondary-light/75 leading-relaxed">
                 {t.hero.dockMarketsDesc}
               </p>
             </div>
@@ -257,10 +279,10 @@ export function HeroSection() {
                   {t.hero.dockQcTitle}
                 </span>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-white">
+              <p className="text-base sm:text-lg lg:text-xl font-bold text-white">
                 {t.hero.dockQcVal}
               </p>
-              <p className="text-xs text-secondary-light/80">
+              <p className="text-xs text-secondary-light/75 leading-relaxed">
                 {t.hero.dockQcDesc}
               </p>
             </div>
