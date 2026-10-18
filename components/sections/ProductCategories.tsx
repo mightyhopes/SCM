@@ -6,63 +6,14 @@ import { ArrowRight, Check, Sparkles, Package } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { PRODUCT_CATEGORIES, ProductCategory } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
-// Interactive Colorway Swatches per category
-const CATEGORY_COLORS: Record<string, { name: string; hex: string }[]> = {
-  "baby-socks": [
-    { name: "Pastel Mint", hex: "#D6E8E5" },
-    { name: "Soft Cream", hex: "#FDFBF7" },
-    { name: "Baby Teal", hex: "#4D9A99" },
-    { name: "Sunny Yellow", hex: "#FFCC00" },
-  ],
-  "kids-socks": [
-    { name: "Classic White", hex: "#FFFFFF" },
-    { name: "School Navy", hex: "#1E3A8A" },
-    { name: "Charcoal Grey", hex: "#4B5563" },
-    { name: "Forest Green", hex: "#064E4B" },
-  ],
-  "ladies-socks": [
-    { name: "Neutral Beige", hex: "#E5E0D8" },
-    { name: "Deep Teal", hex: "#08615D" },
-    { name: "Midnight Black", hex: "#1F2937" },
-    { name: "Soft Sage", hex: "#A7F3D0" },
-  ],
-  "mens-socks": [
-    { name: "Executive Black", hex: "#111827" },
-    { name: "Heather Charcoal", hex: "#374151" },
-    { name: "Athletic Navy", hex: "#1E3A5F" },
-    { name: "Classic Grey", hex: "#9CA3AF" },
-  ],
-  "sport-socks": [
-    { name: "Performance Black", hex: "#111827" },
-    { name: "Dynamic Teal", hex: "#08615D" },
-    { name: "Volt Accent", hex: "#FFCC00" },
-    { name: "Clean White", hex: "#FFFFFF" },
-  ],
-  "custom-socks": [
-    { name: "SCM Corporate Teal", hex: "#08615D" },
-    { name: "Brand Gold", hex: "#FFCC00" },
-    { name: "Royal Blue", hex: "#2563EB" },
-    { name: "Bold Crimson", hex: "#DC2626" },
-  ],
-};
-
 export function ProductCategories() {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>("all");
-  const [selectedColor, setSelectedColor] = useState<Record<string, string>>({
-    "baby-socks": "#D6E8E5",
-    "kids-socks": "#FFFFFF",
-    "ladies-socks": "#08615D",
-    "mens-socks": "#111827",
-    "sport-socks": "#08615D",
-    "custom-socks": "#08615D",
-  });
 
   const filteredCategories = PRODUCT_CATEGORIES.filter((category: ProductCategory) => {
     if (activeTab === "all") return true;
@@ -72,10 +23,6 @@ export function ProductCategories() {
     if (activeTab === "custom") return category.segment === "custom";
     return true;
   });
-
-  const handleColorChange = (categoryId: string, hex: string) => {
-    setSelectedColor((prev) => ({ ...prev, [categoryId]: hex }));
-  };
 
   const isEn = language === "en";
 
@@ -129,14 +76,11 @@ export function ProductCategories() {
           </Tabs>
         </div>
 
-        {/* Categories Grid with Clean Spec Cards (Zero MOQ, Customizable Materials) */}
+        {/* Categories Grid - Focused on Product Flexibility */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCategories.map((category, idx) => {
-            const currentColor = selectedColor[category.id] || "#08615D";
-            const swatches = CATEGORY_COLORS[category.id] || [];
             const displayTitle = isEn ? category.titleEn : category.title;
             const displayDesc = isEn ? category.descriptionEn : category.description;
-            const displayComposition = isEn ? category.materialCompositionEn : category.materialComposition;
             const displayHighlights = isEn ? category.highlightsEn : category.highlights;
 
             return (
@@ -159,51 +103,11 @@ export function ProductCategories() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                    {/* Header badges inside image specimen */}
-                    <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between">
-                      <span className="text-[10px] font-mono uppercase font-bold text-text-inverse bg-primary-dark/85 backdrop-blur-xs px-2.5 py-1 rounded-md tracking-wider border border-secondary/30">
-                        GAUGE // {category.needleCounts.join(" & ")}
+                    {/* Subtle Category Pill on Image */}
+                    <div className="absolute bottom-3 left-3 z-10">
+                      <span className="text-xs font-semibold text-white/95 drop-shadow-sm px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-xs border border-white/10 inline-block">
+                        {displayTitle}
                       </span>
-                    </div>
-
-                    {/* Bottom overlay in image container */}
-                    <div className="absolute bottom-3 left-3 right-3 z-10 flex items-end justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-bold text-white drop-shadow-sm">
-                          {isEn ? category.title : category.titleEn}
-                        </span>
-                        <span className="text-[10px] font-mono text-secondary-light">
-                          Density: {category.needleCounts[0]}
-                        </span>
-                      </div>
-                      <div
-                        className="size-5 rounded-full border-2 border-white shadow-md transition-colors"
-                        style={{ backgroundColor: currentColor }}
-                        title="Color Option"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Color Swatches Bar */}
-                  <div className="px-5 py-3 bg-surface-muted/60 border-b border-border flex items-center justify-between gap-3">
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-secondary">
-                      Colorways:
-                    </span>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {swatches.map((swatch) => (
-                        <button
-                          key={swatch.name}
-                          type="button"
-                          onClick={() => handleColorChange(category.id, swatch.hex)}
-                          title={swatch.name}
-                          className={`size-4 rounded-full border transition-all cursor-pointer ${
-                            currentColor === swatch.hex
-                              ? "ring-2 ring-primary scale-110 border-surface"
-                              : "border-border/80 hover:scale-105"
-                          }`}
-                          style={{ backgroundColor: swatch.hex }}
-                        />
-                      ))}
                     </div>
                   </div>
 
@@ -214,51 +118,26 @@ export function ProductCategories() {
                         {displayTitle}
                       </h3>
 
-                      <p className="mt-2 text-xs text-text-secondary leading-relaxed line-clamp-2">
+                      <p className="mt-2 text-xs sm:text-sm text-text-secondary leading-relaxed">
                         {displayDesc}
                       </p>
 
-                      {/* Needle Counts & Material */}
-                      <div className="mt-4 pt-3 border-t border-border flex flex-col gap-2">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[10px] font-mono uppercase text-text-secondary">
-                            {t.products.gaugeLabel}
-                          </span>
-                          {category.needleCounts.map((needle) => (
-                            <Badge
-                              key={needle}
-                              variant="secondary"
-                              className="text-[10px] font-mono px-1.5 py-0 h-4 bg-secondary-light text-primary font-bold"
-                            >
-                              {needle}
-                            </Badge>
-                          ))}
-                        </div>
-
-                        <div className="text-[11px] text-text-secondary">
-                          <span className="font-semibold text-text-primary">
-                            {t.products.materialLabel}{" "}
-                          </span>
-                          <span>{displayComposition}</span>
-                        </div>
-                      </div>
-
-                      {/* Highlights */}
-                      <div className="mt-3 pt-3 border-t border-border flex flex-col gap-1.5">
+                      {/* Highlights / Fleksibilitas Produk */}
+                      <div className="mt-4 pt-4 border-t border-border flex flex-col gap-2">
                         {displayHighlights.map((item, hIdx) => (
                           <div
                             key={hIdx}
                             className="flex items-center gap-2 text-xs text-text-primary"
                           >
                             <Check className="size-3.5 text-primary shrink-0" />
-                            <span className="truncate">{item}</span>
+                            <span>{item}</span>
                           </div>
                         ))}
                       </div>
 
-                      {/* Packaging note */}
-                      <div className="mt-3 pt-2 text-[10px] text-text-secondary flex items-center gap-1.5">
-                        <Package className="size-3 text-secondary-brand shrink-0" />
+                      {/* Packaging Flexibility Note */}
+                      <div className="mt-3.5 pt-3 border-t border-border/60 text-[11px] text-text-secondary flex items-center gap-2">
+                        <Package className="size-3.5 text-secondary-brand shrink-0" />
                         <span>{t.products.packagingNote}</span>
                       </div>
                     </div>

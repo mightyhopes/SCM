@@ -202,7 +202,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/dummy/08_baby_socks.jpg",
+    image: "/images/products_baby-socks.webp",
   },
   {
     id: "kids-socks",
@@ -228,7 +228,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/dummy/09_kids_socks.jpg",
+    image: "/images/products_kids-school-socks.webp",
   },
   {
     id: "ladies-socks",
@@ -254,7 +254,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/dummy/10_ladies_socks.jpg",
+    image: "/images/products_ladies-socks.webp",
   },
   {
     id: "mens-socks",
@@ -280,7 +280,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/dummy/11_mens_socks.jpg",
+    image: "/images/products_mens-classic-socks.webp",
   },
   {
     id: "sport-socks",
@@ -306,7 +306,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/dummy/12_sport_socks.jpg",
+    image: "/images/products_athletic-sport-socks.webp",
   },
   {
     id: "custom-socks",
@@ -332,7 +332,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi bahan fleksibel sesuai kesepakatan pesanan (katun, spandex, elastik, dsb.).",
     materialCompositionEn:
       "Flexible material composition per order agreement (cotton, spandex, elastic, etc.).",
-    image: "/images/dummy/13_custom_socks.jpg",
+    image: "/images/products_custom-specification-socks.webp",
   },
 ];
 
