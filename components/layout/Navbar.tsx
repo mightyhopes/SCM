@@ -27,7 +27,6 @@ export function Navbar() {
       "capabilities",
       "process",
       "quality",
-      "gallery",
       "faq",
       "contact",
     ];
@@ -64,7 +63,6 @@ export function Navbar() {
     { label: t.nav.capabilities, href: "#capabilities" },
     { label: t.nav.process, href: "#process" },
     { label: t.nav.quality, href: "#quality" },
-    { label: t.nav.gallery, href: "#gallery" },
     { label: t.nav.faq, href: "#faq" },
     { label: t.nav.contact, href: "#contact" },
   ];

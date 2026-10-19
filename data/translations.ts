@@ -176,6 +176,98 @@ export interface Translations {
     quoteEmailSubject: string;
     copyEmailBtn: string;
     copiedText: string;
+
+    // Redesigned Contact Section
+    eyebrow: string;
+    heroTitle: string;
+    heroSubtext: string;
+    form: {
+      cardTitle: string;
+      cardSubtitle: string;
+      nameLabel: string;
+      namePlaceholder: string;
+      companyLabel: string;
+      companyPlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
+      categoryLabel: string;
+      categoryPlaceholder: string;
+      categories: {
+        baby: string;
+        kids: string;
+        ladies: string;
+        mens: string;
+        athletic: string;
+        custom: string;
+      };
+      volumeLabel: string;
+      volumePlaceholder: string;
+      volumeOptions: string[];
+      timelineLabel: string;
+      timelinePlaceholder: string;
+      timelineOptions: string[];
+      materialLabel: string;
+      materialPlaceholder: string;
+      packagingLabel: string;
+      packagingPlaceholder: string;
+      packagingOptions: string[];
+      messageLabel: string;
+      messagePlaceholder: string;
+      fileUploadLabel: string;
+      fileUploadHint: string;
+      fileUploadDrag: string;
+      fileUploadChange: string;
+      fileSelected: string;
+      submitBtn: string;
+      submittingBtn: string;
+      openEmailDraft: string;
+      errors: {
+        name: string;
+        company: string;
+        email: string;
+        phone: string;
+        category: string;
+      };
+      success: {
+        title: string;
+        subtitle: string;
+        badge: string;
+        nextStepsTitle: string;
+        nextSteps: string[];
+        submitAnotherBtn: string;
+        whatsappFollowupBtn: string;
+      };
+    };
+    directCard: {
+      cardTitle: string;
+      contactPerson: string;
+      contactRole: string;
+      whatsappBtn: string;
+      callBtn: string;
+      copyPhone: string;
+      copiedPhone: string;
+      officialEmailLabel: string;
+      copyEmail: string;
+      copiedEmail: string;
+      hoursLabel: string;
+      hoursSchedule: string;
+      openNow: string;
+      closedNow: string;
+      reopensMonday: string;
+      reopensTomorrow: string;
+      addressLabel: string;
+      addressFull: string;
+      getDirections: string;
+      appointmentNotice: string;
+    };
+    checklistTitle: string;
+    checklistItems: Array<{ title: string; desc: string }>;
+    mobileSticky: {
+      whatsappBtn: string;
+      inquiryBtn: string;
+    };
   };
   footer: {
     bio: string;
@@ -392,14 +484,14 @@ export const translations: Record<Language, Translations> = {
       emailDesc:
         "Kirimkan pertanyaan kemitraan, lembar spesifikasi teknis, atau dokumen kebutuhan pengadaan kaos kaki langsung ke tim kami.",
       emailCta: "Kirim Email ke SCM",
-      phoneTitle: "Telepon & Layanan Bisnis",
+      phoneTitle: "Telepon & WhatsApp Bisnis",
       phoneDesc:
-        "Saluran telepon operasional untuk koordinasi bisnis manufaktur.",
+        "Hubungi langsung contact person kami untuk konsultasi teknis rajutan, jadwal produksi, atau komunikasi cepat via WhatsApp.",
       phonePending:
         "Nomor telepon operasional sedang dalam proses konfirmasi resmi. Untuk respon cepat, silakan hubungi kami via email resmi.",
       locationTitle: "Lokasi Fasilitas Pabrik",
       locationDesc:
-        "Indonesia. Kunjungan langsung dan audit fasilitas oleh mitra buyer dapat dikoordinasikan melalui janji temu terlebih dahulu.",
+        "Ciamis, Jawa Barat, Indonesia. Kunjungan langsung dan audit fasilitas oleh mitra buyer dapat dikoordinasikan melalui janji temu terlebih dahulu.",
       hoursTitle: "Jam Operasional",
       hoursDesc:
         "Senin - Jumat: 08:00 - 17:00 WIB (Waktu Indonesia Barat). Respon aktif pada hari dan jam kerja operasional.",
@@ -417,6 +509,123 @@ export const translations: Record<Language, Translations> = {
       quoteEmailSubject: "Permintaan Penawaran Manufaktur Kaos Kaki - SCM",
       copyEmailBtn: "Salin Alamat Email",
       copiedText: "Email Tersalin!",
+
+      // Redesigned Contact Section
+      eyebrow: "B2B Inquiry",
+      heroTitle: "Mari Diskusikan Manufaktur Kaos Kaki Anda",
+      heroSubtext: "Hubungi tim pabrik kami di Ciamis untuk penawaran harga langsung, spesifikasi kustom, dan jadwal produksi.",
+      form: {
+        cardTitle: "Ajukan Permintaan Penawaran",
+        cardSubtitle: "Isi formulir kebutuhan produksi Anda untuk ditinjau oleh tim teknis kami.",
+        nameLabel: "Nama Lengkap",
+        namePlaceholder: "cth. Budi Santoso",
+        companyLabel: "Nama Perusahaan / Brand",
+        companyPlaceholder: "cth. PT Busana Nusantara atau Brand Name",
+        emailLabel: "Email Bisnis",
+        emailPlaceholder: "nama@perusahaan.com",
+        phoneLabel: "WhatsApp / Telepon",
+        phonePlaceholder: "+62 812 3456 7890",
+        categoryLabel: "Kategori Kaos Kaki",
+        categoryPlaceholder: "Pilih kategori kaos kaki...",
+        categories: {
+          baby: "Kaos Kaki Bayi & Balita (Baby Socks)",
+          kids: "Kaos Kaki Anak & Sekolah (Kids & School)",
+          ladies: "Kaos Kaki Wanita (Ladies Socks)",
+          mens: "Kaos Kaki Pria Formal & Klasik (Men's Formal)",
+          athletic: "Kaos Kaki Olahraga & Athletic (Athletic & Sport)",
+          custom: "Spesifikasi Kustom / Desain Khusus (Custom OEM)",
+        },
+        volumeLabel: "Estimasi Volume Pesanan (Lusin)",
+        volumePlaceholder: "cth. 500 lusin atau pilih kisaran",
+        volumeOptions: [
+          "100 – 499 lusin (Batch Uji Coba / Sampling)",
+          "500 – 1.999 lusin (Produksi Standar)",
+          "2.000 – 9.999 lusin (Volume Menengah)",
+          "10.000+ lusin (Volume Besar / Ekspor)",
+        ],
+        timelineLabel: "Target Waktu Produksi / Kirim",
+        timelinePlaceholder: "Pilih target timeline...",
+        timelineOptions: [
+          "Mendesak (Kurang dari 1 bulan)",
+          "Standar (1 – 2 bulan)",
+          "Terencana (3+ bulan)",
+          "Kontrak Rutin / Pengiriman Berkala",
+        ],
+        materialLabel: "Catatan Benang & Material",
+        materialPlaceholder: "cth. 80% Katun Combed, 17% Poliester, 3% Spandex; bantalan telapak...",
+        packagingLabel: "Preferensi Kemasan",
+        packagingPlaceholder: "Pilih opsi kemasan...",
+        packagingOptions: [
+          "Standar 12 Pasang per Polybag (Kemasan Grosir)",
+          "Kemasan Satuan Plastik + Stiker Barcode",
+          "Kertas Label Rider Card / Header Card Kustom",
+          "Gantungan Ritel (Hanger Hook) & Kemasan Khusus",
+          "Kotak / Box Kemasan Kustom",
+        ],
+        messageLabel: "Pesan & Rincian Proyek",
+        messagePlaceholder: "Rincian spesifikasi, jumlah jarum (144N / 168N / 200N), target ukuran, atau pertanyaan lain...",
+        fileUploadLabel: "Unggah Tech Pack / Desain (Opsional)",
+        fileUploadHint: "Format: PDF, AI, PSD, PNG, JPG, ZIP (Maksimal 25MB)",
+        fileUploadDrag: "Klik untuk memilih file atau seret ke area ini",
+        fileUploadChange: "Ganti file",
+        fileSelected: "File terpilih:",
+        submitBtn: "Kirim Permintaan Penawaran",
+        submittingBtn: "Mengirim Permintaan...",
+        openEmailDraft: "atau buka draf email langsung",
+        errors: {
+          name: "Nama lengkap wajib diisi",
+          company: "Nama perusahaan / brand wajib diisi",
+          email: "Alamat email bisnis tidak valid",
+          phone: "Nomor WhatsApp / telepon wajib diisi",
+          category: "Pilih salah satu kategori kaos kaki",
+        },
+        success: {
+          title: "Permintaan Penawaran Terkirim!",
+          subtitle: "Terima kasih telah menghubungi PT. Sinlie Cahaya Matahari. Spesifikasi produksi Anda telah kami terima.",
+          badge: "Kami merespons dalam 1 hari kerja",
+          nextStepsTitle: "Langkah Selanjutnya:",
+          nextSteps: [
+            "Tim teknis meninjau kelayakan benang, konstruksi jarum, dan toleransi ukuran.",
+            "Perhitungan harga penawaran resmi (FOB / CMT) disusun sesuai volume pesanan.",
+            "Tim kami akan menghubungi Anda melalui email atau WhatsApp untuk konfirmasi detail.",
+          ],
+          submitAnotherBtn: "Kirim Permintaan Lain",
+          whatsappFollowupBtn: "Lanjutkan Diskusi di WhatsApp",
+        },
+      },
+      directCard: {
+        cardTitle: "Kontak Langsung Pabrik",
+        contactPerson: "Mr. Fakhrudin (Mr. Aming)",
+        contactRole: "B2B Production & Sales Director",
+        whatsappBtn: "Chat via WhatsApp",
+        callBtn: "Hubungi via Telepon",
+        copyPhone: "Salin Nomor",
+        copiedPhone: "Nomor Tersalin!",
+        officialEmailLabel: "Email Resmi Penawaran",
+        copyEmail: "Salin Email",
+        copiedEmail: "Email Tersalin!",
+        hoursLabel: "Jam Kerja Operasional",
+        hoursSchedule: "Senin–Jumat · 08:00–17:00 WIB",
+        openNow: "Buka sekarang",
+        closedNow: "Tutup",
+        reopensMonday: "Buka kembali Senin pkl 08:00 WIB",
+        reopensTomorrow: "Buka kembali besok pkl 08:00 WIB",
+        addressLabel: "Fasilitas Pabrik",
+        addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+        getDirections: "Petunjuk Arah Google Maps",
+        appointmentNotice: "Kunjungan pabrik melalui janji temu",
+      },
+      checklistTitle: "Informasi yang disarankan untuk penawaran cepat:",
+      checklistItems: [
+        { title: "Volume & Jadwal", desc: "Estimasi jumlah lusin & target pengiriman" },
+        { title: "Kategori Kaos Kaki", desc: "Bayi, anak, wanita, pria, atau olahraga" },
+        { title: "Bahan & Spesifikasi", desc: "Preferensi serat benang & konstruksi rajut" },
+        { title: "Kemasan & Label", desc: "Polybag grosir, rider card, atau label barcode" },
+      ],
+      mobileSticky: {
+        whatsappBtn: "Chat WhatsApp",
+        inquiryBtn: "Kirim Penawaran",
+      },
     },
     footer: {
       bio: "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki berkualitas dengan pengalaman sejak 2018. Melayani pasar domestik dan pesanan ekspor ke Amerika Serikat dan Eropa dengan kapasitas operasional maksimum hingga 1.000.000 lusin per bulan.",
@@ -631,14 +840,14 @@ export const translations: Record<Language, Translations> = {
       emailDesc:
         "Send your partnership inquiries, tech pack specification sheets, or sock procurement documentation directly to our team.",
       emailCta: "Send Direct Email",
-      phoneTitle: "Telephone & Business Desk",
+      phoneTitle: "Telephone & Business WhatsApp",
       phoneDesc:
-        "Operational telephone desk for sock manufacturing inquiries.",
+        "Contact our dedicated person directly for technical knitting consultations, production scheduling, or fast WhatsApp communication.",
       phonePending:
         "Direct telephone desk is currently pending final management confirmation. For immediate assistance, please contact us via official email.",
       locationTitle: "Factory Facility Location",
       locationDesc:
-        "Indonesia. Physical facility visits and on-site buyer audits can be scheduled through prior appointment.",
+        "Ciamis, West Java, Indonesia. Physical facility visits and on-site buyer audits can be scheduled through prior appointment.",
       hoursTitle: "Business Hours",
       hoursDesc:
         "Monday - Friday: 08:00 - 17:00 WIB (Western Indonesia Time). Active response during operating hours.",
@@ -656,6 +865,123 @@ export const translations: Record<Language, Translations> = {
       quoteEmailSubject: "Sock Manufacturing Quotation Inquiry - SCM",
       copyEmailBtn: "Copy Email Address",
       copiedText: "Email Copied!",
+
+      // Redesigned Contact Section
+      eyebrow: "B2B Inquiry",
+      heroTitle: "Let's Talk Sock Manufacturing",
+      heroSubtext: "Connect directly with our factory team in Ciamis for direct OEM pricing, custom specifications, and responsive lead times.",
+      form: {
+        cardTitle: "Request a Manufacturing Quotation",
+        cardSubtitle: "Submit your production requirements for direct review by our technical team.",
+        nameLabel: "Full Name",
+        namePlaceholder: "e.g. John Doe",
+        companyLabel: "Company / Brand Name",
+        companyPlaceholder: "e.g. Pacific Apparel Brands or Importers Ltd.",
+        emailLabel: "Business Email",
+        emailPlaceholder: "buyer@company.com",
+        phoneLabel: "WhatsApp / Phone",
+        phonePlaceholder: "+62 812 3456 7890",
+        categoryLabel: "Sock Category",
+        categoryPlaceholder: "Select a sock category...",
+        categories: {
+          baby: "Baby & Toddler Socks (0–24m)",
+          kids: "Kids & School Uniform Socks",
+          ladies: "Ladies & Casual Socks",
+          mens: "Men's Formal & Classic Socks",
+          athletic: "Athletic & High-Performance Sport Socks",
+          custom: "Custom Specification / Private Label OEM",
+        },
+        volumeLabel: "Estimated Volume (Dozens)",
+        volumePlaceholder: "e.g. 500 dozens or select tier",
+        volumeOptions: [
+          "100 – 499 dozens (Sampling & Trial Batch)",
+          "500 – 1,999 dozens (Standard Production Run)",
+          "2,000 – 9,999 dozens (Volume Commercial Run)",
+          "10,000+ dozens (High Volume Export Program)",
+        ],
+        timelineLabel: "Target Production Timeline",
+        timelinePlaceholder: "Select target timeline...",
+        timelineOptions: [
+          "Urgent (Within 1 month)",
+          "Standard (1 – 2 months)",
+          "Planned (3+ months)",
+          "Regular Recurring / Monthly Contract",
+        ],
+        materialLabel: "Yarn & Material Notes",
+        materialPlaceholder: "e.g. 80% Combed Cotton, 17% Polyester, 3% Spandex; cushioned terry sole...",
+        packagingLabel: "Packaging Preference",
+        packagingPlaceholder: "Select packaging type...",
+        packagingOptions: [
+          "Standard 12-Pair Bulk Master Bag",
+          "Individual Polybag + Barcode SKU Label",
+          "Custom Brand Rider Card / Header Card",
+          "Retail Display Hanger Hook & Packaging",
+          "Custom Branded Gift Box / Specialty",
+        ],
+        messageLabel: "Project Details & Specifications",
+        messagePlaceholder: "Describe sizing, gauge / needle count (144N, 168N, 200N), target market, or sampling requests...",
+        fileUploadLabel: "Tech Pack / Design File (Optional)",
+        fileUploadHint: "PDF, AI, PSD, PNG, JPG, ZIP up to 25MB",
+        fileUploadDrag: "Click to upload or drag tech pack file here",
+        fileUploadChange: "Change file",
+        fileSelected: "Selected file:",
+        submitBtn: "Send Inquiry",
+        submittingBtn: "Submitting Inquiry...",
+        openEmailDraft: "or open email draft",
+        errors: {
+          name: "Please enter your full name",
+          company: "Please enter your company or brand name",
+          email: "Please enter a valid business email",
+          phone: "Please enter your phone or WhatsApp number",
+          category: "Please select a sock category",
+        },
+        success: {
+          title: "Inquiry Sent Successfully!",
+          subtitle: "Thank you for reaching out to PT. Sinlie Cahaya Matahari. Our factory team has received your project inquiry.",
+          badge: "We reply within 1 business day",
+          nextStepsTitle: "Next Steps:",
+          nextSteps: [
+            "Technical review verifies needle count, yarn availability, and machine gauge compatibility.",
+            "Direct factory quotation (FOB / CMT) is prepared based on your target quantity.",
+            "A dedicated representative will contact you via email or WhatsApp to confirm next steps.",
+          ],
+          submitAnotherBtn: "Submit Another Inquiry",
+          whatsappFollowupBtn: "Follow Up on WhatsApp",
+        },
+      },
+      directCard: {
+        cardTitle: "Direct Factory Contact",
+        contactPerson: "Mr. Fakhrudin (Mr. Aming)",
+        contactRole: "B2B Production & Sales Director",
+        whatsappBtn: "Chat on WhatsApp",
+        callBtn: "Call Factory Desk",
+        copyPhone: "Copy Phone",
+        copiedPhone: "Phone Copied!",
+        officialEmailLabel: "Official Business Email",
+        copyEmail: "Copy Email",
+        copiedEmail: "Email Copied!",
+        hoursLabel: "Operating Hours",
+        hoursSchedule: "Mon–Fri · 08:00–17:00 WIB",
+        openNow: "Open now",
+        closedNow: "Closed",
+        reopensMonday: "Reopens Monday at 08:00 WIB",
+        reopensTomorrow: "Reopens tomorrow at 08:00 WIB",
+        addressLabel: "Manufacturing Facility",
+        addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+        getDirections: "Get Directions on Google Maps",
+        appointmentNotice: "Factory visits by appointment",
+      },
+      checklistTitle: "What to include for faster quoting:",
+      checklistItems: [
+        { title: "Volume & Timeline", desc: "Estimated dozens & required delivery target" },
+        { title: "Sock Category", desc: "Baby, kids, ladies, men's, or sport" },
+        { title: "Yarn & Material", desc: "Fiber composition & knitting specs" },
+        { title: "Packaging Specs", desc: "Master polybag, rider card, or retail packaging" },
+      ],
+      mobileSticky: {
+        whatsappBtn: "WhatsApp Us",
+        inquiryBtn: "Send Inquiry",
+      },
     },
     footer: {
       bio: "PT. Sinlie Cahaya Matahari provides quality sock manufacturing solutions with experience in the industry since 2018. Serving domestic and international export orders to the United States and Europe with a maximum operational capacity of up to 1,000,000 dozen socks per month.",

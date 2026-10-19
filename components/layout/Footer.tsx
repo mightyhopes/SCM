@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Clock, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Clock, ArrowUpRight, Phone, User } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { COMPANY_INFO, PRODUCT_CATEGORIES } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
@@ -20,7 +20,6 @@ export function Footer() {
     { label: t.nav.capabilities, href: "#capabilities" },
     { label: t.nav.process, href: "#process" },
     { label: t.nav.quality, href: "#quality" },
-    { label: t.nav.gallery, href: "#gallery" },
     { label: t.nav.faq, href: "#faq" },
     { label: t.nav.contact, href: "#contact" },
   ];
@@ -116,24 +115,64 @@ export function Footer() {
               </h3>
               <ul className="space-y-3 text-sm text-secondary-light/90">
                 <li className="flex items-start gap-3">
+                  <User className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <div className="text-xs">
+                    <span className="font-medium text-text-inverse block">
+                      Contact Person
+                    </span>
+                    <span className="text-secondary-light/80">
+                      {COMPANY_INFO.contact.person}
+                    </span>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Phone className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <div className="text-xs space-y-0.5">
+                    <span className="font-medium text-text-inverse block">
+                      Phone / WhatsApp
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={`tel:+${COMPANY_INFO.contact.phone.raw}`}
+                        className="font-medium hover:underline text-text-inverse"
+                      >
+                        {COMPANY_INFO.contact.phone.display}
+                      </a>
+                      <a
+                        href={`https://wa.me/${COMPANY_INFO.contact.whatsapp.raw}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] font-semibold text-accent hover:underline"
+                      >
+                        (WhatsApp)
+                      </a>
+                    </div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <div className="text-xs space-y-1">
+                    <span className="font-medium text-text-inverse block">
+                      Email Inquiries
+                    </span>
+                    <a
+                      href={`mailto:${COMPANY_INFO.contact.email}`}
+                      className="font-medium hover:underline block text-text-inverse break-all"
+                    >
+                      {COMPANY_INFO.contact.email}
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-accent shrink-0 mt-1" />
                   <div>
                     <span className="font-medium text-text-inverse">
                       {t.footer.locationLabel}
                     </span>
-                    <p className="text-xs text-secondary-light/70 mt-0.5">
+                    <p className="text-xs text-secondary-light/70 mt-0.5 leading-relaxed">
                       {COMPANY_INFO.contact.address}
                     </p>
                   </div>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-accent shrink-0" />
-                  <a
-                    href={`mailto:${COMPANY_INFO.contact.email}`}
-                    className="text-xs sm:text-sm font-mono hover:underline"
-                  >
-                    {COMPANY_INFO.contact.email}
-                  </a>
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-accent shrink-0 mt-0.5" />

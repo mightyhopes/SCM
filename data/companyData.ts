@@ -91,21 +91,25 @@ export const COMPANY_INFO = {
   taglineId: "Presisi di Setiap Rajutan",
   experienceSince: "2018",
   incorporatedYear: "2023",
-  location: "Indonesia",
+  location: "Ciamis, Jawa Barat, Indonesia",
   contact: {
-    email: "inquiry@sinliecahayamatahari.com",
+    person: "Mr. Fakhrudin (Mr. Aming)",
+    email: "office@sinliecahayamatahari.co.id",
+    secondaryEmail: "aminglie123@gmail.com",
     // Configurable phone & WhatsApp fields. Guarded by isVerified flag to prevent unverified links.
     phone: {
-      number: "",
-      display: "+62 21-XXXX-XXXX",
-      isVerified: false,
+      number: "+62 852 2032 7188",
+      display: "+62 852 2032 7188",
+      raw: "6285220327188",
+      isVerified: true,
     },
     whatsapp: {
-      number: "",
-      display: "+62 812-XXXX-XXXX",
-      isVerified: false,
+      number: "+62 852 2032 7188",
+      display: "+62 852 2032 7188",
+      raw: "6285220327188",
+      isVerified: true,
     },
-    address: "Kawasan Industri, Indonesia",
+    address: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
     operatingHours: "Senin - Jumat: 08:00 - 17:00 WIB",
     operatingHoursEn: "Monday - Friday: 08:00 - 17:00 WIB",
   },
@@ -125,7 +129,6 @@ export const NAV_LINKS = [
   { label: "Kapabilitas Pabrik", labelEn: "Capabilities", href: "#capabilities" },
   { label: "Proses Produksi", labelEn: "Process", href: "#process" },
   { label: "Kendali Mutu", labelEn: "Quality", href: "#quality" },
-  { label: "Galeri", labelEn: "Gallery", href: "#gallery" },
   { label: "FAQ B2B", labelEn: "FAQ", href: "#faq" },
   { label: "Kontak", labelEn: "Contact", href: "#contact" },
 ] as const;
@@ -482,7 +485,7 @@ export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
     iconName: "ShieldCheck",
     keyMetric: "Pedoman Standar AQL",
     keyMetricEn: "AQL Guideline Check",
-    image: "/images/dummy/06_quality_inspection.jpg",
+    image: "/images/quality_inspection.webp",
   },
   {
     step: "05",
@@ -510,7 +513,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Sliders",
     protocolTag: "Kontrol Rajut",
     protocolTagEn: "Knit Inspection",
-    image: "/images/dummy/06_quality_inspection.jpg",
+    image: "/images/quality_inspection.webp",
   },
   {
     title: "Verifikasi Dimensi & Ukuran",
@@ -522,7 +525,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Ruler",
     protocolTag: "Akurasi Ukuran",
     protocolTagEn: "Sizing Accuracy",
-    image: "/images/dummy/05_worker_quality_control.jpg",
+    image: "/images/quality_control_worker.webp",
   },
   {
     title: "Pemeriksaan Visual Produk",
@@ -534,7 +537,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Eye",
     protocolTag: "Pemeriksaan Visual",
     protocolTagEn: "Visual Check",
-    image: "/images/dummy/06_quality_inspection.jpg",
+    image: "/images/quality_inspection.webp",
   },
   {
     title: "Pendekatan Standar AQL",
@@ -546,7 +549,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "CheckCircle2",
     protocolTag: "Pedoman AQL",
     protocolTagEn: "AQL Guidelines",
-    image: "/images/dummy/05_worker_quality_control.jpg",
+    image: "/images/quality_control_worker.webp",
   },
 ];
 
