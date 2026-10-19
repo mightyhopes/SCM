@@ -261,6 +261,9 @@ export interface Translations {
       addressFull: string;
       getDirections: string;
       appointmentNotice: string;
+      tabContact: string;
+      tabLocation: string;
+      viewLocationTab: string;
     };
     checklistTitle: string;
     checklistItems: Array<{ title: string; desc: string }>;
@@ -614,6 +617,9 @@ export const translations: Record<Language, Translations> = {
         addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
         getDirections: "Petunjuk Arah Google Maps",
         appointmentNotice: "Kunjungan pabrik melalui janji temu",
+        tabContact: "Kontak & Chat",
+        tabLocation: "Lokasi & Peta",
+        viewLocationTab: "Lihat Lokasi & Peta Pabrik →",
       },
       checklistTitle: "Informasi yang disarankan untuk penawaran cepat:",
       checklistItems: [
@@ -970,6 +976,9 @@ export const translations: Record<Language, Translations> = {
         addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
         getDirections: "Get Directions on Google Maps",
         appointmentNotice: "Factory visits by appointment",
+        tabContact: "Direct Contact",
+        tabLocation: "Location & Map",
+        viewLocationTab: "View Location & Factory Map →",
       },
       checklistTitle: "What to include for faster quoting:",
       checklistItems: [

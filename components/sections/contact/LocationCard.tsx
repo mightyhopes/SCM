@@ -18,17 +18,17 @@ export function LocationCard() {
   )}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
 
   return (
-    <div className="pt-4 space-y-3">
+    <div className="space-y-3">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3">
-          <div className="size-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 mt-0.5">
+        <div className="flex items-start gap-2.5 sm:gap-3">
+          <div className="size-8 sm:size-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 mt-0.5">
             <MapPin className="size-4 text-primary" />
           </div>
           <div>
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
               {t.contact.directCard.addressLabel}
             </span>
-            <p className="text-sm font-semibold text-slate-800 leading-snug mt-0.5">
+            <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-snug mt-0.5">
               {COMPANY_INFO.contact.address}
             </p>
           </div>
@@ -36,7 +36,7 @@ export function LocationCard() {
       </div>
 
       {/* Embedded Map Preview */}
-      <div className="relative w-full h-32 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner group">
+      <div className="relative w-full h-28 sm:h-32 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner group">
         <iframe
           title="SCM Factory Location Map"
           src={embedMapsUrl}
@@ -56,7 +56,7 @@ export function LocationCard() {
       </div>
 
       {/* Action Row & Appointment Note */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-0.5 text-xs">
         <a
           href={googleMapsUrl}
           target="_blank"
