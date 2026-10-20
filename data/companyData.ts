@@ -23,6 +23,7 @@ export interface ProductCategory {
   readonly materialComposition: string;
   readonly materialCompositionEn: string;
   readonly image: string;
+  readonly imagePosition?: string;
 }
 
 export interface CapabilityItem {
@@ -309,7 +310,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_athletic-sport-socks.webp",
+    image: "/images/products_athletic_sport_socks_v3.webp",
   },
   {
     id: "custom-socks",
@@ -335,7 +336,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi bahan fleksibel sesuai kesepakatan pesanan (katun, spandex, elastik, dsb.).",
     materialCompositionEn:
       "Flexible material composition per order agreement (cotton, spandex, elastic, etc.).",
-    image: "/images/products_custom-specification-socks.webp",
+    image: "/images/products_custom_specification_socks.webp",
   },
 ];
 

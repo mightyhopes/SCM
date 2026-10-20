@@ -1,53 +1,199 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useLanguage } from "@/context/LanguageContext";
+import { ImageLightbox, LightboxImage } from "@/components/ui/ImageLightbox";
+import { Maximize2, Building2, Factory, ChevronLeft, ChevronRight } from "lucide-react";
 
 export function AboutSection() {
   const { language } = useLanguage();
   const isEn = language === "en";
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
+
+  const galleryItems = [
+    {
+      id: "gate",
+      titleId: "Fasilitas & Gerbang Pabrik",
+      titleEn: "Factory Gate & Facility",
+      subtitleId: "Tampak Depan Pabrik",
+      subtitleEn: "Factory Front Exterior",
+      src: "/images/factory_gate_ciamis.webp",
+      badgeId: "Fasilitas Pabrik • Ciamis, Jawa Barat",
+      badgeEn: "Manufacturing Facility • Ciamis, West Java",
+      captionId:
+        "Tampak depan gerbang utama fasilitas manufaktur PT. Sinlie Cahaya Matahari di Desa Cihideung, Kec. Cisaga, Kab. Ciamis.",
+      captionEn:
+        "Main entrance gate of PT. Sinlie Cahaya Matahari manufacturing facility located in Cihideung Village, Cisaga, Ciamis.",
+      icon: Building2,
+    },
+    {
+      id: "knitting",
+      titleId: "Lantai Mesin Rajut",
+      titleEn: "Knitting Machine Hall",
+      subtitleId: "Line 4 Produksi",
+      subtitleEn: "Line 4 Production",
+      src: "/images/symmetric_knitting_machine_hall.png",
+      badgeId: "Mesin Knitting • Line 4",
+      badgeEn: "Knitting Machine Hall • Line 4",
+      captionId:
+        "Fasilitas lantai produksi perajutan PT. Sinlie Cahaya Matahari dengan jajaran mesin rajut kaos kaki terkomputerisasi.",
+      captionEn:
+        "PT. Sinlie Cahaya Matahari knitting hall featuring computerized sock knitting lines and integrated yarn systems.",
+      icon: Factory,
+    },
+  ];
+
+  // Auto-slide effect (advances every 5 seconds, pauses when hovered)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % galleryItems.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, galleryItems.length]);
+
+  const activeItem = galleryItems[currentIndex];
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length);
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % galleryItems.length);
+  };
 
   return (
     <section id="about" className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
       <Container size="wide">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           {/* ────────────────────────────────────────────────────────────────── */}
-          {/* Left Column: Large Authentic Manufacturing Floor Photography        */}
+          {/* Left Column: Authentic Manufacturing Slideshow Showcase            */}
           {/* ────────────────────────────────────────────────────────────────── */}
           <div className="lg:col-span-6 xl:col-span-6 order-2 lg:order-1">
             <ScrollReveal duration={600} variant="slide-right">
               <div className="flex flex-col gap-3">
-                {/* Editorial Photo Frame */}
-                <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-surface shadow-sm group">
-                  <Image
-                    src="/images/symmetric_knitting_machine_hall.png"
-                    alt={
-                      isEn
-                        ? "Line 4 sock knitting machine hall at PT Sinlie Cahaya Matahari"
-                        : "Lantai produksi perajutan kaos kaki Line 4 di PT Sinlie Cahaya Matahari"
-                    }
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                    priority={false}
-                  />
+                {/* Editorial Photo Frame with Slideshow Animation & Click-to-Zoom */}
+                <div
+                  className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-surface shadow-sm group cursor-pointer select-none"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                  onClick={() =>
+                    setLightboxImage({
+                      src: activeItem.src,
+                      title: isEn ? activeItem.titleEn : activeItem.titleId,
+                      category: isEn ? activeItem.badgeEn : activeItem.badgeId,
+                      alt: isEn ? activeItem.titleEn : activeItem.titleId,
+                    })
+                  }
+                  title={isEn ? "Click to view full image" : "Klik untuk melihat foto resolusi penuh"}
+                >
+                  {/* Crossfading Slide Images */}
+                  {galleryItems.map((item, idx) => (
+                    <div
+                      key={item.id}
+                      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                        currentIndex === idx
+                          ? "opacity-100 z-10"
+                          : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                    >
+                      <Image
+                        src={item.src}
+                        alt={isEn ? item.titleEn : item.titleId}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
+                        priority={idx === 0}
+                      />
+                    </div>
+                  ))}
+
+                  {/* Top-Right: Zoom Icon Button */}
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 size-8 sm:size-9 rounded-lg bg-black/50 group-hover:bg-black/70 backdrop-blur-md border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <Maximize2 className="size-4" />
+                  </div>
+
+                  {/* Left & Right Slideshow Arrows (Visible on hover / touch) */}
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    aria-label="Previous photo"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 size-9 sm:size-10 rounded-full bg-black/45 hover:bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 cursor-pointer shadow-md"
+                  >
+                    <ChevronLeft className="size-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    aria-label="Next photo"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 size-9 sm:size-10 rounded-full bg-black/45 hover:bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-105 cursor-pointer shadow-md"
+                  >
+                    <ChevronRight className="size-5" />
+                  </button>
 
                   {/* Subtle photographic corner metadata pill */}
-                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-md border border-white/20 text-white shadow-sm">
+                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-sm pointer-events-none transition-all duration-300">
                     <span className="text-[11px] font-mono tracking-wide uppercase font-semibold">
-                      {isEn ? "Knitting Machine Hall • Line 4" : "Bagian Mesin Knitting • Line 4"}
+                      {isEn ? activeItem.badgeEn : activeItem.badgeId}
                     </span>
+                  </div>
+
+                  {/* Slideshow Progress Counter (Bottom-Right) */}
+                  <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-20 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono font-semibold flex items-center gap-1.5 pointer-events-none">
+                    <span>{currentIndex + 1}</span>
+                    <span className="text-white/50">/</span>
+                    <span>{galleryItems.length}</span>
                   </div>
                 </div>
 
-                {/* Subtle Editorial Photo Caption */}
-                <p className="text-xs text-text-secondary/80 font-normal px-1 leading-relaxed">
-                  {isEn
-                    ? "PT. Sinlie Cahaya Matahari knitting hall featuring computerized sock knitting lines and integrated yarn systems."
-                    : "Fasilitas lantai produksi perajutan PT. Sinlie Cahaya Matahari dengan jajaran mesin rajut kaos kaki terkomputerisasi."}
+                {/* Slideshow Bar & Interactive Indicators */}
+                <div className="flex items-center justify-between gap-3 px-1 pt-0.5">
+                  {/* Current Slide Title & Subtitle */}
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="size-2 rounded-full bg-primary animate-pulse shrink-0" />
+                    <p className="text-xs font-bold text-text-primary truncate">
+                      {isEn ? activeItem.titleEn : activeItem.titleId}
+                      <span className="text-text-secondary font-normal ml-1.5">
+                        • {isEn ? activeItem.subtitleEn : activeItem.subtitleId}
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* Slide Indicators / Navigation Pills */}
+                  <div className="flex items-center gap-1.5 shrink-0" role="tablist">
+                    {galleryItems.map((item, idx) => {
+                      const isActive = currentIndex === idx;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentIndex(idx);
+                          }}
+                          aria-label={`Slide ${idx + 1}: ${isEn ? item.titleEn : item.titleId}`}
+                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                            isActive
+                              ? "w-7 bg-primary shadow-xs"
+                              : "w-2 bg-slate-300 hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600"
+                          }`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Dynamic Editorial Photo Caption */}
+                <p className="text-xs text-text-secondary leading-relaxed px-1 min-h-[34px] transition-all duration-300">
+                  {isEn ? activeItem.captionEn : activeItem.captionId}
                 </p>
               </div>
             </ScrollReveal>
@@ -149,6 +295,13 @@ export function AboutSection() {
           </div>
         </div>
       </Container>
+
+      {/* Fullscreen Photo Lightbox Modal */}
+      <ImageLightbox
+        isOpen={!!lightboxImage}
+        onClose={() => setLightboxImage(null)}
+        image={lightboxImage}
+      />
     </section>
   );
 }

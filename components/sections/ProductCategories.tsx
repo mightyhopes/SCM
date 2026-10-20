@@ -99,7 +99,7 @@ export function ProductCategories() {
                       alt={displayTitle}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                      className="object-cover group-hover/img:scale-105 transition-transform duration-500 ease-out"
+                      className={`object-cover group-hover/img:scale-105 transition-transform duration-500 ease-out ${category.imagePosition || "object-center"}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
