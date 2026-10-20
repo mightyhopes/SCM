@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Badge } from "@/components/ui/badge";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ImageLightbox, LightboxImage } from "@/components/ui/ImageLightbox";
 import { CAPABILITIES } from "@/data/companyData";
@@ -71,21 +70,6 @@ export function ManufacturingSection() {
             description={t.capabilities.description}
             align="center"
           />
-
-          {/* Interactive Inspection Pill */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/8 border border-primary/15 text-[11px] sm:text-xs font-semibold text-primary shadow-2xs">
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full size-2 bg-accent" />
-              </span>
-              <span>
-                {isEn
-                  ? "4 Core Factory Pillars • Click any facility photo for full-resolution view"
-                  : "4 Pilar Fasilitas Pabrik • Klik foto mana saja untuk melihat resolusi penuh"}
-              </span>
-            </span>
-          </div>
         </ScrollReveal>
 
         {/* Capabilities Grid */}
@@ -95,7 +79,6 @@ export function ManufacturingSection() {
               iconMap[cap.iconName as keyof typeof iconMap] || Cpu;
             const title = isEn ? cap.titleEn : cap.title;
             const desc = isEn ? cap.descriptionEn : cap.description;
-            const badge = isEn ? cap.badgeTextEn : cap.badgeText;
             const specs = isEn ? cap.specsEn : cap.specs;
 
             return (
@@ -134,16 +117,6 @@ export function ManufacturingSection() {
                           <Maximize2 className="size-3.5 text-accent" />
                           <span>{isEn ? "Inspect Facility" : "Perbesar Foto"}</span>
                         </span>
-                      </div>
-
-                      {/* Top Overlay Badge */}
-                      <div className="absolute top-3 right-3 z-10 pointer-events-none">
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] sm:text-[11px] font-mono px-2.5 py-0.5 bg-surface/95 backdrop-blur-md text-primary font-bold shadow-xs border border-white/30"
-                        >
-                          {badge}
-                        </Badge>
                       </div>
                     </button>
 

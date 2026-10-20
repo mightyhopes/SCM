@@ -79,7 +79,7 @@ export function ProductionProcess() {
       const trackWidth = trackRef.current.scrollWidth;
       const viewportWidth = window.innerWidth;
       // Leave proper breathing room on the right for the last card
-      const maxTranslate = Math.max(0, trackWidth - viewportWidth + 80);
+      const maxTranslate = Math.max(0, trackWidth - viewportWidth + 120);
       const targetTranslate = p * maxTranslate;
 
       trackRef.current.style.transform = `translate3d(${-targetTranslate}px, 0, 0)`;
@@ -172,13 +172,13 @@ export function ProductionProcess() {
     <section
       id="process"
       ref={sectionRef}
-      className="relative bg-surface border-b border-border md:h-[280vh]"
+      className="relative bg-surface border-b border-border md:h-[320vh]"
     >
       {/* Sticky Viewport Container on Desktop (Fixed in view while scrolling vertically) */}
-      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden md:flex md:flex-col md:justify-between py-12 sm:py-16 md:py-8 lg:py-10">
+      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden md:flex md:flex-col md:justify-between py-10 sm:py-12 md:py-6 lg:py-8">
         <Container size="default" className="w-full">
           {/* Section Header with Navigation Controls */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 sm:mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4 sm:mb-6">
             <div>
               <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-sm border bg-surface-muted text-primary border-border">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
@@ -187,7 +187,7 @@ export function ProductionProcess() {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary leading-tight">
                 {t.process.title}
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary max-w-xl hidden sm:block">
+              <p className="mt-1.5 text-xs sm:text-sm text-text-secondary max-w-xl hidden sm:block">
                 {t.process.description}
               </p>
             </div>
@@ -237,7 +237,7 @@ export function ProductionProcess() {
           <div
             ref={trackRef}
             onScroll={handleMobileScroll}
-            className="flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none transition-transform duration-75 will-change-transform py-4"
+            className="flex gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none transition-transform duration-75 will-change-transform py-4"
           >
             {PRODUCTION_PROCESS.map((item, index) => {
               const title = isEn ? item.titleEn : item.title;
@@ -247,14 +247,14 @@ export function ProductionProcess() {
               return (
                 <div
                   key={item.step || item.title}
-                  className="shrink-0 snap-center w-[84vw] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[520px]"
+                  className="shrink-0 snap-center w-[88vw] sm:w-[460px] md:w-[540px] lg:w-[620px] xl:w-[680px]"
                 >
                   <button
                     type="button"
                     onClick={() => setActiveLightboxIdx(index)}
-                    className={`relative w-full h-[320px] sm:h-[360px] md:h-[390px] lg:h-[430px] rounded-2xl overflow-hidden group/card cursor-pointer text-left block border transition-all duration-500 ease-out focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary ${
+                    className={`relative w-full h-[380px] sm:h-[420px] md:h-[460px] lg:h-[500px] xl:h-[540px] rounded-2xl overflow-hidden group/card cursor-pointer text-left block border transition-all duration-500 ease-out focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary ${
                       isActive
-                        ? "scale-100 border-primary/50 ring-2 ring-primary/20 shadow-[0_16px_40px_-10px_rgba(8,97,93,0.3)]"
+                        ? "scale-100 border-primary/50 ring-2 ring-primary/20 shadow-[0_20px_50px_-10px_rgba(8,97,93,0.35)]"
                         : "scale-[0.96] opacity-85 hover:opacity-100 hover:scale-[0.99] border-border/80 shadow-md hover:shadow-xl"
                     }`}
                     aria-label={
@@ -280,7 +280,7 @@ export function ProductionProcess() {
                       src={item.image}
                       alt={title}
                       fill
-                      sizes="(max-width: 768px) 85vw, (max-width: 1200px) 500px, 540px"
+                      sizes="(max-width: 768px) 90vw, (max-width: 1280px) 620px, 680px"
                       className="object-cover group-hover/card:scale-108 transition-transform duration-700 ease-out"
                     />
 
