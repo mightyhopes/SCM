@@ -26,6 +26,15 @@ export interface ProductCategory {
   readonly imagePosition?: string;
 }
 
+export interface ProductGalleryItem {
+  readonly id: string;
+  readonly title: string;
+  readonly titleEn: string;
+  readonly image: string;
+  readonly width: number;
+  readonly height: number;
+}
+
 export interface CapabilityItem {
   readonly id: string;
   readonly title: string;
@@ -327,26 +336,109 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
   },
 ];
 
+export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
+  {
+    id: "gal-showroom-display",
+    title: "Display Showroom Sampel Pabrik",
+    titleEn: "Factory Showroom Sample Wall",
+    image: "/images/products/gallery_showroom_display.webp",
+    width: 1280,
+    height: 960,
+  },
+  {
+    id: "gal-sport-underworks",
+    title: "Kaus Kaki Olahraga & Athletic",
+    titleEn: "Athletic & Sport Socks",
+    image: "/images/products/gallery_sport_underworks.webp",
+    width: 960,
+    height: 1280,
+  },
+  {
+    id: "gal-baby-booties",
+    title: "Kaus Kaki & Booties Bayi",
+    titleEn: "Baby Socks & Booties Collection",
+    image: "/images/products/gallery_baby_booties.webp",
+    width: 1280,
+    height: 960,
+  },
+  {
+    id: "gal-baby-socks-pack",
+    title: "Set Kaus Kaki Bayi Multipack",
+    titleEn: "Baby Socks Multipack Sets",
+    image: "/images/products/gallery_baby_socks_pack.webp",
+    width: 1280,
+    height: 960,
+  },
+  {
+    id: "gal-colorful-flatlay",
+    title: "Kaus Kaki Motif Warna-Warni",
+    titleEn: "Colorful Patterned Crew Socks",
+    image: "/images/products/gallery_colorful_flatlay.webp",
+    width: 1400,
+    height: 933,
+  },
+  {
+    id: "gal-white-purple-sport",
+    title: "Kaus Kaki Athletic White & Stripe",
+    titleEn: "White Athletic Socks with Accent Stripes",
+    image: "/images/products/gallery_white_purple_sport.webp",
+    width: 1400,
+    height: 933,
+  },
+  {
+    id: "gal-three-part",
+    title: "Koleksi Seri Kaus Kaki",
+    titleEn: "Three-Part Sock Collection Series",
+    image: "/images/products/gallery_three_part_collection.webp",
+    width: 632,
+    height: 836,
+  },
+  {
+    id: "gal-mens-classic",
+    title: "Kaus Kaki Pria & Formal Klasik",
+    titleEn: "Men's Classic & Formal Socks",
+    image: "/images/products/gallery_mens_classic.webp",
+    width: 496,
+    height: 550,
+  },
+  {
+    id: "gal-ladies-fashion",
+    title: "Kaus Kaki Wanita & Fashion",
+    titleEn: "Women's Daily & Fashion Socks",
+    image: "/images/products/gallery_ladies_socks.webp",
+    width: 508,
+    height: 458,
+  },
+  {
+    id: "gal-kids-school",
+    title: "Kaus Kaki Anak & Sekolah",
+    titleEn: "Kids & School Uniform Socks",
+    image: "/images/products/gallery_kids_school.webp",
+    width: 508,
+    height: 458,
+  },
+];
+
 export const CAPABILITIES: readonly CapabilityItem[] = [
   {
     id: "sock-manufacturing",
     title: "Keahlian Manufaktur Kaos Kaki",
     titleEn: "Dedicated Sock Manufacturing Expertise",
     description:
-      "Fokus pada proses manufaktur kaos kaki berkualitas dengan kerapatan rajutan konsisten dan kontrol proses perakitan yang cermat.",
+      "Fokus pada proses manufaktur kaos kaki berkualitas dengan lini mesin rajut otomatis terkomputerisasi, tegangan rajut presisi, dan kontrol cermat.",
     descriptionEn:
-      "Focused on high-quality sock manufacturing with consistent stitch tension and careful assembly process control.",
+      "Focused on high-quality sock manufacturing powered by automated computerized knitting lines, uniform stitch tension, and strict process control.",
     iconName: "Cpu",
-    badgeText: "Produksi Terarah",
-    badgeTextEn: "Focused Production",
-    image: "/images/dummy/03_production_machines.jpg",
+    badgeText: "Mesin Otomatis SCM",
+    badgeTextEn: "Automated Knitting Lines",
+    image: "/images/factory/cap_knitting_specialization.webp",
     specs: [
-      "Fokus khusus pada manufaktur produk kaos kaki",
+      "Fasilitas mesin rajut otomatis terkomputerisasi",
       "Kerapatan dan dimensi rajutan seragam antar batch",
       "Dukungan teknis untuk berbagai kategori kaus kaki",
     ],
     specsEn: [
-      "Dedicated focus on sock manufacturing",
+      "Computerized automated sock knitting machinery",
       "Consistent stitch gauge and dimensions across batches",
       "Technical accommodation for diverse sock categories",
     ],
@@ -356,22 +448,22 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     title: "Kapasitas Maksimum Operasional",
     titleEn: "Maximum Operational Capacity",
     description:
-      "Didukung kapasitas maksimum produksi hingga 1.000.000 lusin per bulan, dengan realisasi volume menyesuaikan spesifikasi produk dan pesanan.",
+      "Didukung kapasitas maksimum produksi hingga 1.000.000 lusin per bulan di fasilitas Ciamis, dengan penjadwalan terencana dan transparan.",
     descriptionEn:
-      "Supported by a maximum production capacity of up to 1,000,000 dozen socks per month, with actual output subject to product specifications and order requirements.",
+      "Supported by a maximum production capacity of up to 1,000,000 dozen socks per month at our Ciamis facility, with transparent scheduling.",
     iconName: "Factory",
     badgeText: "Hingga 1 Juta Lusin/Bulan",
     badgeTextEn: "Up to 1M Dozen/Month",
-    image: "/images/dummy/04_production_floor.jpg",
+    image: "/images/factory/cap_capacity_scale.webp",
     specs: [
       "Kapasitas maksimum operasional hingga 1.000.000 lusin/bulan",
       "Skalabilitas pesanan volume besar sesuai kesepakatan",
-      "Penjadwalan produksi terencana dan transparan",
+      "Lini produksi terpadu dengan penjadwalan transparan",
     ],
     specsEn: [
       "Maximum operational capacity up to 1,000,000 dozen/month",
       "Large-volume order scalability per agreement",
-      "Planned and transparent production scheduling",
+      "Integrated production lines with transparent scheduling",
     ],
   },
   {
@@ -379,114 +471,115 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     title: "Fleksibilitas Bahan & Benang",
     titleEn: "Material & Yarn Flexibility",
     description:
-      "Pemilihan dan kombinasi bahan benang (katun, spandex, elastik) yang dapat disesuaikan menurut spesifikasi dan target produk pelanggan.",
+      "Gudang penyimpanan bahan baku benang (katun, spandex, elastik) terkelola rapi untuk memastikan kontinuitas pasokan dan fleksibilitas spesifikasi pesanan.",
     descriptionEn:
-      "Selective yarn material combinations (cotton, spandex, elastic) adaptable to client specifications and target product requirements.",
+      "Dedicated raw material yarn storage (cotton, spandex, elastic) ensuring supply continuity and tailored material composition for every client order.",
     iconName: "Sparkles",
-    badgeText: "Bahan Fleksibel",
-    badgeTextEn: "Flexible Materials",
-    image: "/images/dummy/14_yarn_materials.jpg",
+    badgeText: "Manajemen Bahan Baku",
+    badgeTextEn: "Raw Material Supply",
+    image: "/images/factory/cap_yarn_warehouse.webp",
     specs: [
       "Komposisi benang disesuaikan dengan permintaan pemesan",
       "Variasi serat katun, spandex, dan elastisitas yang adaptif",
-      "Diskusi teknis pemilihan bahan sebelum tahap produksi",
+      "Manajemen stok benang teratur untuk kontinuitas produksi",
     ],
     specsEn: [
       "Yarn compositions tailored to order specifications",
       "Versatile cotton, spandex, and elastic fiber combinations",
-      "Technical material consultation prior to production run",
+      "Organized yarn inventory for consistent production flow",
     ],
   },
   {
     id: "custom-packaging",
-    title: "Pilihan Pengemasan Kustom",
-    titleEn: "Customizable Packaging Options",
+    title: "Pilihan Pengemasan & Pergudangan",
+    titleEn: "Custom Packaging & Warehousing",
     description:
-      "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan, baik untuk kebutuhan distribusi grosir maupun kebutuhan ritel.",
+      "Fasilitas pergudangan dan lini pengemasan fleksibel untuk mendukung penataan master karton distribusi ekspor maupun kemasan ritel siap jual.",
     descriptionEn:
-      "Packaging options can be tailored to customer requirements, accommodating both wholesale distribution and retail specifications.",
+      "Flexible packaging lines and finished goods warehousing supporting export master cartons, custom boxing, and retail-ready presentation.",
     iconName: "PackageCheck",
-    badgeText: "Kemasan Adaptif",
-    badgeTextEn: "Adaptive Packaging",
-    image: "/images/dummy/17_product_packaging.jpg",
+    badgeText: "Gudang & Distribusi",
+    badgeTextEn: "Packaging & Dispatch",
+    image: "/images/factory/cap_packaging_warehouse.webp",
     specs: [
-      "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan",
-      "Format kemasan per lusin atau penataan karton distribusi",
-      "Kerapian pengemasan sebelum proses pengiriman",
+      "Pilihan kemasan ritel (hanger, card, polybag) atau grosir",
+      "Penataan master karton standar ekspor dan distribusi",
+      "Area pergudangan terorganisir sebelum proses ekspedisi",
     ],
     specsEn: [
-      "Packaging options can be tailored to customer requirements",
-      "Per-dozen packaging or master distribution carton formats",
-      "Neat presentation inspection before dispatch",
+      "Retail packaging options (hanger, card, polybag) or wholesale",
+      "Export-grade master carton arrangements and labeling",
+      "Organized staging warehouse prior to final dispatch",
     ],
   },
 ];
 
 export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
   {
-    step: "01",
-    title: "Preparasi Bahan & Benang",
-    titleEn: "Material & Yarn Preparation",
-    description:
-      "Penyiapan bahan baku benang katun, spandex, dan elastik sesuai spesifikasi pesanan yang telah disepakati.",
-    descriptionEn:
-      "Preparation of raw cotton, spandex, and elastic yarns aligned with finalized order specifications.",
+    step: "yarn-materials",
+    title: "Bahan Baku Benang",
+    titleEn: "Raw Yarn Materials",
+    description: "",
+    descriptionEn: "",
     iconName: "Boxes",
-    keyMetric: "Verifikasi Bahan Baku",
-    keyMetricEn: "Material Verification",
-    image: "/images/dummy/14_yarn_materials.jpg",
+    keyMetric: "Spul Benang Kaus Kaki",
+    keyMetricEn: "Yarn Cones & Materials",
+    image: "/images/factory/proc_yarn_materials.webp",
   },
   {
-    step: "02",
-    title: "Proses Perajutan",
-    titleEn: "Knitting Process",
-    description:
-      "Pelaksanaan proses rajut dengan kontrol kerapatan jarum untuk membentuk pola dan dimensi kaus kaki yang rapi.",
-    descriptionEn:
-      "Executing the knitting process with stitch tension control to shape neat patterns and sock dimensions.",
+    step: "knitting",
+    title: "Perajutan Mesin Otomatis",
+    titleEn: "Computerized Knitting",
+    description: "",
+    descriptionEn: "",
     iconName: "Cpu",
-    keyMetric: "Kontrol Kerapatan Rajut",
-    keyMetricEn: "Stitch Tension Control",
-    image: "/images/dummy/15_knitting_process.jpg",
+    keyMetric: "Mesin Rajut Silinder",
+    keyMetricEn: "Circular Knitting Machines",
+    image: "/images/factory/proc_02_knitting.webp",
   },
   {
-    step: "03",
-    title: "Penyambungan Jari & Finishing",
-    titleEn: "Toe Linking & Finishing",
-    description:
-      "Penyambungan bagian ujung jari dan perlakuan finishing untuk kenyamanan pemakaian dan kerapian bentuk kaus kaki.",
-    descriptionEn:
-      "Toe seam linking and finishing treatment ensuring comfortable wear and neat anatomical contours.",
+    step: "rosso-linking",
+    title: "Proses Rosso",
+    titleEn: "Rosso Process",
+    description: "",
+    descriptionEn: "",
     iconName: "GitMerge",
-    keyMetric: "Kenyamanan Sambungan",
-    keyMetricEn: "Seam Finish Comfort",
-    image: "/images/dummy/16_finishing_process.jpg",
+    keyMetric: "Lini Mesin Rosso",
+    keyMetricEn: "Rosso Linking Machinery",
+    image: "/images/factory/proc_03_rosso_linking.webp",
   },
   {
-    step: "04",
-    title: "Pemeriksaan Kualitas (QC)",
-    titleEn: "Quality Control (QC)",
-    description:
-      "Pemeriksaan fisik dan visual produk dengan mengacu pada pedoman standar AQL sebelum masuk ke tahap pengemasan.",
-    descriptionEn:
-      "Physical and visual inspection in reference to AQL standard guidelines prior to packaging.",
-    iconName: "ShieldCheck",
-    keyMetric: "Pedoman Standar AQL",
-    keyMetricEn: "AQL Guideline Check",
-    image: "/images/quality_inspection.webp",
+    step: "trimming",
+    title: "Pembersihan & Balik Kaos Kaki",
+    titleEn: "Trimming & Inversion",
+    description: "",
+    descriptionEn: "",
+    iconName: "Sparkles",
+    keyMetric: "Vacuum Trimmer & Balik",
+    keyMetricEn: "Vacuum Trimmer & Inversion",
+    image: "/images/factory/proc_04_thread_trimming.webp",
   },
   {
-    step: "05",
-    title: "Pengemasan & Pengiriman",
-    titleEn: "Packaging & Dispatch",
-    description:
-      "Pengemasan kaus kaki sesuai kebutuhan pelanggan serta penataan karton untuk pengiriman ke tujuan pemesan.",
-    descriptionEn:
-      "Packaging tailored to customer requirements and carton preparation for delivery to client destinations.",
-    iconName: "Truck",
-    keyMetric: "Pengemasan Kustom",
-    keyMetricEn: "Custom Packaging",
-    image: "/images/dummy/17_product_packaging.jpg",
+    step: "steam-boarding",
+    title: "Setting Uap & Pembentukan",
+    titleEn: "Steam Boarding & Setting",
+    description: "",
+    descriptionEn: "",
+    iconName: "Flame",
+    keyMetric: "Mesin Steam Boarding",
+    keyMetricEn: "Steam Boarding Equipment",
+    image: "/images/factory/proc_05_steam_setting.webp",
+  },
+  {
+    step: "packaging",
+    title: "Pelabelan & Pengemasan",
+    titleEn: "Tagging & Packaging",
+    description: "",
+    descriptionEn: "",
+    iconName: "PackageCheck",
+    keyMetric: "Lini Pengemasan & Karton",
+    keyMetricEn: "Packaging & Export Boxing",
+    image: "/images/factory/proc_06_packing_dispatch.webp",
   },
 ];
 

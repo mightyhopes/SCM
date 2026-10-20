@@ -2,33 +2,39 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Check, Sparkles, Package } from "lucide-react";
+import { ArrowUpRight, Maximize2, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { PRODUCT_CATEGORIES, ProductCategory } from "@/data/companyData";
+import { ImageLightbox } from "@/components/ui/ImageLightbox";
+import { PRODUCT_GALLERY_ITEMS } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function ProductCategories() {
   const { t, language } = useLanguage();
-  const [activeTab, setActiveTab] = useState<string>("all");
-
-  const filteredCategories = PRODUCT_CATEGORIES.filter((category: ProductCategory) => {
-    if (activeTab === "all") return true;
-    if (activeTab === "kids-baby") return category.segment === "baby" || category.segment === "kids";
-    if (activeTab === "ladies") return category.segment === "ladies";
-    if (activeTab === "mens-sport") return category.segment === "mens" || category.segment === "athletic";
-    if (activeTab === "custom") return category.segment === "custom";
-    return true;
-  });
-
   const isEn = language === "en";
 
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  const activeItem = activeIdx !== null ? PRODUCT_GALLERY_ITEMS[activeIdx] : null;
+
+  const handleNext = () => {
+    if (activeIdx !== null) {
+      setActiveIdx((prev) => ((prev ?? 0) + 1) % PRODUCT_GALLERY_ITEMS.length);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeIdx !== null) {
+      setActiveIdx((prev) => ((prev ?? 0) - 1 + PRODUCT_GALLERY_ITEMS.length) % PRODUCT_GALLERY_ITEMS.length);
+    }
+  };
+
   return (
-    <section className="py-20 lg:py-28 bg-surface border-b border-border">
+    <section id="products" className="py-20 lg:py-28 bg-surface border-b border-border">
       <Container size="default">
+        {/* Section Heading - Clean & Visual */}
         <ScrollReveal duration={600} direction="up">
           <SectionHeading
             eyebrow={t.products.eyebrow}
@@ -36,124 +42,75 @@ export function ProductCategories() {
             description={t.products.description}
             align="center"
           />
+
+          {/* Interactive Live Inspection Pill */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/8 border border-primary/15 text-[11px] sm:text-xs font-semibold text-primary shadow-2xs">
+              <span className="relative flex size-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full size-2 bg-accent" />
+              </span>
+              <span>
+                {isEn
+                  ? "10 Production Specimens • Hover or click to inspect full detail"
+                  : "10 Sampel Portofolio • Arahkan kursor atau klik foto untuk inspeksi"}
+              </span>
+            </span>
+          </div>
         </ScrollReveal>
 
-        {/* Segment Filter Tabs */}
-        <div className="flex justify-center mb-12">
-          <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as string)}>
-            <TabsList className="bg-surface-muted p-1.5 rounded-2xl border border-border h-auto flex flex-wrap gap-1 shadow-2xs">
-              <TabsTrigger
-                value="all"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl data-active:bg-primary data-active:text-text-inverse transition-all cursor-pointer"
-              >
-                {t.products.tabs.all} ({PRODUCT_CATEGORIES.length})
-              </TabsTrigger>
-              <TabsTrigger
-                value="kids-baby"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl data-active:bg-primary data-active:text-text-inverse transition-all cursor-pointer"
-              >
-                {t.products.tabs.babyKids}
-              </TabsTrigger>
-              <TabsTrigger
-                value="ladies"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl data-active:bg-primary data-active:text-text-inverse transition-all cursor-pointer"
-              >
-                {t.products.tabs.ladies}
-              </TabsTrigger>
-              <TabsTrigger
-                value="mens-sport"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl data-active:bg-primary data-active:text-text-inverse transition-all cursor-pointer"
-              >
-                {t.products.tabs.mensSport}
-              </TabsTrigger>
-              <TabsTrigger
-                value="custom"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl data-active:bg-primary data-active:text-text-inverse transition-all cursor-pointer"
-              >
-                {t.products.tabs.custom}
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
-
-        {/* Categories Grid - Focused on Product Flexibility */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCategories.map((category, idx) => {
-            const displayTitle = isEn ? category.titleEn : category.title;
-            const displayDesc = isEn ? category.descriptionEn : category.description;
-            const displayHighlights = isEn ? category.highlightsEn : category.highlights;
+        {/* Editorial Masonry Photo Gallery - Staggered Animated Cascade */}
+        <div className="mt-10 sm:mt-14 columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 [column-fill:_balance]">
+          {PRODUCT_GALLERY_ITEMS.map((item, idx) => {
+            const displayTitle = isEn ? item.titleEn : item.title;
 
             return (
               <ScrollReveal
-                key={category.id}
-                duration={550}
-                delay={idx * 70}
+                key={item.id}
                 variant="cascade-card"
-                className="h-full"
+                duration={650}
+                delay={(idx % 4) * 110}
+                className="break-inside-avoid mb-6"
               >
-                <div className="flex flex-col h-full bg-surface rounded-2xl border border-border overflow-hidden hover:border-secondary-brand hover:shadow-xl transition-all duration-300 group">
-                  {/* Visual Product Photography Area */}
-                  <div className="relative h-60 sm:h-64 w-full bg-surface-muted overflow-hidden border-b border-border group/img">
-                    <Image
-                      src={category.image}
-                      alt={displayTitle}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                      className={`object-cover group-hover/img:scale-105 transition-transform duration-500 ease-out ${category.imagePosition || "object-center"}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                <div
+                  onClick={() => setActiveIdx(idx)}
+                  className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-surface-muted shadow-xs hover:shadow-[0_24px_50px_-12px_rgba(8,97,93,0.25)] hover:-translate-y-2 hover:scale-[1.01] transition-all duration-500 ease-out cursor-pointer border border-border/80 hover:border-primary/60 group select-none after:absolute after:inset-0 after:-translate-x-full group-hover:after:translate-x-full after:transition-transform after:duration-1000 after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:pointer-events-none"
+                >
+                  {/* Natural Aspect-Ratio Image with Smooth Zoom */}
+                  <Image
+                    src={item.image}
+                    alt={displayTitle}
+                    width={item.width}
+                    height={item.height}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    className="w-full h-auto object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
+                  />
 
-                    {/* Subtle Category Pill on Image */}
-                    <div className="absolute bottom-3 left-3 z-10">
-                      <span className="text-xs font-semibold text-white/95 drop-shadow-sm px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-xs border border-white/10 inline-block">
-                        {displayTitle}
-                      </span>
-                    </div>
+                  {/* Cinematic Vignette Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                  {/* Floating Frosted Glass Zoom Button (Top Right) */}
+                  <div className="absolute top-3.5 right-3.5 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+                    <span className="size-9 rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white flex items-center justify-center shadow-lg group-hover:scale-115 group-hover:rotate-12 transition-all duration-300">
+                      <Maximize2 className="size-4 text-accent" />
+                    </span>
                   </div>
 
-                  {/* Card Information Body */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-lg font-bold text-text-primary group-hover:text-primary transition-colors">
+                  {/* Minimalist Bottom Caption Bar on Hover with Slide-Up Spring */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 opacity-0 group-hover:opacity-100 transition-all duration-400 transform translate-y-3 group-hover:translate-y-0 flex items-center justify-between gap-3 pointer-events-none">
+                    <div className="min-w-0">
+                      <h3 className="text-white text-sm sm:text-base font-bold tracking-tight truncate drop-shadow-sm">
                         {displayTitle}
                       </h3>
-
-                      <p className="mt-2 text-xs sm:text-sm text-text-secondary leading-relaxed">
-                        {displayDesc}
-                      </p>
-
-                      {/* Highlights / Fleksibilitas Produk */}
-                      <div className="mt-4 pt-4 border-t border-border flex flex-col gap-2">
-                        {displayHighlights.map((item, hIdx) => (
-                          <div
-                            key={hIdx}
-                            className="flex items-center gap-2 text-xs text-text-primary"
-                          >
-                            <Check className="size-3.5 text-primary shrink-0" />
-                            <span>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Packaging Flexibility Note */}
-                      <div className="mt-3.5 pt-3 border-t border-border/60 text-[11px] text-text-secondary flex items-center gap-2">
-                        <Package className="size-3.5 text-secondary-brand shrink-0" />
-                        <span>{t.products.packagingNote}</span>
-                      </div>
+                      <span className="text-accent text-[11px] sm:text-xs font-semibold flex items-center gap-1 mt-0.5 drop-shadow-xs">
+                        <Sparkles className="size-3 shrink-0 animate-pulse" />
+                        <span>{isEn ? "Click to view full photo" : "Klik untuk perbesar foto"}</span>
+                      </span>
                     </div>
 
-                    {/* Card Action Link to Contact */}
-                    <div className="mt-6 pt-4 border-t border-border">
-                      <a
-                        href="#contact"
-                        className="inline-flex items-center justify-between w-full text-xs font-bold text-primary hover:text-primary-hover group/link cursor-pointer"
-                      >
-                        <span>
-                          {t.products.sampleBtn} {displayTitle}
-                        </span>
-                        <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-1" />
-                      </a>
-                    </div>
+                    <span className="shrink-0 size-7 rounded-full bg-white/20 backdrop-blur-xs text-white flex items-center justify-center group-hover:bg-accent group-hover:text-primary-dark transition-colors shadow-xs">
+                      <ArrowUpRight className="size-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </span>
                   </div>
                 </div>
               </ScrollReveal>
@@ -161,9 +118,9 @@ export function ProductCategories() {
           })}
         </div>
 
-        {/* Custom Order Callout */}
-        <ScrollReveal duration={600} direction="up" className="mt-14">
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-surface-muted via-surface to-secondary-light/40 border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm">
+        {/* Custom Order Callout Banner */}
+        <ScrollReveal duration={600} direction="up" className="mt-14 sm:mt-18">
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-surface-muted via-surface to-secondary-light/40 border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xs">
             <div className="space-y-1.5 max-w-2xl">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider">
                 <Sparkles className="size-4 text-accent" />
@@ -187,6 +144,23 @@ export function ProductCategories() {
           </div>
         </ScrollReveal>
       </Container>
+
+      {/* Lightbox Modal with Next/Prev Arrow Keys & Chevrons */}
+      {activeItem && (
+        <ImageLightbox
+          isOpen={activeIdx !== null}
+          onClose={() => setActiveIdx(null)}
+          image={{
+            src: activeItem.image,
+            title: isEn ? activeItem.titleEn : activeItem.title,
+            alt: isEn ? activeItem.titleEn : activeItem.title,
+          }}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          currentIndex={activeIdx ?? 0}
+          totalImages={PRODUCT_GALLERY_ITEMS.length}
+        />
+      )}
     </section>
   );
 }

@@ -85,16 +85,7 @@ export interface Translations {
     eyebrow: string;
     title: string;
     description: string;
-    tabs: {
-      all: string;
-      babyKids: string;
-      ladies: string;
-      mensSport: string;
-      custom: string;
-    };
-    gaugeLabel: string;
-    materialLabel: string;
-    packagingNote: string;
+    zoomBtn: string;
     sampleBtn: string;
     customBanner: {
       tag: string;
@@ -388,26 +379,17 @@ export const translations: Record<Language, Translations> = {
       badgeId: "Seluruh Indonesia",
     },
     products: {
-      eyebrow: "KATEGORI PRODUK",
-      title: "Ragam Manufaktur Kaos Kaki Sesuai Kebutuhan Anda",
+      eyebrow: "DOKUMENTASI & GALERI PRODUK",
+      title: "Galeri Hasil Produksi & Sampel Kaos Kaki",
       description:
-        "Pilihan kategori kaos kaki yang dapat diproduksi dengan fleksibilitas spesifikasi, bahan benang, dan pilihan pengemasan.",
-      tabs: {
-        all: "Semua Kategori",
-        babyKids: "Bayi & Anak",
-        ladies: "Wanita",
-        mensSport: "Pria & Olahraga",
-        custom: "Spesifikasi Kustom",
-      },
-      gaugeLabel: "Pilihan Gauge:",
-      materialLabel: "Bahan:",
-      packagingNote: "Pilihan pengemasan dapat disesuaikan dengan kebutuhan pelanggan.",
-      sampleBtn: "Konsultasikan Kategori",
+        "Dokumentasi visual portofolio produk, display showroom, dan sampel pesanan yang diproduksi di fasilitas PT. Sinlie Cahaya Matahari.",
+      zoomBtn: "Perbesar Foto",
+      sampleBtn: "Minta Sampel Ini",
       customBanner: {
-        tag: "Fleksibilitas Manufaktur & Pengemasan",
-        title: "Membutuhkan Kaus Kaki dengan Spesifikasi atau Kemasan Khusus?",
-        desc: "Kami memfasilitasi diskusi teknis penyesuaian komposisi benang, ukuran, motif rajutan, hingga kemasan kustom sesuai kebutuhan produk Anda.",
-        btn: "Konsultasi Spesifikasi Kustom",
+        tag: "Kustomisasi & Pemesanan B2B",
+        title: "Tertarik dengan Model atau Spesifikasi Khusus?",
+        desc: "Diskusikan kebutuhan desain motif, komposisi bahan, ukuran, dan pilihan kemasan produk Anda langsung dengan tim produksi kami.",
+        btn: "Konsultasi Produksi Sekarang",
       },
     },
     capabilities: {
@@ -427,12 +409,12 @@ export const translations: Record<Language, Translations> = {
       barYarnDesc: "Komposisi benang disesuaikan per pesanan",
     },
     process: {
-      eyebrow: "ALUR PRODUKSI",
-      title: "Tahapan Manufaktur dari Bahan hingga Pengemasan",
+      eyebrow: "PROSES & FASILITAS PRODUKSI",
+      title: "Lini & Aktivitas Produksi Kaos Kaki",
       description:
-        "Alur kerja terstruktur untuk memastikan setiap lusin kaus kaki memenuhi kerapian bentuk, kenyamanan rajutan, dan kemasan siap distribusi.",
+        "Dokumentasi fasilitas permesinan, penanganan material, dan aktivitas operasional di fasilitas pabrik PT. Sinlie Cahaya Matahari.",
       disclaimer:
-        "*Tahapan di atas menggambarkan alur kerja umum proses manufaktur kaos kaki dan dapat disesuaikan menurut spesifikasi teknis pesanan pelanggan.",
+        "*Dokumentasi di atas menampilkan lini permesinan dan aktivitas operasional manufaktur kaus kaki di pabrik PT. Sinlie Cahaya Matahari.",
     },
     quality: {
       eyebrow: "KENDALI MUTU (QC)",
@@ -737,26 +719,17 @@ export const translations: Record<Language, Translations> = {
       badgeId: "Nationwide (Indonesia)",
     },
     products: {
-      eyebrow: "PRODUCT CATEGORIES",
-      title: "Versatile Sock Manufacturing Tailored to Your Requirements",
+      eyebrow: "PRODUCT PORTFOLIO & GALLERY",
+      title: "Sock Manufacturing Showcase & Sample Gallery",
       description:
-        "A wide range of sock categories manufactured with flexible specifications, adaptable yarn materials, and customizable packaging.",
-      tabs: {
-        all: "All Categories",
-        babyKids: "Baby & Kids",
-        ladies: "Ladies",
-        mensSport: "Men's & Athletic",
-        custom: "Custom Specs",
-      },
-      gaugeLabel: "Gauge Range:",
-      materialLabel: "Material:",
-      packagingNote: "Packaging options can be tailored to customer requirements.",
-      sampleBtn: "Inquire This Category",
+        "Visual showcase of sock product lines, showroom displays, and custom manufacturing samples produced at PT. Sinlie Cahaya Matahari.",
+      zoomBtn: "View Fullscreen",
+      sampleBtn: "Request Sample",
       customBanner: {
-        tag: "Manufacturing & Packaging Flexibility",
-        title: "Need Socks with Custom Technical Specifications or Packaging?",
-        desc: "We facilitate open technical discussions regarding yarn blends, sizing, knit patterns, and custom packaging tailored to your product standards.",
-        btn: "Consult Custom Specifications",
+        tag: "B2B Customization & Orders",
+        title: "Interested in a Specific Style or Custom Packaging?",
+        desc: "Discuss your custom design, yarn composition, sizing, and retail packaging requirements directly with our manufacturing team.",
+        btn: "Consult Production Team",
       },
     },
     capabilities: {
@@ -776,12 +749,12 @@ export const translations: Record<Language, Translations> = {
       barYarnDesc: "Yarn compositions customized per order",
     },
     process: {
-      eyebrow: "PRODUCTION WORKFLOW",
-      title: "Manufacturing Stages from Yarn to Packaging",
+      eyebrow: "PRODUCTION FACILITIES",
+      title: "Manufacturing Lines & Operations",
       description:
-        "A structured workflow ensuring every dozen socks meets strict dimensional tolerances, wearer comfort, and neat presentation.",
+        "Visual documentation of machinery lines, material handling, and operational activities at PT. Sinlie Cahaya Matahari.",
       disclaimer:
-        "*The workflow above illustrates our general sock manufacturing process and can be adapted to client technical order requirements.",
+        "*The documentation above illustrates the machinery lines and manufacturing operations at PT. Sinlie Cahaya Matahari's factory facility.",
     },
     quality: {
       eyebrow: "QUALITY ASSURANCE (QC)",
