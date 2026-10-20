@@ -63,19 +63,6 @@ export interface QAFeature {
   readonly image?: string;
 }
 
-export interface GalleryItem {
-  readonly id: string;
-  readonly title: string;
-  readonly titleEn: string;
-  readonly category: string;
-  readonly categoryEn: string;
-  readonly aspect: "landscape" | "portrait" | "square";
-  readonly dimensions: string;
-  readonly image: string;
-  readonly caption: string;
-  readonly captionEn: string;
-}
-
 export interface B2BFAQ {
   readonly question: string;
   readonly questionEn: string;
@@ -551,105 +538,6 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     protocolTag: "Pedoman AQL",
     protocolTagEn: "AQL Guidelines",
     image: "/images/quality_control_worker.webp",
-  },
-];
-
-export const GALLERY_ITEMS: readonly GalleryItem[] = [
-  {
-    id: "gal-1",
-    title: "Lantai Produksi Mesin Rajut",
-    titleEn: "Knitting Production Floor",
-    category: "Fasilitas Produksi",
-    categoryEn: "Production Facility",
-    aspect: "landscape",
-    dimensions: "1200 x 800 px",
-    image: "/images/dummy/04_production_floor.jpg",
-    caption: "Ilustrasi visual area mesin rajut kaus kaki otomatis.",
-    captionEn: "Illustrative preview of the automated sock knitting area.",
-  },
-  {
-    id: "gal-2",
-    title: "Tekstur Rajutan & Detail Serat",
-    titleEn: "Knit Texture & Fiber Details",
-    category: "Detail Bahan",
-    categoryEn: "Material Detail",
-    aspect: "portrait",
-    dimensions: "800 x 1000 px",
-    image: "/images/dummy/21_knit_texture.jpg",
-    caption: "Ilustrasi visual kerapatan tekstur rajut benang.",
-    captionEn: "Illustrative preview of yarn knit density and texture.",
-  },
-  {
-    id: "gal-3",
-    title: "Area Finishing & Penataan Bentuk",
-    titleEn: "Finishing & Boarding Station",
-    category: "Proses Finishing",
-    categoryEn: "Finishing Process",
-    aspect: "landscape",
-    dimensions: "800 x 600 px",
-    image: "/images/dummy/16_finishing_process.jpg",
-    caption: "Ilustrasi visual penataan bentuk dan kerapian kaus kaki.",
-    captionEn: "Illustrative preview of sock shaping and neat finishing.",
-  },
-  {
-    id: "gal-4",
-    title: "Meja Pemeriksaan Kendali Mutu",
-    titleEn: "Quality Control Inspection Table",
-    category: "Kendali Mutu (QC)",
-    categoryEn: "Quality Assurance",
-    aspect: "portrait",
-    dimensions: "800 x 1000 px",
-    image: "/images/dummy/06_quality_inspection.jpg",
-    caption: "Ilustrasi visual proses inspeksi kualitas produk kaos kaki.",
-    captionEn: "Illustrative preview of sock quality inspection process.",
-  },
-  {
-    id: "gal-5",
-    title: "Area Pengemasan Produk",
-    titleEn: "Product Packaging Area",
-    category: "Pengemasan",
-    categoryEn: "Packaging",
-    aspect: "landscape",
-    dimensions: "800 x 600 px",
-    image: "/images/dummy/07_packing.jpg",
-    caption: "Ilustrasi visual penataan dan pengemasan produk sebelum distribusi.",
-    captionEn: "Illustrative preview of product packaging prior to distribution.",
-  },
-  {
-    id: "gal-6",
-    title: "Pola & Variasi Rajut",
-    titleEn: "Knit Pattern Variations",
-    category: "Keahlian Rajut",
-    categoryEn: "Knit Craftsmanship",
-    aspect: "portrait",
-    dimensions: "800 x 1000 px",
-    image: "/images/dummy/22_knit_pattern.jpg",
-    caption: "Ilustrasi visual variasi pola dan desain motif rajutan.",
-    captionEn: "Illustrative preview of versatile knit patterns and designs.",
-  },
-  {
-    id: "gal-7",
-    title: "Penyimpanan & Manajemen Stok",
-    titleEn: "Warehouse & Inventory",
-    category: "Gudang & Inventori",
-    categoryEn: "Warehouse",
-    aspect: "landscape",
-    dimensions: "1200 x 800 px",
-    image: "/images/dummy/18_inventory_warehouse.jpg",
-    caption: "Ilustrasi visual area penataan dan penyimpanan stok.",
-    captionEn: "Illustrative preview of organized storage and inventory area.",
-  },
-  {
-    id: "gal-8",
-    title: "Logistik & Distribusi Pengiriman",
-    titleEn: "Dispatch & Logistics",
-    category: "Logistik Pengiriman",
-    categoryEn: "Logistics",
-    aspect: "landscape",
-    dimensions: "1200 x 800 px",
-    image: "/images/dummy/23_logistics.jpg",
-    caption: "Ilustrasi visual persiapan distribusi pesanan pelanggan.",
-    captionEn: "Illustrative preview of order distribution and dispatch readiness.",
   },
 ];
 

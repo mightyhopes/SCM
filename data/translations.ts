@@ -8,7 +8,6 @@ export interface Translations {
     capabilities: string;
     process: string;
     quality: string;
-    gallery: string;
     faq: string;
     contact: string;
     quote: string;
@@ -137,13 +136,6 @@ export interface Translations {
     physicalDesc: string;
     protocol1: string;
     protocol2: string;
-  };
-  gallery: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    visitNotice: string;
-    previewBadge: string;
   };
   faq: {
     eyebrow: string;
@@ -299,7 +291,6 @@ export const translations: Record<Language, Translations> = {
       capabilities: "Kapabilitas",
       process: "Proses",
       quality: "Kendali Mutu",
-      gallery: "Galeri",
       faq: "FAQ",
       contact: "Kontak",
       quote: "Request a Quote",
@@ -457,15 +448,6 @@ export const translations: Record<Language, Translations> = {
         "Pemeriksaan mutu dilakukan untuk memverifikasi kerapatan rajutan, kestabilan dimensi ukuran, dan kebersihan visual produk sebelum pengemasan akhir. Produk yang tidak memenuhi toleransi spesifikasi segera dipisahkan.",
       protocol1: "Pedoman Standar AQL",
       protocol2: "Inspeksi Kerapatan & Dimensi",
-    },
-    gallery: {
-      eyebrow: "DOKUMENTASI VISUAL",
-      title: "Gambaran Fasilitas & Proses Produksi Kaos Kaki",
-      description:
-        "Dokumentasi visual ilustratif lini permesinan rajut, area finishing, kendali mutu, dan persiapan pengemasan.",
-      visitNotice:
-        "Kunjungan Fasilitas: Kunjungan verifikasi ke pabrik dapat diatur melalui reservasi dan koordinasi bersama tim manajemen.",
-      previewBadge: "Dokumentasi Ilustratif",
     },
     faq: {
       eyebrow: "PERTANYAAN UMUM B2B",
@@ -658,7 +640,6 @@ export const translations: Record<Language, Translations> = {
       capabilities: "Capabilities",
       process: "Process",
       quality: "Quality",
-      gallery: "Gallery",
       faq: "FAQ",
       contact: "Contact",
       quote: "Request a Quote",
@@ -816,15 +797,6 @@ export const translations: Record<Language, Translations> = {
         "Quality control is carried out to verify stitch density, dimensional sizing stability, and surface visual cleanliness before final packing. Any items falling outside agreed specifications are segregated immediately.",
       protocol1: "AQL Standard Guidelines",
       protocol2: "Density & Dimension Inspection",
-    },
-    gallery: {
-      eyebrow: "VISUAL DOCUMENTATION",
-      title: "Manufacturing Facility & Production Process Overview",
-      description:
-        "Illustrative visual documentation of our knitting lines, finishing stations, quality inspection tables, and packaging operations.",
-      visitNotice:
-        "Facility Visits: On-site verification visits may be scheduled through prior coordination with our management team.",
-      previewBadge: "Illustrative Documentation",
     },
     faq: {
       eyebrow: "B2B PROCUREMENT FAQ",
