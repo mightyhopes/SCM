@@ -37,7 +37,7 @@ export function QualitySection() {
             <div className="relative rounded-2xl overflow-hidden border border-border bg-surface shadow-md group">
               <div className="relative h-56 sm:h-64 w-full bg-surface-muted">
                 <Image
-                  src="/images/5_process/3_check_goods.png"
+                  src="/images/5_process/3_check_good.png"
                   alt="Proses Inspeksi Kualitas Kaus Kaki SCM"
                   fill
                   sizes="(max-width: 1024px) 100vw, 480px"
