@@ -35,6 +35,23 @@ export interface ProductGalleryItem {
   readonly height: number;
 }
 
+export interface ShowroomItem {
+  readonly id: string;
+  readonly title: string;
+  readonly titleEn: string;
+  readonly subtitle: string;
+  readonly subtitleEn: string;
+  readonly description: string;
+  readonly descriptionEn: string;
+  readonly badge: string;
+  readonly badgeEn: string;
+  readonly image: string;
+  readonly width: number;
+  readonly height: number;
+  readonly tags: readonly string[];
+  readonly tagsEn: readonly string[];
+}
+
 export interface CapabilityItem {
   readonly id: string;
   readonly title: string;
@@ -51,14 +68,20 @@ export interface CapabilityItem {
 
 export interface ProcessStep {
   readonly step: string;
+  readonly stepNumber: number;
   readonly title: string;
   readonly titleEn: string;
+  readonly subtitle?: string;
+  readonly subtitleEn?: string;
   readonly description: string;
   readonly descriptionEn: string;
   readonly iconName: string;
   readonly keyMetric: string;
   readonly keyMetricEn: string;
   readonly image: string;
+  readonly phase: "preparation" | "finishing" | "packaging" | "safety_export";
+  readonly phaseLabel: string;
+  readonly phaseLabelEn: string;
 }
 
 export interface QAFeature {
@@ -106,26 +129,67 @@ export const COMPANY_INFO = {
       raw: "6285220327188",
       isVerified: true,
     },
-    address: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+    address:
+      "Jl. Otto Iskandardinata, Dusun Desa RT. 008 RW. 003, Desa/Kelurahan Handapherang, Kec. Cijeungjing, Kab. Ciamis, Provinsi Jawa Barat, Kode Pos: 46271",
+    otherAddress:
+      "Jl. Terusan Cipatik-Soreang, Desa/Kelurahan Pataruman, Kec. Cihampelas, Kab. Bandung Barat, Provinsi Jawa Barat, Kode Pos: 40562",
     operatingHours: "Senin - Jumat: 08:00 - 17:00 WIB",
     operatingHoursEn: "Monday - Friday: 08:00 - 17:00 WIB",
   },
-  // Configurable operational capacity - client confirmed maximum capacity
+  facilities: [
+    {
+      id: "ciamis",
+      type: "main",
+      label: "Fasilitas Utama",
+      labelEn: "Main Facility",
+      badge: "Pabrik Utama",
+      badgeEn: "Main Plant",
+      name: "Fasilitas Manufaktur Ciamis",
+      nameEn: "Ciamis Manufacturing Facility",
+      address:
+        "Jl. Otto Iskandardinata, Dusun Desa RT. 008 RW. 003, Desa/Kelurahan Handapherang, Kec. Cijeungjing, Kab. Ciamis, Provinsi Jawa Barat, Kode Pos: 46271",
+      city: "Ciamis, Jawa Barat",
+      postalCode: "46271",
+      googleMapsQuery:
+        "Jl. Otto Iskandardinata, Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+      embedQuery:
+        "Jl. Otto Iskandardinata, Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+    },
+    {
+      id: "bandung-barat",
+      type: "other",
+      label: "Lokasi Lainnya",
+      labelEn: "Other Location",
+      badge: "Lokasi Lainnya",
+      badgeEn: "Other Location",
+      name: "Lokasi Bandung Barat",
+      nameEn: "West Bandung Location",
+      address:
+        "Jl. Terusan Cipatik-Soreang, Desa/Kelurahan Pataruman, Kec. Cihampelas, Kab. Bandung Barat, Provinsi Jawa Barat, Kode Pos: 40562",
+      city: "Bandung Barat, Jawa Barat",
+      postalCode: "40562",
+      googleMapsQuery:
+        "Jl. Terusan Cipatik-Soreang, Pataruman, Cihampelas, Kabupaten Bandung Barat, Jawa Barat 40562",
+      embedQuery:
+        "Jl. Terusan Cipatik-Soreang, Pataruman, Cihampelas, Kabupaten Bandung Barat, Jawa Barat 40562",
+    },
+  ],
+  // Configurable operational capacity
   productionCapacity: {
-    value: "1.000.000",
-    valueEn: "1,000,000",
-    unit: "Lusin / Bulan",
-    unitEn: "Dozen / Month",
+    value: "Sesuai Pesanan",
+    valueEn: "Tailored to Order",
+    unit: "Kapasitas Fleksibel",
+    unitEn: "Flexible Capacity",
   },
 } as const;
 
 export const NAV_LINKS = [
   { label: "Tentang Kami", labelEn: "About Us", href: "#about" },
   { label: "Jangkauan Pasar", labelEn: "Markets", href: "#markets" },
+  { label: "Showroom", labelEn: "Showroom", href: "#showroom" },
   { label: "Kategori Produk", labelEn: "Products", href: "#products" },
   { label: "Kapabilitas Pabrik", labelEn: "Capabilities", href: "#capabilities" },
   { label: "Proses Produksi", labelEn: "Process", href: "#process" },
-  { label: "Kendali Mutu", labelEn: "Quality", href: "#quality" },
   { label: "FAQ B2B", labelEn: "FAQ", href: "#faq" },
   { label: "Kontak", labelEn: "Contact", href: "#contact" },
 ] as const;
@@ -133,14 +197,14 @@ export const NAV_LINKS = [
 export const COMPANY_STATS: readonly StatItem[] = [
   {
     id: "capacity",
-    value: "1.000.000",
-    valueEn: "1,000,000",
-    label: "Kapasitas Maksimum Produksi (Lusin / Bulan)",
-    labelEn: "Maximum Production Capacity (Dozen / Month)",
+    value: "Sesuai Pesanan",
+    valueEn: "Custom to Order",
+    label: "Kapasitas Produksi",
+    labelEn: "Production Capacity",
     description:
-      "Kapasitas maksimum operasional, dengan realisasi produksi menyesuaikan spesifikasi produk dan kebutuhan pesanan.",
+      "Kapasitas produksi fleksibel yang dapat disesuaikan dengan volume, spesifikasi, dan kebutuhan pesanan pemesan.",
     descriptionEn:
-      "Maximum operational production capacity, subject to product specifications and production requirements.",
+      "Flexible production capacity tailored to client order volume, specifications, and requirements.",
   },
   {
     id: "experience",
@@ -336,60 +400,109 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
   },
 ];
 
-export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
+export const SHOWROOM_ITEMS: readonly ShowroomItem[] = [
   {
-    id: "gal-showroom-display",
-    title: "Display Showroom Sampel Pabrik",
-    titleEn: "Factory Showroom Sample Wall",
-    image: "/images/products/gallery_showroom_display.webp",
+    id: "showroom-wall-display",
+    title: "Display Dinding Sampel Kaus Kaki",
+    titleEn: "Factory Wall Display & Retail Racks",
+    subtitle: "Rangkaian Sampel Kaus Kaki Bayi & Anak Ritel",
+    subtitleEn: "Baby & Children Retail Packaging Display",
+    description:
+      "Area display gantung di showroom pabrik Ciamis yang memamerkan puluhan model kaus kaki bayi dan anak lengkap dengan gantungan dan rider card siap display ritel.",
+    descriptionEn:
+      "Wall display grid in our Ciamis showroom showcasing dozens of baby and children sock models equipped with retail-ready header cards and hanger hooks.",
+    badge: "Display Dinding Showroom",
+    badgeEn: "Showroom Wall Display",
+    image: "/images/3_showroom/showroom_1.webp",
     width: 1280,
     height: 960,
+    tags: ["Display Ritel", "Hanger Hook", "Rider Card"],
+    tagsEn: ["Retail Display", "Hanger Hook", "Rider Card"],
   },
+  {
+    id: "showroom-gift-sets",
+    title: "Koleksi Gift Set & Pre-Walker",
+    titleEn: "Gift Sets & Pre-Walker Showcase",
+    subtitle: "Display Meja Presentasi Sampel Kunjungan Buyer",
+    subtitleEn: "Buyer Presentation Table Display",
+    description:
+      "Presentasi sampel kaus kaki pre-walker bersol lembut serta set kemasan multi-pack bertema untuk referensi buyer dan mitra ritel internasional.",
+    descriptionEn:
+      "Presentation of soft-sole pre-walker booties and themed multi-pack sets on display tables for visiting buyers and global retail partners.",
+    badge: "Presentasi Meja Sampel",
+    badgeEn: "Sample Table Presentation",
+    image: "/images/3_showroom/showroom_2.jpg",
+    width: 3200,
+    height: 2400,
+    tags: ["Pre-Walker", "Gift Set", "Soft Sole"],
+    tagsEn: ["Pre-Walker", "Gift Set", "Soft Sole"],
+  },
+  {
+    id: "showroom-multi-packs",
+    title: "Kemasan Ritel & Penataan Multi-Pack",
+    titleEn: "Multi-Pack Retail Packaging Formats",
+    subtitle: "Standar Kemasan Ekspor & Hanger Card",
+    subtitleEn: "Export Packaging & Hanger Card Formats",
+    description:
+      "Contoh kemasan multi-pack bermotif bordir dan berjenjang ukuran (0-3m, 0-6m, 3-12m) dengan gantungan display standar pasar ekspor internasional.",
+    descriptionEn:
+      "Export-grade multi-packs featuring embroidered motifs and age-tier sizing (0-3m, 0-6m, 3-12m) complete with retail hanging cards and barcodes.",
+    badge: "Kemasan Ritel Ekspor",
+    badgeEn: "Export Retail Pack",
+    image: "/images/3_showroom/showroom_3.jpg.jpeg",
+    width: 1280,
+    height: 960,
+    tags: ["Multi-Pack", "Label Barcode", "Standar Ekspor"],
+    tagsEn: ["Multi-Pack", "Barcode Label", "Export Grade"],
+  },
+];
+
+export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
   {
     id: "gal-sport-underworks",
     title: "Kaus Kaki Olahraga & Athletic",
     titleEn: "Athletic & Sport Socks",
-    image: "/images/products/gallery_sport_underworks.webp",
+    image: "/images/2_products/gallery_sport_underworks.webp",
     width: 960,
     height: 1280,
-  },
-  {
-    id: "gal-baby-booties",
-    title: "Kaus Kaki & Booties Bayi",
-    titleEn: "Baby Socks & Booties Collection",
-    image: "/images/products/gallery_baby_booties.webp",
-    width: 1280,
-    height: 960,
-  },
-  {
-    id: "gal-baby-socks-pack",
-    title: "Set Kaus Kaki Bayi Multipack",
-    titleEn: "Baby Socks Multipack Sets",
-    image: "/images/products/gallery_baby_socks_pack.webp",
-    width: 1280,
-    height: 960,
   },
   {
     id: "gal-colorful-flatlay",
     title: "Kaus Kaki Motif Warna-Warni",
     titleEn: "Colorful Patterned Crew Socks",
-    image: "/images/products/gallery_colorful_flatlay.webp",
+    image: "/images/2_products/gallery_colorful_flatlay.webp",
     width: 1400,
     height: 933,
+  },
+  {
+    id: "gal-baby-booties",
+    title: "Kaus Kaki Sepatu Bayi Pre-Walker",
+    titleEn: "Baby Pre-Walker Bootie Socks",
+    image: "/images/2_products/baby_shock.png",
+    width: 1448,
+    height: 1086,
   },
   {
     id: "gal-white-purple-sport",
     title: "Kaus Kaki Athletic White & Stripe",
     titleEn: "White Athletic Socks with Accent Stripes",
-    image: "/images/products/gallery_white_purple_sport.webp",
+    image: "/images/2_products/gallery_white_purple_sport.webp",
     width: 1400,
     height: 933,
+  },
+  {
+    id: "gal-baby-collection",
+    title: "Koleksi Kaus Kaki Bayi & Balita",
+    titleEn: "Baby & Toddler Combed Cotton Socks",
+    image: "/images/2_products/4_prod.png",
+    width: 1448,
+    height: 1086,
   },
   {
     id: "gal-three-part",
     title: "Koleksi Seri Kaus Kaki",
     titleEn: "Three-Part Sock Collection Series",
-    image: "/images/products/gallery_three_part_collection.webp",
+    image: "/images/2_products/gallery_three_part_collection.webp",
     width: 632,
     height: 836,
   },
@@ -397,7 +510,7 @@ export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
     id: "gal-mens-classic",
     title: "Kaus Kaki Pria & Formal Klasik",
     titleEn: "Men's Classic & Formal Socks",
-    image: "/images/products/gallery_mens_classic.webp",
+    image: "/images/2_products/gallery_mens_classic.webp",
     width: 496,
     height: 550,
   },
@@ -405,7 +518,7 @@ export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
     id: "gal-ladies-fashion",
     title: "Kaus Kaki Wanita & Fashion",
     titleEn: "Women's Daily & Fashion Socks",
-    image: "/images/products/gallery_ladies_socks.webp",
+    image: "/images/2_products/gallery_ladies_socks.webp",
     width: 508,
     height: 458,
   },
@@ -413,7 +526,7 @@ export const PRODUCT_GALLERY_ITEMS: readonly ProductGalleryItem[] = [
     id: "gal-kids-school",
     title: "Kaus Kaki Anak & Sekolah",
     titleEn: "Kids & School Uniform Socks",
-    image: "/images/products/gallery_kids_school.webp",
+    image: "/images/2_products/gallery_kids_school.webp",
     width: 508,
     height: 458,
   },
@@ -431,7 +544,7 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     iconName: "Cpu",
     badgeText: "Mesin Otomatis SCM",
     badgeTextEn: "Automated Knitting Lines",
-    image: "/images/factory/cap_knitting_specialization.webp",
+    image: "/images/4_capabilities/images_1.webp",
     specs: [
       "Fasilitas mesin rajut otomatis terkomputerisasi",
       "Kerapatan dan dimensi rajutan seragam antar batch",
@@ -445,24 +558,24 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
   },
   {
     id: "max-capacity",
-    title: "Kapasitas Maksimum Operasional",
-    titleEn: "Maximum Operational Capacity",
+    title: "Kapasitas Produksi Sesuai Pesanan",
+    titleEn: "Production Capacity Tailored to Order",
     description:
-      "Didukung kapasitas maksimum produksi hingga 1.000.000 lusin per bulan di fasilitas Ciamis, dengan penjadwalan terencana dan transparan.",
+      "Kapasitas produksi yang dapat disesuaikan secara fleksibel dengan spesifikasi, volume, dan jadwal pesanan yang disepakati bersama.",
     descriptionEn:
-      "Supported by a maximum production capacity of up to 1,000,000 dozen socks per month at our Ciamis facility, with transparent scheduling.",
+      "Production capacity flexibly scalable to match agreed client specifications, order volumes, and delivery timelines.",
     iconName: "Factory",
-    badgeText: "Hingga 1 Juta Lusin/Bulan",
-    badgeTextEn: "Up to 1M Dozen/Month",
+    badgeText: "Sesuai Kebutuhan Pesanan",
+    badgeTextEn: "Tailored to Order",
     image: "/images/factory/cap_capacity_scale.webp",
     specs: [
-      "Kapasitas maksimum operasional hingga 1.000.000 lusin/bulan",
-      "Skalabilitas pesanan volume besar sesuai kesepakatan",
+      "Volume produksi fleksibel sesuai kebutuhan pemesan",
+      "Skalabilitas pesanan adaptif sesuai kesepakatan",
       "Lini produksi terpadu dengan penjadwalan transparan",
     ],
     specsEn: [
-      "Maximum operational capacity up to 1,000,000 dozen/month",
-      "Large-volume order scalability per agreement",
+      "Flexible production volume tailored to customer orders",
+      "Adaptive order scalability per agreement",
       "Integrated production lines with transparent scheduling",
     ],
   },
@@ -516,70 +629,232 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
 
 export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
   {
-    step: "yarn-materials",
-    title: "Bahan Baku Benang",
-    titleEn: "Raw Yarn Materials",
-    description: "",
-    descriptionEn: "",
+    step: "yarn-preparation",
+    stepNumber: 1,
+    title: "Persiapan Benang & Kontrol Lot",
+    titleEn: "Yarn Preparation & Lot Control",
+    subtitle: "Inspeksi Kualitas & Verifikasi Lot Benang",
+    subtitleEn: "Raw Yarn Lot Quality & Verification",
+    description:
+      "Pengendalian mutu dan verifikasi lot benang sebelum masuk ke lini rajut untuk memastikan konsistensi warna, elastisitas, dan spesifikasi serat.",
+    descriptionEn:
+      "Strict lot verification and yarn tension staging before knitting to ensure batch-wide color consistency and fiber elasticity.",
     iconName: "Boxes",
-    keyMetric: "Spul Benang Kaus Kaki",
-    keyMetricEn: "Yarn Cones & Materials",
-    image: "/images/factory/proc_yarn_materials.webp",
+    keyMetric: "Verifikasi Lot & Spesifikasi Benang",
+    keyMetricEn: "Lot Control & Spec Verification",
+    image: "/images/5_process/1_yarn_prepartion_lot_control.png",
+    phase: "preparation",
+    phaseLabel: "Persiapan & Perajutan",
+    phaseLabelEn: "Preparation & Knitting",
   },
   {
     step: "knitting",
-    title: "Perajutan Mesin Otomatis",
-    titleEn: "Computerized Knitting",
-    description: "",
-    descriptionEn: "",
+    stepNumber: 2,
+    title: "Perajutan (Knitting)",
+    titleEn: "Circular Knitting",
+    subtitle: "Mesin Rajut Silinder Otomatis Terkomputerisasi",
+    subtitleEn: "Computerized Circular Knitting Lines",
+    description:
+      "Proses perajutan otomatis terkomputerisasi dengan kerapatan jarum presisi sesuai pola desain dan spesifikasi teknis pesanan.",
+    descriptionEn:
+      "Automated computerized knitting process maintaining precise needle tension according to technical pattern specifications.",
     iconName: "Cpu",
-    keyMetric: "Mesin Rajut Silinder",
-    keyMetricEn: "Circular Knitting Machines",
-    image: "/images/factory/proc_02_knitting.webp",
+    keyMetric: "Mesin Rajut Silinder Otomatis",
+    keyMetricEn: "Computerized Cylinder Knitting",
+    image: "/images/5_process/2_knitting.png",
+    phase: "preparation",
+    phaseLabel: "Persiapan & Perajutan",
+    phaseLabelEn: "Preparation & Knitting",
   },
   {
-    step: "rosso-linking",
-    title: "Proses Rosso",
-    titleEn: "Rosso Process",
-    description: "",
-    descriptionEn: "",
-    iconName: "GitMerge",
-    keyMetric: "Lini Mesin Rosso",
-    keyMetricEn: "Rosso Linking Machinery",
-    image: "/images/factory/proc_03_rosso_linking.webp",
+    step: "check-goods",
+    stepNumber: 3,
+    title: "Pemeriksaan Hasil Rajut (Check Goods)",
+    titleEn: "Initial Goods Inspection (Check Goods)",
+    subtitle: "Inspeksi Visual & Struktur Rajutan Mentah",
+    subtitleEn: "Raw Sock Visual & Structural Check",
+    description:
+      "Inspeksi visual dan fisik menyeluruh terhadap hasil rajutan mentah untuk mendeteksi cacat rajut, lubang, atau benang lepas sebelum proses jahit.",
+    descriptionEn:
+      "Comprehensive physical and visual inspection of raw knitted socks to identify fabric defects or dropped stitches before toe linking.",
+    iconName: "CheckSquare",
+    keyMetric: "Inspeksi Kaus Kaki Mentah",
+    keyMetricEn: "Standard Raw Goods Inspection",
+    image: "/images/5_process/3_check_goods.png",
+    phase: "preparation",
+    phaseLabel: "Persiapan & Perajutan",
+    phaseLabelEn: "Preparation & Knitting",
   },
   {
-    step: "trimming",
-    title: "Pembersihan & Balik Kaos Kaki",
-    titleEn: "Trimming & Inversion",
-    description: "",
-    descriptionEn: "",
-    iconName: "Sparkles",
-    keyMetric: "Vacuum Trimmer & Balik",
-    keyMetricEn: "Vacuum Trimmer & Inversion",
-    image: "/images/factory/proc_04_thread_trimming.webp",
+    step: "rosso-closure",
+    stepNumber: 4,
+    title: "Jahit Ujung Jari Rosso (Rosso Toe Closure)",
+    titleEn: "Rosso Toe Closure",
+    subtitle: "Penyambungan Ujung Kaus Kaki Presisi",
+    subtitleEn: "High-Precision Rosso Toe Seaming",
+    description:
+      "Proses penyambungan dan penutupan ujung jari kaus kaki menggunakan mesin jahit Rosso presisi tinggi untuk menghasilkan sambungan yang rata, kuat, dan nyaman.",
+    descriptionEn:
+      "Precision toe-seam closure using automated Rosso machinery to achieve flat, durable, and comfortable toe seams.",
+    iconName: "Scissors",
+    keyMetric: "Jahitan Rosso Rata & Kuat",
+    keyMetricEn: "Flat & Durable Rosso Seam",
+    image: "/images/5_process/4_rosso_toe_closure.png",
+    phase: "finishing",
+    phaseLabel: "Finishing & Pembentukan",
+    phaseLabelEn: "Finishing & Shaping",
   },
   {
-    step: "steam-boarding",
-    title: "Setting Uap & Pembentukan",
-    titleEn: "Steam Boarding & Setting",
-    description: "",
-    descriptionEn: "",
+    step: "trimming-overturning",
+    stepNumber: 5,
+    title: "Pembersihan Sisa Benang & Pembalikan (Trimming & Overturning)",
+    titleEn: "Floats Trimming & Overturning",
+    subtitle: "Pemotongan Benang Bagian Dalam & Pembalikan Kaus Kaki",
+    subtitleEn: "Thread Tail Trimming & Sock Inversion",
+    description:
+      "Pembersihan sisa serat benang di bagian dalam kaus kaki dengan sistem vacuum trimming, dilanjutkan pembalikan kaus kaki ke sisi luar.",
+    descriptionEn:
+      "Clean trimming of excess internal float threads followed by mechanical or manual sock inversion to the exterior side.",
+    iconName: "RefreshCw",
+    keyMetric: "Vacuum Trimming & Pembalikan Rapi",
+    keyMetricEn: "Clean Trimming & Neat Inversion",
+    image: "/images/5_process/5_floats_trimmings&overturning.png",
+    phase: "finishing",
+    phaseLabel: "Finishing & Pembentukan",
+    phaseLabelEn: "Finishing & Shaping",
+  },
+  {
+    step: "steam-setting",
+    stepNumber: 6,
+    title: "Penyetelan Uap (Steam Setting)",
+    titleEn: "Steam Setting",
+    subtitle: "Pembentukan Dimensi & Fiksasi Termal Kaus Kaki",
+    subtitleEn: "Thermal Steam Boarding & Shape Fixing",
+    description:
+      "Pemanasan uap bertekanan terkontrol pada papan cetakan kaki (boarding) untuk mengunci ukuran, dimensi, dan kerapihan kaus kaki.",
+    descriptionEn:
+      "Controlled steam boarding on ergonomic foot forms to set fabric memory, stabilize dimensions, and ensure uniform shape.",
     iconName: "Flame",
-    keyMetric: "Mesin Steam Boarding",
-    keyMetricEn: "Steam Boarding Equipment",
-    image: "/images/factory/proc_05_steam_setting.webp",
+    keyMetric: "Fiksasi Dimensi & Bentuk Termal",
+    keyMetricEn: "Thermal Dimensional Setting",
+    image: "/images/5_process/6_steam_setting.png",
+    phase: "finishing",
+    phaseLabel: "Finishing & Pembentukan",
+    phaseLabelEn: "Finishing & Shaping",
   },
   {
-    step: "packaging",
-    title: "Pelabelan & Pengemasan",
-    titleEn: "Tagging & Packaging",
-    description: "",
-    descriptionEn: "",
-    iconName: "PackageCheck",
-    keyMetric: "Lini Pengemasan & Karton",
-    keyMetricEn: "Packaging & Export Boxing",
-    image: "/images/factory/proc_06_packing_dispatch.webp",
+    step: "pairing",
+    stepNumber: 7,
+    title: "Pencocokan Pasang (Pairing)",
+    titleEn: "Pairing",
+    subtitle: "Pencocokan Presisi Kaus Kaki Kiri & Kanan",
+    subtitleEn: "Accurate Left & Right Pair Matching",
+    description:
+      "Pencocokan kaus kaki kiri dan kanan untuk memastikan keseragaman tinggi cuff, proporsi tumit, dan keselarasan motif rajut yang identik.",
+    descriptionEn:
+      "Pairing process ensuring identical cuff heights, heel proportions, and symmetrical pattern alignment between pairs.",
+    iconName: "Copy",
+    keyMetric: "Kesesuaian Presisi Pasangan 100%",
+    keyMetricEn: "100% Symmetrical Pairing",
+    image: "/images/5_process/7_pairing.jpg",
+    phase: "packaging",
+    phaseLabel: "Pencocokan & Pengemasan",
+    phaseLabelEn: "Pairing & Packaging",
+  },
+  {
+    step: "labeling-accessories",
+    stepNumber: 8,
+    title: "Pemasangan Label & Aksesori (Labeling & Accessories)",
+    titleEn: "Labeling / Accessories",
+    subtitle: "Pemasangan Rider Card, Hangtag & Barcode",
+    subtitleEn: "Rider Card, Hangtag & Retail Tag Attachment",
+    description:
+      "Pemasangan kelengkapan identitas produk seperti rider card, hanger kait plastik, hangtag, dan label barcode sesuai spesifikasi buyer.",
+    descriptionEn:
+      "Application of brand packaging accessories including rider cards, plastic hooks, hangtags, and barcode labels per buyer guidelines.",
+    iconName: "Tag",
+    keyMetric: "Akurasi Penandaan & Barcode",
+    keyMetricEn: "Accurate Retail Tagging & Barcode",
+    image: "/images/5_process/8_labeling.png",
+    phase: "packaging",
+    phaseLabel: "Pencocokan & Pengemasan",
+    phaseLabelEn: "Pairing & Packaging",
+  },
+  {
+    step: "packing",
+    stepNumber: 9,
+    title: "Pengemasan Polybag (Packing)",
+    titleEn: "Packing",
+    subtitle: "Pengemasan Polybag Satuan & Lusinan",
+    subtitleEn: "Individual & Multi-Pair Polybag Packing",
+    description:
+      "Pengemasan kaus kaki ke dalam master polybag atau kantong kemasan satuan sesuai instruksi pesanan untuk menjaga kebersihan produk.",
+    descriptionEn:
+      "Enclosing paired socks into individual or dozen master polybags per client packaging instructions to preserve pristine hygiene.",
+    iconName: "Package",
+    keyMetric: "Pengemasan Bersih & Rapi",
+    keyMetricEn: "Hygienic Polybag Sealing",
+    image: "/images/5_process/9_packing.jpg",
+    phase: "packaging",
+    phaseLabel: "Pencocokan & Pengemasan",
+    phaseLabelEn: "Pairing & Packaging",
+  },
+  {
+    step: "broken-needle-check",
+    stepNumber: 10,
+    title: "Pendeteksian Jarum & Logam (Metal Detector)",
+    titleEn: "Broken Needle Check",
+    subtitle: "Pemindaian Metal Detector Konveyor Standar Keamanan Ekspor",
+    subtitleEn: "High-Sensitivity Conveyor Metal Detection Scan",
+    description:
+      "Setiap pasang kaus kaki yang telah dikemas dilewatkan ke mesin detektor logam konveyor untuk memastikan bebas dari serpihan jarum patah.",
+    descriptionEn:
+      "100% of finished packaged units pass through conveyor metal detectors to guarantee complete absence of broken needle fragments.",
+    iconName: "ShieldAlert",
+    keyMetric: "100% Metal Detection Scan",
+    keyMetricEn: "100% Metal Detection Scan",
+    image: "/images/5_process/10_needle_detector.jpg",
+    phase: "safety_export",
+    phaseLabel: "Inspeksi Keamanan & Ekspor",
+    phaseLabelEn: "Safety Check & Export Logistics",
+  },
+  {
+    step: "assortment-cartoning",
+    stepNumber: 11,
+    title: "Sortir & Pengepakan Karton (Assortment & Cartoning)",
+    titleEn: "Assortment & Cartoning",
+    subtitle: "Pengepakan Karton Ekspor & Pemberian Shipping Mark",
+    subtitleEn: "Master Carton Boxing & Shipping Mark Staging",
+    description:
+      "Penyusunan dan pengepakan kaus kaki ke dalam karton ekspor tebal (corrugated box) dengan label shipping mark, nomor lot, dan rasio ukuran yang teratur.",
+    descriptionEn:
+      "Consolidation of packaged dozens into heavy-duty export master cartons with precise shipping marks, gross weight, and packing slips.",
+    iconName: "Archive",
+    keyMetric: "Karton Standar Ekspor Berlapis",
+    keyMetricEn: "Heavy-Duty Export Corrugated Cartons",
+    image: "/images/5_process/11_assortment&cartonning.jpeg",
+    phase: "safety_export",
+    phaseLabel: "Inspeksi Keamanan & Ekspor",
+    phaseLabelEn: "Safety Check & Export Logistics",
+  },
+  {
+    step: "finished-goods-storage",
+    stepNumber: 12,
+    title: "Gudang Barang Jadi Siap Ekspor (Finished Goods)",
+    titleEn: "Finished Goods Storage Pending Export",
+    subtitle: "Pergudangan Bersih & Paletisasi Siap Muat Petikemas",
+    subtitleEn: "Secure Climate-Controlled Staging for Container Dispatch",
+    description:
+      "Penyimpanan karton produk jadi di atas palet kayu dalam gudang yang bersih, kering, dan berventilasi baik hingga proses muat kontainer ekspor.",
+    descriptionEn:
+      "Organized palletized storage of export cartons in a dry, secure warehouse staging area awaiting container stuffing and dispatch.",
+    iconName: "Warehouse",
+    keyMetric: "Pergudangan Bersih & Palet Ekspor",
+    keyMetricEn: "Palletized Clean Staging Warehouse",
+    image: "/images/5_process/12_finished_goods.webp",
+    phase: "safety_export",
+    phaseLabel: "Inspeksi Keamanan & Ekspor",
+    phaseLabelEn: "Safety Check & Export Logistics",
   },
 ];
 
@@ -656,12 +931,12 @@ export const B2B_FAQS: readonly B2BFAQ[] = [
     tagEn: "Target Markets",
   },
   {
-    question: "Berapa kapasitas produksi maksimum di pabrik SCM?",
-    questionEn: "What is the maximum production capacity at SCM's facility?",
+    question: "Berapa kapasitas produksi di pabrik SCM?",
+    questionEn: "What is the production capacity at SCM's facility?",
     answer:
-      "PT. Sinlie Cahaya Matahari memiliki kapasitas operasional maksimum hingga 1.000.000 lusin kaos kaki per bulan. Realisasi volume produksi disesuaikan dengan spesifikasi teknis produk dan jadwal pesanan yang disepakati.",
+      "Kapasitas produksi di PT. Sinlie Cahaya Matahari dapat disesuaikan secara fleksibel dengan kebutuhan, spesifikasi teknis, dan jadwal pesanan yang disepakati bersama pelanggan.",
     answerEn:
-      "PT. Sinlie Cahaya Matahari has a maximum operational capacity of up to 1,000,000 dozen socks per month. Actual production volume depends on product specifications and agreed order schedules.",
+      "Production capacity at PT. Sinlie Cahaya Matahari is flexibly scalable to match client requirements, technical specifications, and agreed order schedules.",
     tag: "Kapasitas Produksi",
     tagEn: "Production Capacity",
   },

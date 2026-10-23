@@ -5,10 +5,10 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { CompanyStats } from "@/components/sections/CompanyStats";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { MarketsSection } from "@/components/sections/MarketsSection";
+import { ShowroomSection } from "@/components/sections/ShowroomSection";
 import { ProductCategories } from "@/components/sections/ProductCategories";
 import { ManufacturingSection } from "@/components/sections/ManufacturingSection";
 import { ProductionProcess } from "@/components/sections/ProductionProcess";
-import { QualitySection } from "@/components/sections/QualitySection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -43,6 +43,11 @@ export default function Home() {
           <MarketsSection />
         </ScrollReveal>
 
+        {/* E.5 Showroom Section - Retail Presentation & Sample Suite */}
+        <ScrollReveal id="showroom" variant="fade-up" duration={700} once={false}>
+          <ShowroomSection />
+        </ScrollReveal>
+
         {/* F. Product Categories - Staggered Waterfall Card Cascade */}
         <ScrollReveal id="products" variant="cascade-card" duration={700} once={false}>
           <ProductCategories />
@@ -53,15 +58,8 @@ export default function Home() {
           <ManufacturingSection />
         </ScrollReveal>
 
-        {/* H. Production Process - Assembly Line Timeline Step */}
-        <ScrollReveal id="process" variant="timeline-step" duration={700} once={false}>
-          <ProductionProcess />
-        </ScrollReveal>
-
-        {/* I. Quality Assurance - Precision Stamp Lock-In */}
-        <ScrollReveal id="quality" variant="badge-stamp" duration={700} once={false}>
-          <QualitySection />
-        </ScrollReveal>
+        {/* H. Production Process */}
+        <ProductionProcess />
 
         {/* K. B2B Procurement FAQ - Smooth Vertical Unfold */}
         <ScrollReveal id="faq" variant="unfold-up" duration={700} once={false}>

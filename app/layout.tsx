@@ -10,7 +10,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "PT. Sinlie Cahaya Matahari | Precision Sock Manufacturing",
   description:
-    "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki fleksibel dengan pengalaman industri sejak 2018. Melayani pasar domestik dan ekspor ke Amerika Serikat dan Eropa dengan kapasitas maksimum hingga 1.000.000 lusin/bulan.",
+    "PT. Sinlie Cahaya Matahari provides flexible sock manufacturing solutions with industry experience since 2018. Serving domestic markets and exporting to the United States and Europe with scalable production capacity.",
   icons: {
     icon: "/images/scm-mark.webp",
   },
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="antialiased min-h-screen flex flex-col bg-background text-text-primary">
         <LanguageProvider>
           <SmoothScroll />

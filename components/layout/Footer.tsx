@@ -16,10 +16,10 @@ export function Footer() {
   const navItems = [
     { label: t.nav.about, href: "#about" },
     { label: t.nav.markets, href: "#markets" },
+    { label: t.nav.showroom, href: "#showroom" },
     { label: t.nav.products, href: "#products" },
     { label: t.nav.capabilities, href: "#capabilities" },
     { label: t.nav.process, href: "#process" },
-    { label: t.nav.quality, href: "#quality" },
     { label: t.nav.faq, href: "#faq" },
     { label: t.nav.contact, href: "#contact" },
   ];
@@ -165,13 +165,23 @@ export function Footer() {
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-accent shrink-0 mt-1" />
-                  <div>
-                    <span className="font-medium text-text-inverse">
-                      {t.footer.locationLabel}
-                    </span>
-                    <p className="text-xs text-secondary-light/70 mt-0.5 leading-relaxed">
-                      {COMPANY_INFO.contact.address}
-                    </p>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="font-semibold text-text-inverse text-xs block">
+                        {t.footer.locationLabel}
+                      </span>
+                      <p className="text-xs text-secondary-light/75 mt-0.5 leading-relaxed">
+                        {COMPANY_INFO.contact.address}
+                      </p>
+                    </div>
+                    <div className="pt-2 border-t border-white/10">
+                      <span className="font-semibold text-text-inverse text-xs block">
+                        {t.footer.otherLocationLabel}
+                      </span>
+                      <p className="text-xs text-secondary-light/75 mt-0.5 leading-relaxed">
+                        {COMPANY_INFO.contact.otherAddress}
+                      </p>
+                    </div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

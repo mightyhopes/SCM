@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -12,51 +12,105 @@ export function AboutSection() {
   const { language } = useLanguage();
   const isEn = language === "en";
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
 
   const galleryItems = [
     {
-      id: "gate",
-      titleId: "Fasilitas & Gerbang Pabrik",
-      titleEn: "Factory Gate & Facility",
-      subtitleId: "Tampak Depan Pabrik",
-      subtitleEn: "Factory Front Exterior",
-      src: "/images/factory_gate_ciamis.webp",
-      badgeId: "Fasilitas Pabrik • Ciamis, Jawa Barat",
-      badgeEn: "Manufacturing Facility • Ciamis, West Java",
+      id: "pabrik-eksterior",
+      titleId: "Kawasan Eksterior Pabrik",
+      titleEn: "Factory Exterior Complex",
+      subtitleId: "Kompleks Manufaktur",
+      subtitleEn: "Manufacturing Complex",
+      src: "/images/1_about/pabrik_eksterior_16-9.jpg",
+      badgeId: "Eksterior Fasilitas • Ciamis",
+      badgeEn: "Facility Exterior • Ciamis",
       captionId:
-        "Tampak depan gerbang utama fasilitas manufaktur PT. Sinlie Cahaya Matahari di Desa Cihideung, Kec. Cisaga, Kab. Ciamis.",
+        "Tampak kawasan luar dan kompleks fasilitas manufaktur PT. Sinlie Cahaya Matahari dengan akses logistik terpadu.",
       captionEn:
-        "Main entrance gate of PT. Sinlie Cahaya Matahari manufacturing facility located in Cihideung Village, Cisaga, Ciamis.",
+        "Exterior complex of PT. Sinlie Cahaya Matahari manufacturing facility with integrated logistics access.",
       icon: Building2,
     },
     {
-      id: "knitting",
-      titleId: "Lantai Mesin Rajut",
-      titleEn: "Knitting Machine Hall",
-      subtitleId: "Line 4 Produksi",
-      subtitleEn: "Line 4 Production",
-      src: "/images/symmetric_knitting_machine_hall.png",
-      badgeId: "Mesin Knitting • Line 4",
-      badgeEn: "Knitting Machine Hall • Line 4",
+      id: "pabrik-gerbang",
+      titleId: "Gerbang Utama & Pos Pengamanan",
+      titleEn: "Main Entrance Gate & Security",
+      subtitleId: "Akses Utama Pabrik",
+      subtitleEn: "Main Factory Access",
+      src: "/images/1_about/pabrik_gerbang_16-9.jpg",
+      badgeId: "Gerbang Fasilitas Manufaktur",
+      badgeEn: "Manufacturing Facility Gate",
       captionId:
-        "Fasilitas lantai produksi perajutan PT. Sinlie Cahaya Matahari dengan jajaran mesin rajut kaos kaki terkomputerisasi.",
+        "Gerbang utama fasilitas pabrik PT. Sinlie Cahaya Matahari dengan pos keamanan untuk kontrol akses operasional.",
       captionEn:
-        "PT. Sinlie Cahaya Matahari knitting hall featuring computerized sock knitting lines and integrated yarn systems.",
+        "Main entrance gate of PT. Sinlie Cahaya Matahari manufacturing facility with security post for operational access control.",
+      icon: Building2,
+    },
+    {
+      id: "pabrik-tampak-depan",
+      titleId: "Gedung Fasilitas Produksi",
+      titleEn: "Production Facility Building",
+      subtitleId: "Tampak Depan Bangunan Pabrik",
+      subtitleEn: "Factory Front Elevation",
+      src: "/images/1_about/pabrik_tampak_depan_16-9.jpg",
+      badgeId: "Gedung Pabrik Utama",
+      badgeEn: "Main Plant Building",
+      captionId:
+        "Tampak depan gedung utama pabrik dengan kanopi loading dock dan ventilasi sirkulasi udara industri yang optimal.",
+      captionEn:
+        "Front elevation of the main manufacturing plant featuring loading canopy and high-volume industrial ventilation.",
+      icon: Factory,
+    },
+    {
+      id: "knitting",
+      titleId: "Lantai Mesin Rajut Terkomputerisasi",
+      titleEn: "Computerized Knitting Machine Lines",
+      subtitleId: "Lini Produksi Kaus Kaki",
+      subtitleEn: "Sock Production Line",
+      src: "/images/1_about/proc_02_knitting.webp",
+      badgeId: "Lini Knitting Otomatis",
+      badgeEn: "Automated Knitting Lines",
+      captionId:
+        "Lantai produksi perajutan PT. Sinlie Cahaya Matahari yang dilengkapi jajaran mesin rajut modern dengan operator terlatih.",
+      captionEn:
+        "Production knitting hall of PT. Sinlie Cahaya Matahari equipped with rows of modern knitting machinery and skilled operators.",
       icon: Factory,
     },
   ];
 
-  // Auto-slide effect (advances every 5 seconds, pauses when hovered)
+  // Detect when the About section enters the viewport to trigger the slideshow
   useEffect(() => {
-    if (isPaused) return;
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        } else {
+          setIsInView(false);
+          // Reset to initial slide when scrolled away so it starts fresh when entering again
+          setCurrentIndex(0);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-slide effect (starts ONLY when section is in view, advances every 5 seconds, pauses when hovered)
+  useEffect(() => {
+    if (!isInView || isPaused) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % galleryItems.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isPaused, galleryItems.length]);
+  }, [isInView, isPaused, galleryItems.length]);
 
   const activeItem = galleryItems[currentIndex];
 
@@ -71,7 +125,11 @@ export function AboutSection() {
   };
 
   return (
-    <section id="about" className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-20 lg:py-28 bg-surface-muted/30 border-b border-border"
+    >
       <Container size="wide">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           {/* ────────────────────────────────────────────────────────────────── */}

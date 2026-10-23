@@ -23,10 +23,10 @@ export function Navbar() {
     const sectionIds = [
       "about",
       "markets",
+      "showroom",
       "products",
       "capabilities",
       "process",
-      "quality",
       "faq",
       "contact",
     ];
@@ -59,10 +59,10 @@ export function Navbar() {
   const navItems = [
     { label: t.nav.about, href: "#about" },
     { label: t.nav.markets, href: "#markets" },
+    { label: t.nav.showroom, href: "#showroom" },
     { label: t.nav.products, href: "#products" },
     { label: t.nav.capabilities, href: "#capabilities" },
     { label: t.nav.process, href: "#process" },
-    { label: t.nav.quality, href: "#quality" },
     { label: t.nav.faq, href: "#faq" },
     { label: t.nav.contact, href: "#contact" },
   ];

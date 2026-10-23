@@ -4,25 +4,441 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   Maximize2,
-  ChevronLeft,
   ChevronRight,
-  ArrowRight,
+  ChevronLeft,
+  ChevronDown,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ImageLightbox, LightboxImage } from "@/components/ui/ImageLightbox";
 import { PRODUCTION_PROCESS } from "@/data/companyData";
 import { useLanguage } from "@/context/LanguageContext";
+import { cn } from "@/lib/utils";
 
+/* ════════════════════════════════════════════════════════════════════
+   Scroll-reveal hook — triggers on scroll and resets when scrolled away
+   ════════════════════════════════════════════════════════════════════ */
+function useScrollReveal(threshold = 0.15, rootMargin = "0px 0px -40px 0px") {
+  const ref = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setRevealed(true);
+        } else if (e.boundingClientRect.top > 0) {
+          // Reset when element is below viewport so it animates when scrolling down
+          setRevealed(false);
+        }
+      },
+      { threshold, rootMargin }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold, rootMargin]);
+
+  return { ref, revealed };
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Serpentine row definitions (2 photos per row, 6 rows total)
+   Row 0 (LTR): Step 1  ──→  Step 2   | connector drops RIGHT (Step 2 to 3)
+   Row 1 (RTL): Step 4  ←──  Step 3   | connector drops LEFT  (Step 4 to 5)
+   Row 2 (LTR): Step 5  ──→  Step 6   | connector drops RIGHT (Step 6 to 7)
+   Row 3 (RTL): Step 8  ←──  Step 7   | connector drops LEFT  (Step 8 to 9)
+   Row 4 (LTR): Step 9  ──→  Step 10  | connector drops RIGHT (Step 10 to 11)
+   Row 5 (RTL): Step 12 ←──  Step 11  | end of pipeline (Finished Goods)
+   ════════════════════════════════════════════════════════════════════ */
+const SERPENTINE_ROWS: {
+  indices: [number, number];
+  direction: "ltr" | "rtl";
+  connectorSide: "left" | "right" | null;
+}[] = [
+  { indices: [0, 1], direction: "ltr", connectorSide: "right" },
+  { indices: [3, 2], direction: "rtl", connectorSide: "left" },
+  { indices: [4, 5], direction: "ltr", connectorSide: "right" },
+  { indices: [7, 6], direction: "rtl", connectorSide: "left" },
+  { indices: [8, 9], direction: "ltr", connectorSide: "right" },
+  { indices: [11, 10], direction: "rtl", connectorSide: null },
+];
+
+/* ════════════════════════════════════════════════════════════════════
+   Process Card — image with overlaid title label & badge
+   Animates actively with zoom, slide, and live scroll parallax
+   ════════════════════════════════════════════════════════════════════ */
+interface CardProps {
+  step: (typeof PRODUCTION_PROCESS)[number];
+  isEn: boolean;
+  revealed: boolean;
+  delay: number;
+  position: "left" | "right";
+  onOpen: (n: number) => void;
+}
+
+function ProcessCard({
+  step,
+  isEn,
+  revealed,
+  delay,
+  position,
+  onOpen,
+}: CardProps) {
+  const isFinalStep = step.stepNumber === 12;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [parallaxY, setParallaxY] = useState(0);
+
+  // Live parallax: image shifts inside card as user scrolls
+  useEffect(() => {
+    let rafId: number;
+    const updateParallax = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom > 0 && rect.top < vh) {
+        const progress = (vh - rect.top) / (vh + rect.height);
+        const offset = (progress - 0.5) * 36;
+        setParallaxY(Math.round(offset));
+      }
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateParallax);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    updateParallax();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className={cn(
+        "w-72 sm:w-80 md:w-96 lg:w-[27rem] xl:w-[29rem] shrink-0",
+        "relative rounded-2xl overflow-hidden shadow-sm border cursor-pointer group",
+        isFinalStep
+          ? "border-emerald-500/80 ring-2 ring-emerald-400/40 shadow-emerald-500/15"
+          : "border-slate-200/80 hover:border-emerald-500/60 hover:shadow-2xl hover:-translate-y-1.5"
+      )}
+      style={{
+        opacity: revealed ? 1 : 0,
+        transform: revealed
+          ? "translate3d(0, 0, 0) scale(1)"
+          : position === "left"
+          ? "translate3d(-48px, 36px, 0) scale(0.92)"
+          : "translate3d(48px, 36px, 0) scale(0.92)",
+        transition:
+          "opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+        transitionDelay: `${delay}ms`,
+        willChange: "transform, opacity",
+      }}
+      onClick={() => onOpen(step.stepNumber)}
+    >
+      <div className="relative aspect-[16/10] bg-slate-950 overflow-hidden">
+        {/* Parallax wrapper — moves with scroll, zooms in on entrance */}
+        <div
+          className="relative w-full h-[120%] -top-[10%] will-change-transform"
+          style={{
+            transform: `translate3d(0, ${parallaxY}px, 0) scale(${revealed ? 1 : 1.18})`,
+            filter: revealed ? "blur(0px)" : "blur(3px)",
+            transition:
+              "transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease-out",
+          }}
+        >
+          <Image
+            src={step.image}
+            alt={isEn ? step.titleEn : step.title}
+            fill
+            sizes="(max-width: 640px) 320px, (max-width: 1024px) 430px, 480px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        {/* Gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5 group-hover:from-black/90 transition-colors pointer-events-none" />
+
+        {/* Step number badge — top left with bounce reveal */}
+        <div
+          className={cn(
+            "absolute top-3 left-3 size-8 sm:size-9 rounded-xl font-mono font-black text-xs sm:text-sm flex items-center justify-center shadow-md border border-white/25",
+            isFinalStep
+              ? "bg-gradient-to-br from-amber-500 to-emerald-600 text-white ring-1 ring-amber-300"
+              : "bg-gradient-to-br from-emerald-600 to-teal-800 text-white"
+          )}
+          style={{
+            transform: revealed ? "scale(1)" : "scale(0)",
+            opacity: revealed ? 1 : 0,
+            transition:
+              "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out",
+            transitionDelay: `${delay + 200}ms`,
+          }}
+        >
+          {step.stepNumber < 10 ? `0${step.stepNumber}` : step.stepNumber}
+        </div>
+
+        {/* Zoom icon — top right on hover */}
+        <div className="absolute top-3 right-3 size-7 rounded-lg bg-black/40 backdrop-blur-xs text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <Maximize2 className="size-3.5" />
+        </div>
+
+        {/* Final step badge */}
+        {isFinalStep && (
+          <div
+            className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-emerald-500/95 text-white text-[10px] font-bold uppercase tracking-wider shadow"
+            style={{
+              transform: revealed ? "scale(1)" : "scale(0)",
+              opacity: revealed ? 1 : 0,
+              transition:
+                "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out",
+              transitionDelay: `${delay + 240}ms`,
+            }}
+          >
+            Final
+          </div>
+        )}
+
+        {/* Title label — bottom of image with slide-up reveal */}
+        <div
+          className="absolute bottom-0 inset-x-0 px-4 pb-3.5 pt-12"
+          style={{
+            transform: revealed
+              ? "translate3d(0, 0, 0)"
+              : "translate3d(0, 20px, 0)",
+            opacity: revealed ? 1 : 0,
+            transition:
+              "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out",
+            transitionDelay: `${delay + 150}ms`,
+          }}
+        >
+          <h3 className="text-white font-bold text-xs sm:text-sm lg:text-base leading-snug drop-shadow-md line-clamp-2">
+            {isEn ? step.titleEn : step.title}
+          </h3>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Horizontal connecting line between adjacent cards (2 per row)
+   Static, solid production line track (NO animation)
+   ════════════════════════════════════════════════════════════════════ */
+function HorizontalLine({ direction }: { direction: "ltr" | "rtl" }) {
+  const isLTR = direction === "ltr";
+
+  return (
+    <div className="flex-1 min-w-[60px] sm:min-w-[100px] lg:min-w-[140px] mx-3 sm:mx-6 flex items-center self-center shrink relative">
+      {/* Static production line track */}
+      <div className="w-full h-[3px] rounded-full bg-emerald-500/70 shadow-xs" />
+
+      {/* Direction indicator badge in center */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-6 rounded-full bg-white border border-emerald-400 text-emerald-600 shadow-sm flex items-center justify-center">
+        {isLTR ? (
+          <ChevronRight className="size-3.5 stroke-[2.5]" />
+        ) : (
+          <ChevronLeft className="size-3.5 stroke-[2.5]" />
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Vertical connector between rows (serpentine drop)
+   Static, accurately centered under the outer card (NO animation)
+   ════════════════════════════════════════════════════════════════════ */
+function VerticalConnector({ side }: { side: "left" | "right" }) {
+  return (
+    <div
+      className={cn(
+        "w-full flex py-2 sm:py-3",
+        side === "right" ? "justify-end" : "justify-start"
+      )}
+    >
+      {/* Outer box has EXACT same width as ProcessCard so connector is centered on card */}
+      <div className="w-72 sm:w-80 md:w-96 lg:w-[27rem] xl:w-[29rem] flex justify-center">
+        <div className="relative flex flex-col items-center h-12 sm:h-14 lg:h-16 w-6">
+          {/* Static vertical line */}
+          <div className="w-[3px] h-full rounded-full bg-emerald-500/70 shadow-xs" />
+
+          {/* Direction indicator badge in center */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-6 rounded-full bg-white border border-emerald-400 text-emerald-600 shadow-sm flex items-center justify-center">
+            <ChevronDown className="size-3.5 stroke-[2.5]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Desktop Process Row — 2 cards + 1 static line + optional static drop
+   Images animate as each row scrolls into view
+   ════════════════════════════════════════════════════════════════════ */
+function ProcessRowDesktop({
+  row,
+  isEn,
+  onOpen,
+}: {
+  row: (typeof SERPENTINE_ROWS)[number];
+  isEn: boolean;
+  onOpen: (n: number) => void;
+}) {
+  const { ref, revealed } = useScrollReveal(0.15, "0px 0px -40px 0px");
+  const isLTR = row.direction === "ltr";
+
+  // Flow order for card animation:
+  // LTR: left card (0ms) -> right card (180ms)
+  // RTL: right card (0ms) -> left card (180ms)
+  const cardDelays = isLTR ? [0, 180] : [180, 0];
+
+  const steps = row.indices.map((i) => PRODUCTION_PROCESS[i]);
+
+  return (
+    <div ref={ref} className="w-full">
+      {/* 2 cards + 1 static line spanning row with justify-between */}
+      <div className="flex items-center justify-between">
+        <ProcessCard
+          step={steps[0]}
+          isEn={isEn}
+          revealed={revealed}
+          delay={cardDelays[0]}
+          position="left"
+          onOpen={onOpen}
+        />
+
+        <HorizontalLine direction={row.direction} />
+
+        <ProcessCard
+          step={steps[1]}
+          isEn={isEn}
+          revealed={revealed}
+          delay={cardDelays[1]}
+          position="right"
+          onOpen={onOpen}
+        />
+      </div>
+
+      {/* Static vertical connector to next row */}
+      {row.connectorSide && <VerticalConnector side={row.connectorSide} />}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Mobile Process Card with individual scroll reveal (vertical timeline)
+   Image animates zoom and slide on scroll
+   ════════════════════════════════════════════════════════════════════ */
+function MobileProcessCard({
+  step,
+  isEn,
+  onOpen,
+}: {
+  step: (typeof PRODUCTION_PROCESS)[number];
+  isEn: boolean;
+  onOpen: (n: number) => void;
+}) {
+  const { ref, revealed } = useScrollReveal(0.12, "0px 0px -30px 0px");
+  const isFinalStep = step.stepNumber === 12;
+
+  return (
+    <div ref={ref} className="relative flex items-center">
+      {/* Timeline node */}
+      <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-10 flex items-center justify-center">
+        <div
+          className={cn(
+            "size-8 rounded-full font-mono font-black text-xs flex items-center justify-center shadow-md border-2 border-white ring-2",
+            isFinalStep
+              ? "bg-gradient-to-br from-amber-500 to-emerald-600 text-white ring-amber-300"
+              : "bg-gradient-to-br from-primary to-emerald-700 text-white ring-emerald-200"
+          )}
+          style={{
+            transform: revealed ? "scale(1)" : "scale(0)",
+            opacity: revealed ? 1 : 0,
+            transition:
+              "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out",
+          }}
+        >
+          {step.stepNumber}
+        </div>
+      </div>
+
+      {/* Card with image animation */}
+      <div
+        className={cn(
+          "w-full max-w-lg relative rounded-2xl overflow-hidden shadow-sm border cursor-pointer group",
+          isFinalStep
+            ? "border-emerald-500/80 ring-2 ring-emerald-400/40"
+            : "border-slate-200/80 active:scale-98"
+        )}
+        style={{
+          opacity: revealed ? 1 : 0,
+          transform: revealed
+            ? "translate3d(0, 0, 0) scale(1)"
+            : "translate3d(-24px, 16px, 0) scale(0.94)",
+          transition:
+            "opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+        onClick={() => onOpen(step.stepNumber)}
+      >
+        <div className="relative aspect-[16/10] bg-slate-950 overflow-hidden">
+          <div
+            className="relative w-full h-[115%] -top-[7.5%]"
+            style={{
+              transform: `scale(${revealed ? 1 : 1.15})`,
+              filter: revealed ? "blur(0px)" : "blur(2px)",
+              transition:
+                "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease-out",
+            }}
+          >
+            <Image
+              src={step.image}
+              alt={isEn ? step.titleEn : step.title}
+              fill
+              sizes="420px"
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+          <div
+            className="absolute bottom-0 inset-x-0 px-4 pb-3.5 pt-8"
+            style={{
+              transform: revealed
+                ? "translate3d(0, 0, 0)"
+                : "translate3d(0, 16px, 0)",
+              opacity: revealed ? 1 : 0,
+              transition:
+                "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease-out",
+              transitionDelay: "100ms",
+            }}
+          >
+            <h3 className="text-white font-bold text-xs sm:text-sm leading-tight drop-shadow-md line-clamp-2">
+              {isEn ? step.titleEn : step.title}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MAIN COMPONENT
+   ════════════════════════════════════════════════════════════════════ */
 export function ProductionProcess() {
   const { t, language } = useLanguage();
   const isEn = language === "en";
 
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-
-  const [progress, setProgress] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [activeLightboxIdx, setActiveLightboxIdx] = useState<number | null>(null);
+  const [activeLightboxIdx, setActiveLightboxIdx] = useState<number | null>(
+    null
+  );
 
   const activeStep =
     activeLightboxIdx !== null ? PRODUCTION_PROCESS[activeLightboxIdx] : null;
@@ -33,8 +449,8 @@ export function ProductionProcess() {
         title: isEn ? activeStep.titleEn : activeStep.title,
         category: isEn ? activeStep.keyMetricEn : activeStep.keyMetric,
         dimensions: isEn
-          ? "Production Facility • SCM Ciamis"
-          : "Fasilitas Produksi • SCM Ciamis",
+          ? `Stage ${activeStep.stepNumber} of 12 • SCM Manufacturing Pipeline`
+          : `Tahap ${activeStep.stepNumber} dari 12 • Alur Produksi SCM Ciamis`,
         alt: isEn ? activeStep.titleEn : activeStep.title,
       }
     : null;
@@ -57,319 +473,85 @@ export function ProductionProcess() {
     }
   };
 
-  // Horizontal scroll translation driven by vertical scroll
-  useEffect(() => {
-    const updateScroll = () => {
-      if (!sectionRef.current || !trackRef.current) return;
-
-      // On mobile/narrow screens (<768px), native swipe is used instead
-      if (window.innerWidth < 768) {
-        trackRef.current.style.transform = "none";
-        return;
-      }
-
-      const rect = sectionRef.current.getBoundingClientRect();
-      const totalScroll = sectionRef.current.offsetHeight - window.innerHeight;
-      if (totalScroll <= 0) return;
-
-      const currentScroll = -rect.top;
-      const p = Math.min(Math.max(currentScroll / totalScroll, 0), 1);
-      setProgress(p);
-
-      const trackWidth = trackRef.current.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      // Leave proper breathing room on the right for the last card
-      const maxTranslate = Math.max(0, trackWidth - viewportWidth + 120);
-      const targetTranslate = p * maxTranslate;
-
-      trackRef.current.style.transform = `translate3d(${-targetTranslate}px, 0, 0)`;
-
-      const cardIdx = Math.min(
-        Math.floor(p * PRODUCTION_PROCESS.length),
-        PRODUCTION_PROCESS.length - 1
-      );
-      setActiveIndex(cardIdx);
-    };
-
-    updateScroll();
-
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    window.addEventListener("resize", updateScroll, { passive: true });
-
-    // Sync with Lenis smooth scroll if active
-    const lenis = (window as unknown as {
-      lenis?: {
-        on: (event: string, cb: () => void) => void;
-        off: (event: string, cb: () => void) => void;
-      };
-    }).lenis;
-
-    if (lenis && typeof lenis.on === "function") {
-      lenis.on("scroll", updateScroll);
-    }
-
-    return () => {
-      window.removeEventListener("scroll", updateScroll);
-      window.removeEventListener("resize", updateScroll);
-      if (lenis && typeof lenis.off === "function") {
-        lenis.off("scroll", updateScroll);
-      }
-    };
-  }, []);
-
-  // Jump to specific card index smoothly
-  const scrollToCard = (index: number) => {
-    const targetIdx = Math.max(0, Math.min(index, PRODUCTION_PROCESS.length - 1));
-
-    if (window.innerWidth < 768 && trackRef.current) {
-      const cards = trackRef.current.children;
-      if (cards[targetIdx]) {
-        (cards[targetIdx] as HTMLElement).scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
-        });
-      }
-      setActiveIndex(targetIdx);
-      return;
-    }
-
-    if (!sectionRef.current) return;
-    const totalScroll = sectionRef.current.offsetHeight - window.innerHeight;
-    const targetFraction = targetIdx / (PRODUCTION_PROCESS.length - 1);
-    const targetScrollTop =
-      window.scrollY +
-      sectionRef.current.getBoundingClientRect().top +
-      targetFraction * totalScroll;
-
-    const lenis = (window as unknown as {
-      lenis?: { scrollTo: (target: number) => void };
-    }).lenis;
-
-    if (lenis && typeof lenis.scrollTo === "function") {
-      lenis.scrollTo(targetScrollTop);
-    } else {
-      window.scrollTo({ top: targetScrollTop, behavior: "smooth" });
-    }
-  };
-
-  // Sync index on mobile touch scroll
-  const handleMobileScroll = () => {
-    if (window.innerWidth >= 768 || !trackRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
-    const maxScroll = scrollWidth - clientWidth;
-    if (maxScroll <= 0) return;
-    const p = Math.min(Math.max(scrollLeft / maxScroll, 0), 1);
-    setProgress(p);
-    const cardIdx = Math.min(
-      Math.floor(p * PRODUCTION_PROCESS.length),
-      PRODUCTION_PROCESS.length - 1
+  const openLightboxForStep = (stepNumber: number) => {
+    const idx = PRODUCTION_PROCESS.findIndex(
+      (s) => s.stepNumber === stepNumber
     );
-    setActiveIndex(cardIdx);
+    if (idx !== -1) setActiveLightboxIdx(idx);
   };
 
   return (
     <section
       id="process"
-      ref={sectionRef}
-      className="relative bg-surface border-b border-border md:h-[320vh]"
+      className="py-16 sm:py-20 lg:py-24 bg-slate-50/60 border-b border-border relative overflow-hidden"
     >
-      {/* Sticky Viewport Container on Desktop (Fixed in view while scrolling vertically) */}
-      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden md:flex md:flex-col md:justify-between py-10 sm:py-12 md:py-6 lg:py-8">
-        <Container size="default" className="w-full">
-          {/* Section Header with Navigation Controls */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4 sm:mb-6">
-            <div>
-              <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-sm border bg-surface-muted text-primary border-border">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
-                <span>{t.process.eyebrow}</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-text-primary leading-tight">
-                {t.process.title}
-              </h2>
-              <p className="mt-1.5 text-xs sm:text-sm text-text-secondary max-w-xl hidden sm:block">
-                {t.process.description}
-              </p>
-            </div>
+      {/* Subtle dot grid background */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #0f766e 1px, transparent 0)`,
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-            {/* Navigation & Status Controls */}
-            <div className="flex items-center gap-3 shrink-0 self-start md:self-end">
-              {/* Scroll cue hint with live ping animation on desktop */}
-              <div className="hidden lg:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/6 border border-primary/15 text-[11px] font-medium text-primary shadow-2xs">
-                <span className="relative flex size-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex rounded-full size-2 bg-accent" />
-                </span>
-                <span>
-                  {isEn
-                    ? "Scroll down to explore facilities"
-                    : "Gulir ke bawah untuk eksplorasi fasilitas"}
-                </span>
-              </div>
-
-              {/* Left / Right Jump Buttons with hover micro-animations */}
-              <div className="flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => scrollToCard(activeIndex - 1)}
-                  disabled={activeIndex === 0}
-                  className="size-9 rounded-full border border-border bg-surface flex items-center justify-center text-text-primary hover:bg-primary hover:text-white hover:border-primary hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none transition-all duration-200 cursor-pointer shadow-xs"
-                  aria-label={isEn ? "Previous process" : "Proses sebelumnya"}
-                >
-                  <ChevronLeft className="size-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollToCard(activeIndex + 1)}
-                  disabled={activeIndex === PRODUCTION_PROCESS.length - 1}
-                  className="size-9 rounded-full border border-border bg-surface flex items-center justify-center text-text-primary hover:bg-primary hover:text-white hover:border-primary hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none transition-all duration-200 cursor-pointer shadow-xs"
-                  aria-label={isEn ? "Next process" : "Proses selanjutnya"}
-                >
-                  <ChevronRight className="size-4" />
-                </button>
-              </div>
-            </div>
+      <Container size="default" className="relative z-10">
+        {/* ── Section Header ── */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1 text-[11px] sm:text-xs font-mono font-bold tracking-widest uppercase rounded-full border bg-emerald-50 text-emerald-800 border-emerald-200/80 shadow-2xs">
+            <span className="size-1.5 rounded-full bg-emerald-600 animate-pulse" />
+            <span>{t.process.eyebrow}</span>
           </div>
-        </Container>
 
-        {/* Horizontal Cards Track (Translated on scroll on desktop, native swipe on mobile) */}
-        <div className="w-full overflow-hidden">
-          <div
-            ref={trackRef}
-            onScroll={handleMobileScroll}
-            className="flex gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none transition-transform duration-75 will-change-transform py-4"
-          >
-            {PRODUCTION_PROCESS.map((item, index) => {
-              const title = isEn ? item.titleEn : item.title;
-              const metric = isEn ? item.keyMetricEn : item.keyMetric;
-              const isActive = activeIndex === index;
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            {t.process.title}
+          </h2>
 
-              return (
-                <div
-                  key={item.step || item.title}
-                  className="shrink-0 snap-center w-[88vw] sm:w-[460px] md:w-[540px] lg:w-[620px] xl:w-[680px]"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActiveLightboxIdx(index)}
-                    className={`relative w-full h-[380px] sm:h-[420px] md:h-[460px] lg:h-[500px] xl:h-[540px] rounded-2xl overflow-hidden group/card cursor-pointer text-left block border transition-all duration-500 ease-out focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary ${
-                      isActive
-                        ? "scale-100 border-primary/50 ring-2 ring-primary/20 shadow-[0_20px_50px_-10px_rgba(8,97,93,0.35)]"
-                        : "scale-[0.96] opacity-85 hover:opacity-100 hover:scale-[0.99] border-border/80 shadow-md hover:shadow-xl"
-                    }`}
-                    aria-label={
-                      isEn
-                        ? `Inspect facility photo: ${title}`
-                        : `Perbesar foto fasilitas: ${title}`
-                    }
-                  >
-                    {/* Shimmer light sweep reflection across card on hover */}
-                    <div className="absolute inset-0 -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none z-20" />
-
-                    {/* Top edge glowing accent line */}
-                    <div
-                      className={`absolute top-0 inset-x-0 h-1 transition-opacity duration-500 z-10 ${
-                        isActive
-                          ? "opacity-100 bg-gradient-to-r from-primary via-accent to-secondary-brand"
-                          : "opacity-0 group-hover/card:opacity-100 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                      }`}
-                    />
-
-                    {/* Full-bleed high-res Image with hover scale */}
-                    <Image
-                      src={item.image}
-                      alt={title}
-                      fill
-                      sizes="(max-width: 768px) 90vw, (max-width: 1280px) 620px, 680px"
-                      className="object-cover group-hover/card:scale-108 transition-transform duration-700 ease-out"
-                    />
-
-                    {/* Gradient Overlay for high contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-slate-950/10 pointer-events-none transition-opacity duration-500" />
-                    <div className="absolute inset-0 bg-black/0 group-hover/card:bg-black/15 transition-colors duration-500 pointer-events-none" />
-
-                    {/* ── Bottom Label Bar (Clean typography, no sequence numbers, hover slide-up) ── */}
-                    <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10 pointer-events-none">
-                      <div className="flex items-end justify-between gap-3">
-                        <div className="min-w-0 transform group-hover/card:-translate-y-1 transition-transform duration-300">
-                          <h3 className="text-white font-bold text-base sm:text-lg md:text-xl leading-snug drop-shadow-md">
-                            {title}
-                          </h3>
-                          <p className="text-white/80 text-xs sm:text-sm font-medium mt-1 truncate">
-                            {metric}
-                          </p>
-                        </div>
-
-                        {/* Hover Zoom Prompt with spring slide-in */}
-                        <div className="opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-y-2 group-hover/card:translate-y-0 shrink-0">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-semibold border border-white/30 shadow-lg hover:bg-white/30 transition-colors">
-                            <Maximize2 className="size-3.5 text-accent animate-pulse" />
-                            <span className="hidden sm:inline">
-                              {isEn ? "Inspect" : "Perbesar"}
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+          <p className="mt-3 text-xs sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            {t.process.description}
+          </p>
         </div>
 
-        {/* Bottom Progress Track & Interactive Dots */}
-        <Container size="default" className="w-full mt-4 md:mt-0">
-          <div className="flex items-center justify-between gap-4 pt-2">
-            {/* Interactive Progress Bar with multi-color gradient and subtle glow */}
-            <div className="flex-1 max-w-xs sm:max-w-md h-2 rounded-full bg-surface-muted border border-border/80 overflow-hidden relative">
-              <div
-                className="h-full bg-gradient-to-r from-primary via-secondary-brand to-accent transition-[width] duration-200 ease-out rounded-full shadow-[0_0_10px_rgba(77,154,153,0.5)]"
-                style={{
-                  width: `${Math.max(
-                    (1 / PRODUCTION_PROCESS.length) * 100,
-                    progress * 100
-                  )}%`,
-                }}
+        {/* ── Desktop Production Line (md+) ── */}
+        <div className="hidden md:block max-w-5xl lg:max-w-6xl mx-auto">
+          {SERPENTINE_ROWS.map((row, idx) => (
+            <ProcessRowDesktop
+              key={idx}
+              row={row}
+              isEn={isEn}
+              onOpen={openLightboxForStep}
+            />
+          ))}
+        </div>
+
+        {/* ── Mobile Vertical Timeline (<md) ── */}
+        <div className="md:hidden relative">
+          {/* Static continuous vertical timeline line */}
+          <div className="absolute top-4 bottom-4 left-5 w-[2px] bg-emerald-500/50 -translate-x-1/2" />
+
+          <div className="space-y-6 pl-12">
+            {PRODUCTION_PROCESS.map((step) => (
+              <MobileProcessCard
+                key={step.stepNumber}
+                step={step}
+                isEn={isEn}
+                onOpen={openLightboxForStep}
               />
-            </div>
-
-            {/* Step Jump Dots with fluid expanding pill animation */}
-            <div className="flex items-center gap-2">
-              {PRODUCTION_PROCESS.map((item, idx) => (
-                <button
-                  key={item.step || item.title}
-                  type="button"
-                  onClick={() => scrollToCard(idx)}
-                  className={`transition-all duration-300 rounded-full cursor-pointer hover:scale-125 ${
-                    activeIndex === idx
-                      ? "w-8 h-2.5 bg-gradient-to-r from-primary to-accent shadow-xs"
-                      : "w-2.5 h-2.5 bg-border hover:bg-primary/50"
-                  }`}
-                  aria-label={`${isEn ? "Go to" : "Buka"} ${isEn ? item.titleEn : item.title}`}
-                />
-              ))}
-            </div>
-
-            {/* Mobile swipe prompt */}
-            <p className="text-[11px] text-text-muted md:hidden flex items-center gap-1">
-              <span>{isEn ? "Swipe" : "Geser"}</span>
-              <ArrowRight className="size-3" />
-            </p>
+            ))}
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
 
-      {/* Fullscreen Lightbox for Photo Inspection */}
+      {/* Lightbox */}
       <ImageLightbox
-        isOpen={activeLightboxIdx !== null}
-        onClose={() => setActiveLightboxIdx(null)}
+        isOpen={Boolean(lightboxImage)}
         image={lightboxImage}
+        onClose={() => setActiveLightboxIdx(null)}
         onNext={handleNext}
         onPrev={handlePrev}
+        currentIndex={activeLightboxIdx !== null ? activeLightboxIdx + 1 : 1}
+        totalImages={PRODUCTION_PROCESS.length}
       />
     </section>
   );
 }
-
 

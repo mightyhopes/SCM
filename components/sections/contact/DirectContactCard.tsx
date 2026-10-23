@@ -232,7 +232,7 @@ export function DirectContactCard() {
               >
                 <span className="flex items-center gap-1.5 truncate">
                   <MapPin className="size-3.5 text-primary shrink-0" />
-                  <span className="truncate">Ciamis, Jawa Barat</span>
+                  <span className="truncate">Ciamis & Bandung Barat, Jawa Barat</span>
                 </span>
                 <span className="text-primary font-bold inline-flex items-center gap-1 shrink-0">
                   <span>{t.contact.directCard.tabLocation}</span>

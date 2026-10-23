@@ -42,21 +42,6 @@ export function ProductCategories() {
             description={t.products.description}
             align="center"
           />
-
-          {/* Interactive Live Inspection Pill */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/8 border border-primary/15 text-[11px] sm:text-xs font-semibold text-primary shadow-2xs">
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full size-2 bg-accent" />
-              </span>
-              <span>
-                {isEn
-                  ? "10 Production Specimens • Hover or click to inspect full detail"
-                  : "10 Sampel Portofolio • Arahkan kursor atau klik foto untuk inspeksi"}
-              </span>
-            </span>
-          </div>
         </ScrollReveal>
 
         {/* Editorial Masonry Photo Gallery - Staggered Animated Cascade */}

@@ -4,6 +4,7 @@ export interface Translations {
   nav: {
     about: string;
     markets: string;
+    showroom: string;
     products: string;
     capabilities: string;
     process: string;
@@ -81,6 +82,21 @@ export interface Translations {
     badgeEu: string;
     badgeId: string;
   };
+  showroom: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    zoomHint: string;
+    visitBanner: {
+      tag: string;
+      title: string;
+      desc: string;
+      btn: string;
+      pill1: string;
+      pill2: string;
+      pill3: string;
+    };
+  };
   products: {
     eyebrow: string;
     title: string;
@@ -114,6 +130,14 @@ export interface Translations {
     title: string;
     description: string;
     disclaimer: string;
+    flowTag: string;
+    zoomHint: string;
+    allPhases: string;
+    phase1: string;
+    phase2: string;
+    phase3: string;
+    phase4: string;
+    readyExport: string;
   };
   quality: {
     eyebrow: string;
@@ -242,6 +266,10 @@ export interface Translations {
       reopensTomorrow: string;
       addressLabel: string;
       addressFull: string;
+      otherAddressLabel: string;
+      otherAddressFull: string;
+      tabMainLocation: string;
+      tabOtherLocation: string;
       getDirections: string;
       appointmentNotice: string;
       tabContact: string;
@@ -262,6 +290,7 @@ export interface Translations {
     catTitle: string;
     contactTitle: string;
     locationLabel: string;
+    otherLocationLabel: string;
     copyright: string;
     partnerTag: string;
     backToTop: string;
@@ -278,23 +307,24 @@ export const translations: Record<Language, Translations> = {
     nav: {
       about: "Tentang",
       markets: "Pasar",
+      showroom: "Showroom",
       products: "Produk",
       capabilities: "Kapabilitas",
-      process: "Proses",
+      process: "Proses Produksi",
       quality: "Kendali Mutu",
       faq: "FAQ",
       contact: "Kontak",
-      quote: "Request a Quote",
+      quote: "Minta Penawaran",
     },
     hero: {
-      statusBadge: "FASILITAS MANUFAKTUR KAOS KAKI",
+      statusBadge: "FASILITAS MANUFAKTUR KAUS KAKI",
       headlineStart: "Presisi di Setiap",
       headlineHighlight: "Rajutan.",
       tagline:
-        "Solusi manufaktur kaos kaki fleksibel yang dapat disesuaikan dengan kebutuhan produk Anda.",
+        "Solusi manufaktur kaus kaki fleksibel yang dapat disesuaikan dengan kebutuhan produk Anda.",
       description:
-        "Dengan pengalaman di industri kaos kaki sejak 2018, PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki yang dapat disesuaikan dengan kebutuhan produk pelanggan. Melayani pasar domestik dan internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa.",
-      ctaRfq: "Request a Quote",
+        "Dengan pengalaman di industri kaus kaki sejak 2018, PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaus kaki yang dapat disesuaikan dengan kebutuhan produk pelanggan. Melayani pasar domestik dan internasional, dengan pesanan ekspor yang terutama menjangkau Amerika Serikat dan Eropa.",
+      ctaRfq: "Minta Penawaran",
       ctaCatalog: "Lihat Kategori Produk",
       trustMetric1: "Ekspor Utama: Amerika Serikat & Eropa",
       trustMetric2: "Fleksibilitas Bahan & Kemasan Kustom",
@@ -302,9 +332,9 @@ export const translations: Record<Language, Translations> = {
       dockTechTitle: "Fokus Produksi",
       dockTechVal: "Manufaktur Kaos Kaki",
       dockTechDesc: "Beragam Kategori & Spesifikasi",
-      dockCapacityTitle: "Kapasitas Maksimum",
-      dockCapacityVal: "1.000.000 Lusin/Bulan*",
-      dockCapacityDesc: "Kapasitas Operasional Maksimum",
+      dockCapacityTitle: "Kapasitas Produksi",
+      dockCapacityVal: "Sesuai Pesanan",
+      dockCapacityDesc: "Disesuaikan Kebutuhan Pesanan",
       dockMarketsTitle: "Jangkauan Pasar",
       dockMarketsVal: "Domestik & Ekspor",
       dockMarketsDesc: "AS, Eropa & Pasar Domestik",
@@ -317,9 +347,9 @@ export const translations: Record<Language, Translations> = {
       title: "Kapabilitas Manufaktur & Jangkauan Operasional",
       items: {
         capacity: {
-          value: "1.000.000",
-          label: "Lusin / Bulan (Kapasitas Maksimum)",
-          desc: "Kapasitas maksimum operasional, dengan realisasi produksi menyesuaikan spesifikasi produk dan kebutuhan pesanan.",
+          value: "Sesuai Pesanan",
+          label: "Kapasitas Produksi",
+          desc: "Kapasitas produksi fleksibel yang dapat disesuaikan dengan volume, spesifikasi, dan jadwal pesanan pemesan.",
         },
         experience: {
           value: "2018",
@@ -352,7 +382,7 @@ export const translations: Record<Language, Translations> = {
       teamLabel: "Tim Produksi",
       teamTitle: "Teknisi Rajut & QC",
       strength1: "Fokus khusus pada produksi kaos kaki beragam kategori",
-      strength2: "Kapasitas maksimum operasional hingga 1.000.000 lusin/bulan",
+      strength2: "Kapasitas produksi fleksibel dapat disesuaikan kebutuhan pesanan",
       strength3: "Penerapan kendali mutu mengacu pada pedoman standar AQL",
       focusTitle: "Komitmen Kemitraan B2B",
       focusDesc:
@@ -378,11 +408,27 @@ export const translations: Record<Language, Translations> = {
       badgeEu: "Eropa (Europe)",
       badgeId: "Seluruh Indonesia",
     },
+    showroom: {
+      eyebrow: "RUANG SAMPEL & SHOWROOM",
+      title: "Dokumentasi Showroom Sampel Pabrik Ciamis",
+      description:
+        "Fasilitas showroom kami di Ciamis memamerkan ragam variasi sampel kaus kaki fisik, spesifikasi kemasan ritel, dan kualitas rajutan standar ekspor untuk ditinjau langsung oleh mitra buyer.",
+      zoomHint: "Klik foto untuk melihat resolusi penuh",
+      visitBanner: {
+        tag: "Kunjungan & Audit Fasilitas",
+        title: "Ingin Meninjau Sampel Fisik Langsung di Showroom?",
+        desc: "Kami menyambut kunjungan buyer dan mitra bisnis ke pabrik kami di Ciamis untuk inspeksi fisik sampel, diskusi pengembangan desain baru, serta penyesuaian kemasan produk.",
+        btn: "Jadwalkan Kunjungan Showroom",
+        pill1: "Ratusan Sampel Fisik",
+        pill2: "Inspeksi Kemasan Ritel",
+        pill3: "Konsultasi Teknis Langsung",
+      },
+    },
     products: {
       eyebrow: "DOKUMENTASI & GALERI PRODUK",
       title: "Galeri Hasil Produksi & Sampel Kaos Kaki",
       description:
-        "Dokumentasi visual portofolio produk, display showroom, dan sampel pesanan yang diproduksi di fasilitas PT. Sinlie Cahaya Matahari.",
+        "Dokumentasi visual portofolio produk dan sampel pesanan yang diproduksi di fasilitas PT. Sinlie Cahaya Matahari.",
       zoomBtn: "Perbesar Foto",
       sampleBtn: "Minta Sampel Ini",
       customBanner: {
@@ -396,11 +442,11 @@ export const translations: Record<Language, Translations> = {
       eyebrow: "KAPABILITAS PABRIK",
       title: "Infrastruktur & Fleksibilitas Produksi Kaos Kaki",
       description:
-        "Didukung kapasitas maksimum operasional yang tinggi serta fleksibilitas dalam mengakomodasi berbagai kebutuhan bahan dan pengemasan produk.",
+        "Didukung fasilitas produksi terpadu serta fleksibilitas dalam mengakomodasi kapasitas, bahan, dan pengemasan produk sesuai pesanan.",
       specLabel: "Fokus Kapabilitas:",
-      barCapacityTitle: "Kapasitas Maksimum",
-      barCapacityVal: "1.000.000 Lusin / Bulan",
-      barCapacityDesc: "Kapasitas operasional maksimum per bulan",
+      barCapacityTitle: "Kapasitas Produksi",
+      barCapacityVal: "Sesuai Pesanan",
+      barCapacityDesc: "Disesuaikan dengan spesifikasi pesanan",
       barPackagingTitle: "Pilihan Pengemasan",
       barPackagingVal: "Dapat Disesuaikan",
       barPackagingDesc: "Kemasan disesuaikan kebutuhan pelanggan",
@@ -409,12 +455,20 @@ export const translations: Record<Language, Translations> = {
       barYarnDesc: "Komposisi benang disesuaikan per pesanan",
     },
     process: {
-      eyebrow: "PROSES & FASILITAS PRODUKSI",
-      title: "Lini & Aktivitas Produksi Kaos Kaki",
+      eyebrow: "BAGAN ALUR PRODUKSI",
+      title: "Alur Proses Produksi Kaus Kaki PT Sinlie Cahaya Matahari",
       description:
-        "Dokumentasi fasilitas permesinan, penanganan material, dan aktivitas operasional di fasilitas pabrik PT. Sinlie Cahaya Matahari.",
+        "Rangkaian 12 tahapan terintegrasi mulai dari persiapan benang, perajutan silinder otomatis, penyetelan uap, pendeteksian jarum logam, hingga pergudangan ekspor.",
       disclaimer:
-        "*Dokumentasi di atas menampilkan lini permesinan dan aktivitas operasional manufaktur kaus kaki di pabrik PT. Sinlie Cahaya Matahari.",
+        "*Dokumentasi di atas menampilkan alur permesinan dan aktivitas operasional manufaktur kaus kaki di pabrik PT. Sinlie Cahaya Matahari.",
+      flowTag: "12 Tahapan Manufaktur Terintegrasi",
+      zoomHint: "Klik foto untuk melihat resolusi penuh",
+      allPhases: "Semua Tahap (12)",
+      phase1: "1. Persiapan & Rajut",
+      phase2: "2. Rosso & Setting",
+      phase3: "3. Pencocokan & Pengemasan",
+      phase4: "4. QC Jarum & Ekspor",
+      readyExport: "Siap Distribusi & Ekspor Global",
     },
     quality: {
       eyebrow: "KENDALI MUTU (QC)",
@@ -463,23 +517,23 @@ export const translations: Record<Language, Translations> = {
       hoursDesc:
         "Senin - Jumat: 08:00 - 17:00 WIB (Waktu Indonesia Barat). Respon aktif pada hari dan jam kerja operasional.",
       quoteGuideTag: "PANDUAN PENGAJUAN PENAWARAN",
-      quoteGuideTitle: "Ingin Mengajukan Request a Quote?",
+      quoteGuideTitle: "Ingin Mengajukan Permintaan Penawaran?",
       quoteGuideDesc:
         "Untuk mempermudah peninjauan teknis dan estimasi penawaran harga, kami menyarankan Anda menyertakan rincian berikut dalam email Anda:",
       quoteGuideItems: [
         "Estimasi volume pesanan (lusin) dan target jadwal pengiriman",
-        "Kategori kaos kaki (bayi, anak, wanita, pria formal, olahraga, atau kustom)",
+        "Kategori kaus kaki (bayi, anak, wanita, pria formal, olahraga, atau kustom)",
         "Preferensi bahan benang (katun, spandex, elastik) serta referensi pola rajutan",
         "Preferensi pengemasan (kemasan lusinan atau kebutuhan kemasan kustom)",
       ],
       quoteCtaBtn: "Buka Draf Email Penawaran",
-      quoteEmailSubject: "Permintaan Penawaran Manufaktur Kaos Kaki - SCM",
+      quoteEmailSubject: "Permintaan Penawaran Manufaktur Kaus Kaki - SCM",
       copyEmailBtn: "Salin Alamat Email",
       copiedText: "Email Tersalin!",
 
       // Redesigned Contact Section
-      eyebrow: "B2B Inquiry",
-      heroTitle: "Mari Diskusikan Manufaktur Kaos Kaki Anda",
+      eyebrow: "Konsultasi B2B",
+      heroTitle: "Mari Diskusikan Manufaktur Kaus Kaki Anda",
       heroSubtext: "Hubungi tim pabrik kami di Ciamis untuk penawaran harga langsung, spesifikasi kustom, dan jadwal produksi.",
       form: {
         cardTitle: "Ajukan Permintaan Penawaran",
@@ -563,7 +617,7 @@ export const translations: Record<Language, Translations> = {
       directCard: {
         cardTitle: "Kontak Langsung Pabrik",
         contactPerson: "Mr. Fakhrudin (Mr. Aming)",
-        contactRole: "B2B Production & Sales Director",
+        contactRole: "Direktur Produksi & Penjualan B2B",
         whatsappBtn: "Chat via WhatsApp",
         callBtn: "Hubungi via Telepon",
         copyPhone: "Salin Nomor",
@@ -578,7 +632,13 @@ export const translations: Record<Language, Translations> = {
         reopensMonday: "Buka kembali Senin pkl 08:00 WIB",
         reopensTomorrow: "Buka kembali besok pkl 08:00 WIB",
         addressLabel: "Fasilitas Pabrik",
-        addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+        addressFull:
+          "Jl. Otto Iskandardinata, Dusun Desa RT. 008 RW. 003, Desa/Kelurahan Handapherang, Kec. Cijeungjing, Kab. Ciamis, Provinsi Jawa Barat, Kode Pos: 46271",
+        otherAddressLabel: "Lokasi Lainnya",
+        otherAddressFull:
+          "Jl. Terusan Cipatik-Soreang, Desa/Kelurahan Pataruman, Kec. Cihampelas, Kab. Bandung Barat, Provinsi Jawa Barat, Kode Pos: 40562",
+        tabMainLocation: "Fasilitas Utama (Ciamis)",
+        tabOtherLocation: "Lokasi Lainnya (Bandung Barat)",
         getDirections: "Petunjuk Arah Google Maps",
         appointmentNotice: "Kunjungan pabrik melalui janji temu",
         tabContact: "Kontak & Chat",
@@ -598,12 +658,13 @@ export const translations: Record<Language, Translations> = {
       },
     },
     footer: {
-      bio: "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki berkualitas dengan pengalaman sejak 2018. Melayani pasar domestik dan pesanan ekspor ke Amerika Serikat dan Eropa dengan kapasitas operasional maksimum hingga 1.000.000 lusin per bulan.",
+      bio: "PT. Sinlie Cahaya Matahari menyediakan solusi manufaktur kaos kaki berkualitas dengan pengalaman sejak 2018. Melayani pasar domestik dan pesanan ekspor ke Amerika Serikat dan Eropa dengan kapasitas produksi yang dapat disesuaikan dengan kebutuhan pesanan.",
       subBio: "Modern Industrial Sock Manufacturing",
       navTitle: "Navigasi",
       catTitle: "Kategori Produk",
       contactTitle: "Kontak & Informasi",
-      locationLabel: "Lokasi Fasilitas:",
+      locationLabel: "Fasilitas Utama:",
+      otherLocationLabel: "Lokasi Lainnya:",
       copyright: "PT. Sinlie Cahaya Matahari. Seluruh Hak Cipta Dilindungi.",
       partnerTag: "Precision in Every Stitch",
       backToTop: "Kembali ke Atas ↑",
@@ -618,6 +679,7 @@ export const translations: Record<Language, Translations> = {
     nav: {
       about: "About",
       markets: "Markets",
+      showroom: "Showroom",
       products: "Products",
       capabilities: "Capabilities",
       process: "Process",
@@ -642,9 +704,9 @@ export const translations: Record<Language, Translations> = {
       dockTechTitle: "Production Focus",
       dockTechVal: "Sock Manufacturing",
       dockTechDesc: "Diverse Categories & Specs",
-      dockCapacityTitle: "Maximum Capacity",
-      dockCapacityVal: "1,000,000 Dozen/Month*",
-      dockCapacityDesc: "Maximum Operational Capacity",
+      dockCapacityTitle: "Production Capacity",
+      dockCapacityVal: "Custom to Order",
+      dockCapacityDesc: "Tailored to Order Requirements",
       dockMarketsTitle: "Market Reach",
       dockMarketsVal: "Domestic & Export",
       dockMarketsDesc: "USA, Europe & Domestic",
@@ -657,9 +719,9 @@ export const translations: Record<Language, Translations> = {
       title: "Manufacturing Scale & Operational Reach",
       items: {
         capacity: {
-          value: "1,000,000",
-          label: "Dozen / Month (Maximum Capacity)",
-          desc: "Maximum operational production capacity, subject to product specifications and production requirements.",
+          value: "Custom to Order",
+          label: "Production Capacity",
+          desc: "Flexible production capacity tailored to client order volume, specifications, and delivery schedules.",
         },
         experience: {
           value: "2018",
@@ -692,7 +754,7 @@ export const translations: Record<Language, Translations> = {
       teamLabel: "Production Team",
       teamTitle: "Knitting Technicians & QC",
       strength1: "Dedicated focus on multi-category sock manufacturing",
-      strength2: "Maximum operational capacity up to 1,000,000 dozen/month",
+      strength2: "Flexible production capacity tailored to order requirements",
       strength3: "Disciplined QC procedures referencing AQL standard guidelines",
       focusTitle: "B2B Partnership Commitment",
       focusDesc:
@@ -718,11 +780,27 @@ export const translations: Record<Language, Translations> = {
       badgeEu: "Europe",
       badgeId: "Nationwide (Indonesia)",
     },
+    showroom: {
+      eyebrow: "SAMPLE ROOM & SHOWROOM",
+      title: "On-Site Factory Showroom & Sample Showcase",
+      description:
+        "Our dedicated showroom facility in Ciamis exhibits an extensive variety of physical sock samples, retail packaging options, and export-grade knit craftsmanship for direct buyer review.",
+      zoomHint: "Click photo to inspect full resolution",
+      visitBanner: {
+        tag: "Facility Visits & Buyer Audits",
+        title: "Interested in Reviewing Physical Samples in Person?",
+        desc: "We welcome brand buyers and procurement partners to visit our Ciamis factory to inspect physical samples, discuss custom OEM developments, and explore retail packaging possibilities.",
+        btn: "Schedule a Showroom Visit",
+        pill1: "Hundreds of Physical Samples",
+        pill2: "Retail Packaging Inspection",
+        pill3: "Direct Technical Consultation",
+      },
+    },
     products: {
       eyebrow: "PRODUCT PORTFOLIO & GALLERY",
       title: "Sock Manufacturing Showcase & Sample Gallery",
       description:
-        "Visual showcase of sock product lines, showroom displays, and custom manufacturing samples produced at PT. Sinlie Cahaya Matahari.",
+        "Visual showcase of sock product lines and custom manufacturing samples produced at PT. Sinlie Cahaya Matahari.",
       zoomBtn: "View Fullscreen",
       sampleBtn: "Request Sample",
       customBanner: {
@@ -736,11 +814,11 @@ export const translations: Record<Language, Translations> = {
       eyebrow: "FACTORY CAPABILITIES",
       title: "Manufacturing Infrastructure & Operational Flexibility",
       description:
-        "Backed by high maximum operational capacity and thorough flexibility in accommodating diverse material compositions and packaging requirements.",
+        "Backed by integrated production facilities and thorough flexibility in accommodating capacity, material compositions, and packaging per order.",
       specLabel: "Core Capabilities:",
-      barCapacityTitle: "Maximum Capacity",
-      barCapacityVal: "1,000,000 Dozen / Month",
-      barCapacityDesc: "Maximum operational production capacity per month",
+      barCapacityTitle: "Production Capacity",
+      barCapacityVal: "Tailored to Order",
+      barCapacityDesc: "Flexible to customer order requirements",
       barPackagingTitle: "Packaging Options",
       barPackagingVal: "Tailored to Needs",
       barPackagingDesc: "Packaging options tailored to customer requirements",
@@ -749,12 +827,20 @@ export const translations: Record<Language, Translations> = {
       barYarnDesc: "Yarn compositions customized per order",
     },
     process: {
-      eyebrow: "PRODUCTION FACILITIES",
-      title: "Manufacturing Lines & Operations",
+      eyebrow: "SOCKS PRODUCTION FLOW CHART",
+      title: "Sock Manufacturing Production Pipeline & Flow Chart",
       description:
-        "Visual documentation of machinery lines, material handling, and operational activities at PT. Sinlie Cahaya Matahari.",
+        "Comprehensive 12-stage manufacturing flow from yarn lot control, computerized circular knitting, steam boarding, to broken needle detection and export staging.",
       disclaimer:
         "*The documentation above illustrates the machinery lines and manufacturing operations at PT. Sinlie Cahaya Matahari's factory facility.",
+      flowTag: "12 Integrated Manufacturing Stages",
+      zoomHint: "Click photo to inspect full resolution",
+      allPhases: "All Stages (12)",
+      phase1: "1. Yarn & Knitting",
+      phase2: "2. Rosso & Setting",
+      phase3: "3. Pairing & Packing",
+      phase4: "4. Safety Check & Export",
+      readyExport: "Ready for Global Export Dispatch",
     },
     quality: {
       eyebrow: "QUALITY ASSURANCE (QC)",
@@ -918,7 +1004,13 @@ export const translations: Record<Language, Translations> = {
         reopensMonday: "Reopens Monday at 08:00 WIB",
         reopensTomorrow: "Reopens tomorrow at 08:00 WIB",
         addressLabel: "Manufacturing Facility",
-        addressFull: "Jl. Otista Handapherang, Kec. Cijeungjing, Kabupaten Ciamis, Jawa Barat 46271",
+        addressFull:
+          "Jl. Otto Iskandardinata, Dusun Desa RT. 008 RW. 003, Desa/Kelurahan Handapherang, Kec. Cijeungjing, Kab. Ciamis, Provinsi Jawa Barat, Kode Pos: 46271",
+        otherAddressLabel: "Other Location",
+        otherAddressFull:
+          "Jl. Terusan Cipatik-Soreang, Desa/Kelurahan Pataruman, Kec. Cihampelas, Kab. Bandung Barat, Provinsi Jawa Barat, Kode Pos: 40562",
+        tabMainLocation: "Main Facility (Ciamis)",
+        tabOtherLocation: "Other Location (West Bandung)",
         getDirections: "Get Directions on Google Maps",
         appointmentNotice: "Factory visits by appointment",
         tabContact: "Direct Contact",
@@ -938,12 +1030,13 @@ export const translations: Record<Language, Translations> = {
       },
     },
     footer: {
-      bio: "PT. Sinlie Cahaya Matahari provides quality sock manufacturing solutions with experience in the industry since 2018. Serving domestic and international export orders to the United States and Europe with a maximum operational capacity of up to 1,000,000 dozen socks per month.",
+      bio: "PT. Sinlie Cahaya Matahari provides quality sock manufacturing solutions with experience in the industry since 2018. Serving domestic and international export orders to the United States and Europe with production capacity flexibly tailored to customer order requirements.",
       subBio: "Modern Industrial Sock Manufacturing",
       navTitle: "Navigation",
       catTitle: "Product Categories",
       contactTitle: "Contact & Information",
-      locationLabel: "Facility Location:",
+      locationLabel: "Main Facility:",
+      otherLocationLabel: "Other Location:",
       copyright: "PT. Sinlie Cahaya Matahari. All Rights Reserved.",
       partnerTag: "Precision in Every Stitch",
       backToTop: "Back to Top ↑",

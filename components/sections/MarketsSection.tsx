@@ -9,7 +9,8 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function MarketsSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
 
   return (
     <section className="py-20 lg:py-28 bg-surface border-b border-border">
@@ -58,7 +59,7 @@ export function MarketsSection() {
               </div>
 
               <div className="mt-8 pt-5 border-t border-border flex items-center justify-between text-xs text-text-secondary">
-                <span>Distribusi Nasional Indonesia</span>
+                <span>{isEn ? "Nationwide Indonesian Distribution" : "Distribusi Nasional Indonesia"}</span>
                 <span className="font-mono text-primary font-bold">Domestic B2B</span>
               </div>
             </div>
@@ -101,7 +102,7 @@ export function MarketsSection() {
               </div>
 
               <div className="mt-8 pt-5 border-t border-white/15 flex items-center justify-between text-xs text-secondary-light">
-                <span>Ekspor Berdasarkan Pesanan</span>
+                <span>{isEn ? "Export Fulfilled on Order Basis" : "Ekspor Berdasarkan Pesanan"}</span>
                 <span className="font-mono text-accent font-bold">Global Export</span>
               </div>
             </div>

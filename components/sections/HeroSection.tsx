@@ -100,7 +100,7 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <Image
           src="/images/01_exterior_full.png"
-          alt="Gedung Fasilitas Manufaktur PT Sinar Cipta Mandiri"
+          alt="Gedung Fasilitas Manufaktur PT Sinlie Cahaya Matahari"
           fill
           priority
           sizes="100vw"
@@ -129,17 +129,6 @@ export function HeroSection() {
       <Container size="wide" className="relative z-10 flex-1 flex flex-col justify-center">
         <div className="py-4 lg:py-6 max-w-3xl lg:max-w-4xl xl:max-w-5xl">
           <ScrollReveal duration={600} direction="up">
-            {/* Live Manufacturing Status Pill */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white shadow-[0_4px_20px_rgba(0,0,0,0.25)] w-fit mb-5">
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full size-2 bg-accent" />
-              </span>
-              <span className="text-[11px] font-bold tracking-widest text-accent uppercase font-mono">
-                {t.hero.statusBadge}
-              </span>
-            </div>
-
             {/* Headline with Smooth Industrial Typewriter Animation */}
             <div className="flex flex-col gap-3.5">
               <h1
