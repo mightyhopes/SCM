@@ -99,7 +99,7 @@ export function HeroSection() {
       {/* ────────────────────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <Image
-          src="/images/01_exterior_full.png"
+          src="/images/1_about/pabrik_eksterior_16-9.jpg"
           alt="Gedung Fasilitas Manufaktur PT Sinlie Cahaya Matahari"
           fill
           priority

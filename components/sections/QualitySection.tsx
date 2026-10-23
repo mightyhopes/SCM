@@ -37,7 +37,7 @@ export function QualitySection() {
             <div className="relative rounded-2xl overflow-hidden border border-border bg-surface shadow-md group">
               <div className="relative h-56 sm:h-64 w-full bg-surface-muted">
                 <Image
-                  src="/images/quality_inspection.webp"
+                  src="/images/5_process/3_check_goods.png"
                   alt="Proses Inspeksi Kualitas Kaus Kaki SCM"
                   fill
                   sizes="(max-width: 1024px) 100vw, 480px"
@@ -54,7 +54,7 @@ export function QualitySection() {
                 <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2.5 bg-surface/95 backdrop-blur-xs p-1.5 pr-3 rounded-xl border border-border shadow-lg">
                   <div className="relative size-11 rounded-lg overflow-hidden border border-border shrink-0">
                     <Image
-                      src="/images/quality_control_worker.webp"
+                      src="/images/5_process/10_needle_detector.jpg"
                       alt="Tim Quality Control SCM"
                       fill
                       sizes="44px"

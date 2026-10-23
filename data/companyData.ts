@@ -266,7 +266,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_baby-socks.webp",
+    image: "/images/2_products/baby_shock.png",
   },
   {
     id: "kids-socks",
@@ -292,7 +292,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_kids-school-socks.webp",
+    image: "/images/2_products/gallery_kids_school.webp",
   },
   {
     id: "ladies-socks",
@@ -318,7 +318,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_ladies-socks.webp",
+    image: "/images/2_products/gallery_ladies_socks.webp",
   },
   {
     id: "mens-socks",
@@ -344,7 +344,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_mens-classic-socks.webp",
+    image: "/images/2_products/gallery_mens_classic.webp",
   },
   {
     id: "sport-socks",
@@ -370,7 +370,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi benang disesuaikan dengan kebutuhan pesanan (katun, spandex, elastik).",
     materialCompositionEn:
       "Yarn composition tailored to order specifications (cotton, spandex, elastic).",
-    image: "/images/products_athletic_sport_socks_v3.webp",
+    image: "/images/2_products/gallery_sport_underworks.webp",
   },
   {
     id: "custom-socks",
@@ -396,7 +396,7 @@ export const PRODUCT_CATEGORIES: readonly ProductCategory[] = [
       "Komposisi bahan fleksibel sesuai kesepakatan pesanan (katun, spandex, elastik, dsb.).",
     materialCompositionEn:
       "Flexible material composition per order agreement (cotton, spandex, elastic, etc.).",
-    image: "/images/products_custom_specification_socks.webp",
+    image: "/images/2_products/gallery_three_part_collection.webp",
   },
 ];
 
@@ -567,7 +567,7 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     iconName: "Factory",
     badgeText: "Sesuai Kebutuhan Pesanan",
     badgeTextEn: "Tailored to Order",
-    image: "/images/factory/cap_capacity_scale.webp",
+    image: "/images/4_capabilities/cap_capacity_scale.webp",
     specs: [
       "Volume produksi fleksibel sesuai kebutuhan pemesan",
       "Skalabilitas pesanan adaptif sesuai kesepakatan",
@@ -590,7 +590,7 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     iconName: "Sparkles",
     badgeText: "Manajemen Bahan Baku",
     badgeTextEn: "Raw Material Supply",
-    image: "/images/factory/cap_yarn_warehouse.webp",
+    image: "/images/4_capabilities/cap_yarn_warehouse.webp",
     specs: [
       "Komposisi benang disesuaikan dengan permintaan pemesan",
       "Variasi serat katun, spandex, dan elastisitas yang adaptif",
@@ -613,7 +613,7 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     iconName: "PackageCheck",
     badgeText: "Gudang & Distribusi",
     badgeTextEn: "Packaging & Dispatch",
-    image: "/images/factory/cap_packaging_warehouse.webp",
+    image: "/images/4_capabilities/cap_packaging_warehouse.webp",
     specs: [
       "Pilihan kemasan ritel (hanger, card, polybag) atau grosir",
       "Penataan master karton standar ekspor dan distribusi",
@@ -869,7 +869,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Sliders",
     protocolTag: "Kontrol Rajut",
     protocolTagEn: "Knit Inspection",
-    image: "/images/quality_inspection.webp",
+    image: "/images/5_process/2_knitting.png",
   },
   {
     title: "Verifikasi Dimensi & Ukuran",
@@ -881,7 +881,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Ruler",
     protocolTag: "Akurasi Ukuran",
     protocolTagEn: "Sizing Accuracy",
-    image: "/images/quality_control_worker.webp",
+    image: "/images/5_process/3_check_goods.png",
   },
   {
     title: "Pemeriksaan Visual Produk",
@@ -893,7 +893,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "Eye",
     protocolTag: "Pemeriksaan Visual",
     protocolTagEn: "Visual Check",
-    image: "/images/quality_inspection.webp",
+    image: "/images/5_process/10_needle_detector.jpg",
   },
   {
     title: "Pendekatan Standar AQL",
@@ -905,7 +905,7 @@ export const QUALITY_ASSURANCE_ITEMS: readonly QAFeature[] = [
     iconName: "CheckCircle2",
     protocolTag: "Pedoman AQL",
     protocolTagEn: "AQL Guidelines",
-    image: "/images/quality_control_worker.webp",
+    image: "/images/5_process/12_finished_goods.webp",
   },
 ];
 
