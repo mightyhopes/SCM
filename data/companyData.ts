@@ -590,7 +590,7 @@ export const CAPABILITIES: readonly CapabilityItem[] = [
     iconName: "Sparkles",
     badgeText: "Manajemen Bahan Baku",
     badgeTextEn: "Raw Material Supply",
-    image: "/images/4_capabilities/stock_yarn_pallet.png",
+    image: "/images/4_capabilities/stock_yarn_pallet_v2.png",
     specs: [
       "Komposisi benang disesuaikan dengan permintaan pemesan",
       "Variasi serat katun, spandex, dan elastisitas yang adaptif",
@@ -642,7 +642,7 @@ export const PRODUCTION_PROCESS: readonly ProcessStep[] = [
     iconName: "Boxes",
     keyMetric: "Verifikasi Lot & Spesifikasi Benang",
     keyMetricEn: "Lot Control & Spec Verification",
-    image: "/images/5_process/1_yarn_prepartion_lot.png",
+    image: "/images/5_process/1_yarn_prepartion_lot_v2.png",
     phase: "preparation",
     phaseLabel: "Persiapan & Perajutan",
     phaseLabelEn: "Preparation & Knitting",
